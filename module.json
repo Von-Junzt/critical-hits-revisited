@@ -14,7 +14,11 @@
       "flags": {}
     }
   ],
-  "url": "https://sterlingvermin.files.wordpress.com/2016/09/critical-hits-revisited.pdf",
+  "url": "https://github.com/aushilfsalien/critical-hits-revisited",
+  "manifest": "https://github.com/aushilfsalien/critical-hits-revisited/blob/main/module.json",
+  "download": "https://github.com/aushilfsalien/critical-hits-revisited/archive/refs/tags/beta.zip",
+  "readme": "https://github.com/aushilfsalien/critical-hits-revisited/blob/main/module.json/Readme.md",
+  "changelog": "https://github.com/aushilfsalien/critical-hits-revisited/blob/main/module.json/Changelog.md",
   "packs": [
     {
       "name": "critical-hits-tables",
