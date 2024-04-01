@@ -1,0 +1,1 @@
+console.log('Critical Hits Revisited loaded...')

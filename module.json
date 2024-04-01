@@ -68,5 +68,10 @@
         "critical-hits-tables"
       ]
     }
+  ],
+  "scripts": [
+    "scripts/main.js",
+    "scripts/rollEffects.js",
+    "scripts/helperFunctions.js"
   ]
 }
