@@ -1,0 +1,69 @@
+{
+  "id": "critical-hits-revisited",
+  "title": "Critical Hits Revisited",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "description": "Critical Hits Tables as found in https://sterlingvermin.files.wordpress.com/2016/09/critical-hits-revisited.pdf",
+  "authors": [
+    {
+      "name": "Von Junzt",
+      "discord": "von_junzt",
+      "flags": {}
+    }
+  ],
+  "url": "https://sterlingvermin.files.wordpress.com/2016/09/critical-hits-revisited.pdf",
+  "packs": [
+    {
+      "name": "critical-hits-tables",
+      "label": "Tables",
+      "path": "packs/critical-hits-tables",
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd5e",
+      "flags": {}
+    },
+    {
+      "name": "critical-hits-items",
+      "label": "Items",
+      "path": "packs/critical-hits-items",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd5e",
+      "flags": {}
+    },
+    {
+      "name": "critical-hits-macros",
+      "label": "Macros",
+      "path": "packs/critical-hits-macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+
+      "system": "dnd5e",
+      "flags": {}
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "Critical Hits Revisited",
+      "sorting": "m",
+      "color": "#3f8230",
+      "packs": [
+        "critical-hits-macros",
+        "critical-hits-items",
+        "critical-hits-tables"
+      ]
+    }
+  ]
+}
