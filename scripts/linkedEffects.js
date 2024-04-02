@@ -22,17 +22,17 @@ const linkedEffects = {
         '17,18' : 'Freezing',
         '20,20' : 'Frozen'
     },
-    Force: {
-        '2,3' : 'Spellstruck',
-        '7,8' : 'Spellstruck',
+    Fire: {
+        '2,3' : 'Heat Wave',
+        '7,8' : 'On Fire',
         '12,13' : 'Ablaze',
         '14,16' : 'Charred',
         '17,18' : 'Ablaze',
         '20,20' : 'Inferno'
     },
-    Fire: {
-        '2,3' : 'Heat Wave',
-        '7,8' : 'On Fire',
+    Force: {
+        '2,3' : 'Spellstruck',
+        '7,8' : 'Spellstruck',
         '12,13' : 'Spellbound',
         '14,16' : 'Mystic Magnet',
         '17,18' : 'Enscorcelled',
