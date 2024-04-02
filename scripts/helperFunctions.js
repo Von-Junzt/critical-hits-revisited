@@ -6,24 +6,30 @@ async function applyEffect(effect, uuid) {
 }
 
 async function acidBath(target) {
-    if(!(target.system.attributes.ac.equippedArmor.system.armor === undefined)) {
+    if(!(typeof(target.system.attributes.ac.equippedArmor) === undefined)) {
 
         let equippedArmor =  target.system.attributes.ac.equippedArmor;
 
-        if(equippedArmor === undefined) {
+        if(equippedArmor) {
 
-            let equippedArmorAC = target.system.attributes.ac.equippedArmor.system.armor.value;
-            let magicalBonus = target.system.attributes.ac.equippedArmor.system.armor.magicalBonus;
+            let equippedArmor = target.system.attributes.ac.equippedArmor;
+            let armorLabels = target.system.attributes.ac.equippedArmor.labels.properties;
+            let isMagical;
 
-            if(magicalBonus === undefined) {
-                equippedArmor.delete();
-            } else {
-                equippedArmorAC -= equippedArmorAC;
-                target.system.attributes.ac.equippedArmor.system.updateSource({"armor.value" : equippedArmorAC });
+            for (let i = 0; i < armorLabels.length; i++) {
+                if(armorLabels[i].label === "Magical") {
+                    isMagical = true;
+                }
             }
 
-            target.update();
+            if(!isMagical) {
+                equippedArmor.delete();
+            } else {
 
+                target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 0 });
+                target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' :0 });
+
+            }
         }
     }
 }
