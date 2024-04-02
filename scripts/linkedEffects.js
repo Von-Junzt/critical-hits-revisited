@@ -14,6 +14,14 @@ const linkedEffects = {
         '14,16' : 'Prone',
         '20,20' : 'Smashed'
     },
+    Force: {
+        '2,3' : 'Spellstruck',
+        '7,8' : 'Spellstruck',
+        '12,13' : 'Spellbound',
+        '14,16' : 'Mystic Magnet',
+        '17,18' : 'Enscorcelled',
+        '20,20' : 'Magically Mauled'
+    },
     Fumble: {
         '1,1' : 'Exposed',
         '6,7' : 'Grappled',
