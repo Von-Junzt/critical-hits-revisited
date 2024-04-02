@@ -1,0 +1,5 @@
+2024/04/01-22:53:00.474009 ffff8efdf040 Recovering log #44
+2024/04/01-22:53:00.474059 ffff8efdf040 Level-0 table #46: started
+2024/04/01-22:53:00.476050 ffff8efdf040 Level-0 table #46: 2774 bytes OK
+2024/04/01-22:53:00.481374 ffff8efdf040 Delete type=0 #44
+2024/04/01-22:53:00.481407 ffff8efdf040 Delete type=3 #43

@@ -71,7 +71,7 @@
   ],
   "scripts": [
     "scripts/main.js",
-    "scripts/rollEffects.js",
+    "scripts/linkedEffects.js",
     "scripts/helperFunctions.js"
   ]
 }

@@ -7,7 +7,7 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
     if (!(["none", "no type", "no damage", "temphp", ""].includes(lastAttackType))) {
 
         // get damageType and customize
-        let lastAttackTypeCapitalFirst = lastAttackType.charAt(0).toUpperCase() + lastAttackType.slice(1);
+        let tableName = lastAttackType.charAt(0).toUpperCase() + lastAttackType.slice(1);
         let rollResult;
 
         // get rolltable
@@ -18,23 +18,44 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
 
         // prepare rolltable
         rollTablePack.getIndex();
-        rollTableID = rollTablePack.index.find(t => t.name === lastAttackTypeCapitalFirst)._id;
+        rollTableID = rollTablePack.index.find(t => t.name === tableName)._id;
 
-        // roll on table
+        // roll on table and apply effect
         rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
-        let rollTotal = rollResult.roll._total;
-        let appliedEffect = rollEffects[lastAttackTypeCapitalFirst][rollTotal];
 
-        // apply Effect
-        if(typeof appliedEffect === 'string') {
-            applyEffect(appliedEffect, target);
+        for (let i = 0; i < rollResult.results.length; i++) {
 
-        } else {
-            for (let i = 0; i < appliedEffect.length; i++) {
-                applyEffect(appliedEffect[i], target);
+            let rollRange = rollResult.results[i].range.toString();
+
+            if(rollResult.results[i].parent.name === "Minor Injuries") {
+
+                tableName = 'MinorInjuries';
+
+            } else if(rollResult.results[i].parent.name === "Major Injuries") {
+
+                tableName = 'MajorInjuries';
             }
-        }
 
+            if(!(linkedEffects[tableName][rollRange] === undefined)) {
+
+                let appliedEffect = linkedEffects[tableName][rollRange];
+
+                // apply Effect
+                if(typeof appliedEffect === 'string') {
+
+                    applyEffect(appliedEffect, target);
+
+                } else {
+
+                    for (let i = 0; i < appliedEffect.length; i++) {
+
+                        applyEffect(appliedEffect[i], target);
+
+                    }
+                }
+            }
+
+        }
 
         // search and delete unnecessary chat messages
         for (let message of game.messages.contents) {
@@ -52,14 +73,17 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
             }
         }
     }
+
 } else if (args[0].macroPass == 'postActiveEffects' && workflow.isFumble) {
 
     // get last attack damage type
     let lastAttackType = workflow.item.labels.damageType;
-    console.log(lastAttackType);
 
     // exclude certain damage types because there are no rolltables
     if (!(["none", "no type", "no damage", "temphp", ""].includes(lastAttackType))) {
+
+        // get target
+        let target = workflow.tokenUuid;
 
         // get rolltable
         let rollResult;
@@ -69,10 +93,31 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
 
         // roll on table
         rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
+        let rollRange = rollResult.results[0].range.toString();
+        let appliedEffect = linkedEffects['Fumble'][rollRange];
+
+        if(!(linkedEffects[lastAttackTypeCapitalFirst][rollRange] === undefined)) {
+
+            let appliedEffect = linkedEffects[lastAttackTypeCapitalFirst][rollRange];
+
+            // apply Effect
+            if(typeof appliedEffect === 'string') {
+
+                applyEffect(appliedEffect, target);
+
+            } else {
+
+                for (let i = 0; i < appliedEffect.length; i++) {
+
+                    applyEffect(appliedEffect[i], target);
+
+                }
+            }
+        }
 
         // search and delete unnecessary chat messages
         for (let message of game.messages.contents) {
-            if (message.flavor.search("Critical Fubles Table!") > -1 || message.content.search("Critical Fumbles Table!") > -1) {
+            if (message.flavor.search("Critical Fumbles Table!") > -1 || message.content.search("Critical Fumbles Table!") > -1) {
                 message.delete();
             }
         }
