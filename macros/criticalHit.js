@@ -94,11 +94,10 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
         // roll on table
         rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
         let rollRange = rollResult.results[0].range.toString();
-        let appliedEffect = linkedEffects['Fumble'][rollRange];
 
-        if(!(linkedEffects[lastAttackTypeCapitalFirst][rollRange] === undefined)) {
+        if(!(linkedEffects['Fumble'][rollRange] === undefined)) {
 
-            let appliedEffect = linkedEffects[lastAttackTypeCapitalFirst][rollRange];
+            let appliedEffect = linkedEffects['Fumble'][rollRange];
 
             // apply Effect
             if(typeof appliedEffect === 'string') {

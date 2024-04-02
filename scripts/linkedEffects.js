@@ -1,7 +1,12 @@
 const linkedEffects = {
     Acid: {
-        '1,1' : 'Prone',
-        '2,3' : ['Prone', 'Severe Bleeding']
+        '1,1' : 'Scarred',
+        '2,3' : 'Disfigured',
+        '7,8' : 'Disfigured',
+        '12,13' : 'Armor damaged 1',
+        '14,16' : 'Disfigured',
+        '17,18' : 'Armor damaged 2',
+        '20,20' : 'Disfigured'
     },
     Bludgeoning: {
         '2,3' : 'Off Balance',
@@ -19,6 +24,7 @@ const linkedEffects = {
     MinorInjuries: {
         '1,3' : 'Injured Leg',
         '4,8' : 'Injured Arm',
+        '9,11' : 'Multiple Injuries',
         '12,16' : 'Badly Beaten',
         '17,19' : 'Ringing Blow',
         '20,20' : 'Dead'
@@ -26,6 +32,7 @@ const linkedEffects = {
     MajorInjuries: {
         '1,3' : 'Crippled Leg',
         '4,8' : 'Crippled Arm',
+        '9,11' : 'Severly Wounded',
         '12,16' : 'Edge of Death',
         '17,19' : 'Blinded',
         '20,20' : 'Unconscious'
