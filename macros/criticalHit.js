@@ -9,10 +9,8 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
         // get damageType and customize
         let tableName = lastAttackType.charAt(0).toUpperCase() + lastAttackType.slice(1);
         let rollResult;
-
         // get rolltable
         const rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
-
         // get target
         let target = workflow.damageItem.actorUuid;
 
@@ -24,33 +22,21 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
         rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
 
         for (let i = 0; i < rollResult.results.length; i++) {
-
             let rollRange = rollResult.results[i].range.toString();
-
             if(rollResult.results[i].parent.name === "Minor Injuries") {
-
                 tableName = 'MinorInjuries';
-
             } else if(rollResult.results[i].parent.name === "Major Injuries") {
-
                 tableName = 'MajorInjuries';
             }
 
             if(!(linkedEffects[tableName][rollRange] === undefined)) {
-
                 let appliedEffect = linkedEffects[tableName][rollRange];
-
                 // apply Effect
                 if(typeof appliedEffect === 'string') {
-
                     applyEffect(appliedEffect, target);
-
                 } else {
-
                     for (let i = 0; i < appliedEffect.length; i++) {
-
                         applyEffect(appliedEffect[i], target);
-
                     }
                 }
             }
@@ -96,20 +82,13 @@ if (args[0].macroPass == 'postActiveEffects' && workflow.isCritical) {
         let rollRange = rollResult.results[0].range.toString();
 
         if(!(linkedEffects['Fumble'][rollRange] === undefined)) {
-
             let appliedEffect = linkedEffects['Fumble'][rollRange];
-
             // apply Effect
             if(typeof appliedEffect === 'string') {
-
                 applyEffect(appliedEffect, target);
-
             } else {
-
                 for (let i = 0; i < appliedEffect.length; i++) {
-
                     applyEffect(appliedEffect[i], target);
-
                 }
             }
         }

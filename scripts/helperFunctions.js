@@ -25,10 +25,8 @@ async function acidBath(target) {
             if(!isMagical) {
                 equippedArmor.delete();
             } else {
-
                 target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 0 });
                 target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' :0 });
-
             }
         }
     }
