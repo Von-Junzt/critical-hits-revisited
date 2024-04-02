@@ -1565,12 +1565,12 @@
         }
       },
       "icon": "icons/skills/wounds/bone-broken-marrow-red.webp",
-      "name": "Edge of Death!",
+      "name": "Edge of Death",
       "origin": "Item.41YeXTxDuJDmSGWf",
       "tint": null,
       "transfer": false,
       "statuses": [
-        "Convenient Effect: Edge of Death!"
+        "Convenient Effect: Edge of Death"
       ],
       "_id": "iovZfS15t7aJoEFf"
     },
@@ -2359,6 +2359,506 @@
         "Convenient Effect: Exposed"
       ],
       "_id": "yV63ywLQaxzVW5Yq"
+    },
+    {
+      "changes": [],
+      "description": "<p>The creature’s maximum hit points are reduced by an amount equivalent to the damage dealt by the attack.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/skills/wounds/bone-broken-marrow-red.webp",
+      "name": "Severly Wounded",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Severly Wounded"
+      ],
+      "_id": "zVQHFIn7MXEIeA1v"
+    },
+    {
+      "changes": [],
+      "description": "<p>The creature’s maximum hit points are reduced by an amount equivalent to half of the damage dealt by the attack.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/skills/wounds/anatomy-bone-joint.webp",
+      "name": "Multiple Injuries",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Multiple Injuries"
+      ],
+      "_id": "YkZzr2MWXnF5DW4P"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.magicVulnerability.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        }
+      ],
+      "description": "<p>Tthe creature is vulnerable against spells until the end of its next turn.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "turnEnd"
+          ]
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/control/silhouette-hold-beam-blue.webp",
+      "name": "Spellstruck",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Spellstruck"
+      ],
+      "_id": "NGX8MnrwRp7RfFn1"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.magicVulnerability.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.rsak",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end, saveAbility=int, saveDC=14, saveRemove=true",
+          "priority": 20
+        }
+      ],
+      "description": "<p>The creature is spellbound for the next minute. While spellbound it is vulnerable against spells and spell attack rolls against it have advantage. At the end of each of the creature’s turns it can make an Intelligence saving throw (DC 14) to end this effect.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/control/silhouette-hold-beam-blue.webp",
+      "name": "Mystic Magnet",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Mystic Magnet"
+      ],
+      "_id": "ZkP8tca3p4BaYHsT"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.magicVulnerability.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.rsak",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end, saveAbility= int, saveDC=14, saveRemove=true",
+          "priority": 20
+        }
+      ],
+      "description": "<p>The creature is spellbound for the next minute. While spellbound is vulnerable against spells spell attack rolls against it have advantage. At the end of each of the creature’s turns it can make an Intelligence saving throw (DC 14) to end this effect.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": 60,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "turnEnd"
+          ]
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/control/silhouette-hold-beam-blue.webp",
+      "name": "Spellbound",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Spellbound"
+      ],
+      "_id": "ac3CjhFECOJLHZ3M"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.magicVulnerability.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.rsak",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end, rollType=save, saveDC=16, saveAbility=int, saveRemove=true",
+          "priority": 20
+        }
+      ],
+      "description": "<p>The creature is spellbound for the next minute. While spellbound it is vulnerable against spells and spell attack rolls against it have advantage. At the end of each of the creature’s turns it can make an Intelligence saving throw (DC 16) to end this effect.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/control/silhouette-hold-beam-blue.webp",
+      "name": "Enscorcelled",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Enscorcelled"
+      ],
+      "_id": "6fs683C5b0Lh2Wy1"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.magicVulnerability.all",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.grants.advantage.attack.rsak",
+          "mode": 2,
+          "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end, rollType=save, saveDC=18, saveAbility=int, saveRemove=true",
+          "priority": 20
+        }
+      ],
+      "description": "<p>The creature is spellbound for the next minute. While spellbound it is vulnerable against spells and spell attack rolls against it have advantage. At the end of each of the creature’s turns it can make an Intelligence saving throw (DC 16) to end this effect.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/control/silhouette-hold-beam-blue.webp",
+      "name": "Magically Mauled",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Magically Mauled"
+      ],
+      "_id": "6GqHkbMqlQSVoCE9"
     }
   ],
   "folder": null,
@@ -2375,7 +2875,7 @@
     "systemVersion": "3.1.1",
     "coreVersion": "11.315",
     "createdTime": 1707120317423,
-    "modifiedTime": 1711993596173,
+    "modifiedTime": 1712053714104,
     "lastModifiedBy": "YIqINWNHSYOv12xm"
   }
 }

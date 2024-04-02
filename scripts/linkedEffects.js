@@ -6,7 +6,7 @@ const linkedEffects = {
         '12,13' : 'Armor damaged 1',
         '14,16' : 'Disfigured',
         '17,18' : 'Armor damaged 2',
-        '20,20' : 'Disfigured'
+        '20,20' : ['Acid Bath', 'Disfigured']
     },
     Bludgeoning: {
         '2,3' : 'Off Balance',
@@ -14,9 +14,25 @@ const linkedEffects = {
         '14,16' : 'Prone',
         '20,20' : 'Smashed'
     },
+    Cold: {
+        '2,3' : 'Chilled',
+        '7,8' : 'Frost',
+        '12,13' : 'Freezing',
+        '14,16' : 'Freezing',
+        '17,18' : 'Freezing',
+        '20,20' : 'Frozen'
+    },
     Force: {
         '2,3' : 'Spellstruck',
         '7,8' : 'Spellstruck',
+        '12,13' : 'Ablaze',
+        '14,16' : 'Charred',
+        '17,18' : 'Ablaze',
+        '20,20' : 'Inferno'
+    },
+    Fire: {
+        '2,3' : 'Heat Wave',
+        '7,8' : 'On Fire',
         '12,13' : 'Spellbound',
         '14,16' : 'Mystic Magnet',
         '17,18' : 'Enscorcelled',
