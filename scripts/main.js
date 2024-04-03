@@ -64,9 +64,11 @@ async function rollForCriticalHits(workflowObject) {
                 // apply Effect
                 if (typeof appliedEffect === 'string') {
                     applyEffect(appliedEffect, target);
+                    deleteChatMessages(appliedEffect);
                 } else {
                     for (let i = 0; i < appliedEffect.length; i++) {
                         applyEffect(appliedEffect[i], target);
+                        deleteChatMessages(appliedEffect);
                     }
                 }
             }
@@ -99,9 +101,11 @@ async function rollForCriticalFumbles(workflowObject){
             // apply Effect
             if (typeof appliedEffect === 'string') {
                 applyEffect(appliedEffect, target);
+                deleteChatMessages(appliedEffect);
             } else {
                 for (let i = 0; i < appliedEffect.length; i++) {
                     applyEffect(appliedEffect[i], target);
+                    deleteChatMessages(appliedEffect);
                 }
             }
         }

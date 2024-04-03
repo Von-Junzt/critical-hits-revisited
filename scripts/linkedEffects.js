@@ -9,7 +9,7 @@ const linkedEffects = {
         '20,20' : ['Acid Bath', 'Disfigured'] // ACID BATH USES EFFECT MACRO
     },
     Bludgeoning: {
-        '2,3' : 'Off Balance',
+        '1,3' : 'Off Balance',
         '12,13' : 'Prone',
         '14,16' : 'Prone',
         '20,20' : 'Smashed'
@@ -71,7 +71,7 @@ const linkedEffects = {
         '20,20' : 'Punished'
     },
     Slashing: {
-        '2,3' : 'Open Cut',
+        '1,3' : 'Open Cut',
         '7,8' : 'Minor Bleeding',
         '12,13' : 'Medium Bleeding',
         '14,16' : 'Major Bleeding',
