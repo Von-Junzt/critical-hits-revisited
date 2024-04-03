@@ -62,6 +62,7 @@ const linkedEffects = {
         '20,20' : 'Unconscious'
     },
     Piercing: {},
+    Radiant: {},
     Slashing: {
         '2,3' : 'Open Cut',
         '7,8' : 'Minor Bleeding',

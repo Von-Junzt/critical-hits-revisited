@@ -5,6 +5,15 @@ async function applyEffect(effect, uuid) {
     }
 }
 
+// search and delete unnecessary chat messages
+async function deleteChatMessages (messageText){
+    for (let message of game.messages.contents) {
+        if (message.flavor.search(messageText) > -1 || message.content.search(messageText) > -1) {
+            message.delete();
+        }
+    }
+}
+
 async function acidBath(target) {
     if(!(typeof(target.system.attributes.ac.equippedArmor) === undefined)) {
 
@@ -28,15 +37,6 @@ async function acidBath(target) {
                 target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 10 });
                 target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' :0 });
             }
-        }
-    }
-}
-
-// search and delete unnecessary chat messages
-async function deleteChatMessages (messageText){
-    for (let message of game.messages.contents) {
-        if (message.flavor.search(messageText) > -1 || message.content.search(messageText) > -1) {
-            message.delete();
         }
     }
 }
