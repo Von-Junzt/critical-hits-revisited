@@ -1405,7 +1405,9 @@
           "showIcon": false,
           "durationExpression": "",
           "macroRepeat": "none",
-          "specialDuration": []
+          "specialDuration": [
+            "turnEndSource"
+          ]
         },
         "ActiveAuras": {
           "isAura": false,
@@ -2939,7 +2941,7 @@
           "priority": 0
         }
       ],
-      "description": "<p>The creature is frightened until the end of its next turn.</p><p>- A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight.<br />- The creature can't willingly move closer to the source of its fear.</p>",
+      "description": "<p>The creature is frightened until the end of its next turn. A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can't willingly move closer to the source of its fear.</p>",
       "disabled": false,
       "duration": {
         "rounds": null,
@@ -3020,7 +3022,7 @@
           "priority": 20
         }
       ],
-      "description": "<p>- A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight.<br />- The creature can't willingly move closer to the source of its fear.</p>",
+      "description": "<p>The creature is frightened for thenext minute. It can make a Wisdom saving throw (DC 16) at the end of each of its turns to end this effect. A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can't willingly move closer to the source of its fear.</p>",
       "disabled": false,
       "duration": {
         "rounds": null,
@@ -3107,7 +3109,7 @@
         {
           "key": "ATL.light.animation",
           "mode": 5,
-          "value": "{\"type\": \"pulse\", \"speed\": 3,\"intensity\": 1}",
+          "value": "{\"type\": \"starlight\", \"speed\": 3,\"intensity\": 1}",
           "priority": 50
         },
         {
@@ -3197,13 +3199,13 @@
         {
           "key": "ATL.light.alpha",
           "mode": 5,
-          "value": "0.25",
+          "value": "0.4",
           "priority": 50
         },
         {
           "key": "ATL.light.animation",
           "mode": 5,
-          "value": "{\"type\": \"pulse\", \"speed\": 3,\"intensity\": 1}",
+          "value": "{\"type\": \"starlight\", \"speed\": 3,\"intensity\": 1}",
           "priority": 50
         },
         {
@@ -3285,7 +3287,7 @@
     "systemVersion": "3.1.1",
     "coreVersion": "11.315",
     "createdTime": 1707120317423,
-    "modifiedTime": 1712078813429,
+    "modifiedTime": 1712181277485,
     "lastModifiedBy": "YIqINWNHSYOv12xm"
   }
 }
