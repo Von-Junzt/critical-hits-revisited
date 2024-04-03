@@ -1,12 +1,22 @@
 async function rollForCriticalHits(workflowObject) {
     // get last attack damage type
     let lastAttack = workflowObject.damageItem;
-    let lastAttackType = lastAttack.damageDetail[0][0].type;
+    let attackdamageType;
+    let damageAmount = 0;
+
+    // set the damageType to the one that delivered the highest damage amount
+    for (let i = 0; i < workflowObject.damageDetail.length; i++) {
+        if(workflowObject.damageDetail[i].damage >= damageAmount) {
+            attackdamageType = workflowObject.damageDetail[i].type;
+        }
+    }
+
+    console.log(attackdamageType);
 
     // exclude certain damage types because there are no rolltables
-    if (!(["none", "no type", "no damage", "temphp", ""].includes(lastAttackType))) {
+    if (!(["none", "no type", "no damage", "temphp", ""].includes(attackdamageType))) {
         // get damageType and customize
-        let tableName = lastAttackType.charAt(0).toUpperCase() + lastAttackType.slice(1);
+        let tableName = attackdamageType.charAt(0).toUpperCase() + attackdamageType.slice(1);
         // get rolltable
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
         // get target
@@ -38,7 +48,6 @@ async function rollForCriticalHits(workflowObject) {
                     }
                 }
             }
-
         }
 
         deleteChatMessages('Critical Fumbles Table!');
@@ -51,10 +60,10 @@ async function rollForCriticalHits(workflowObject) {
 async function rollForCriticalFumbles(workflowObject){
 
     // get last attack damage type
-    let lastAttackType = workflowObject.item.labels.damageType;
+    let attackDamgeType = workflowObject.item.labels.damageType;
 
     // exclude certain damage types because there are no rolltables
-    if (!(["none", "no type", "no damage", "temphp", ""].includes(lastAttackType))) {
+    if (!(["none", "no type", "no damage", "temphp", ""].includes(attackDamgeType))) {
 
         // get target
         let target = workflowObject.tokenUuid;

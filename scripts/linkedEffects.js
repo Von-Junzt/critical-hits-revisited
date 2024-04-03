@@ -6,7 +6,7 @@ const linkedEffects = {
         '12,13' : 'Armor damaged 1',
         '14,16' : 'Disfigured',
         '17,18' : 'Armor damaged 2',
-        '20,20' : ['Acid Bath', 'Disfigured']
+        '20,20' : ['Acid Bath', 'Disfigured'] // ACID BATH USES EFFECT MACRO
     },
     Bludgeoning: {
         '2,3' : 'Off Balance',
