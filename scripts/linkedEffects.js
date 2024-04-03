@@ -62,7 +62,14 @@ const linkedEffects = {
         '20,20' : 'Unconscious'
     },
     Piercing: {},
-    Radiant: {},
+    Radiant: {
+        '2,3' : 'Dazzled',
+        '7,8' : 'Disheartened',
+        '12,13' : 'Disheartened',
+        '14,16' : 'Holy Terror',
+        '17,18' : 'Righteous Mark',
+        '20,20' : 'Punished'
+    },
     Slashing: {
         '2,3' : 'Open Cut',
         '7,8' : 'Minor Bleeding',

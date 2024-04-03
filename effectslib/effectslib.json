@@ -1631,12 +1631,12 @@
         }
       },
       "icon": "icons/magic/water/barrier-ice-crystal-wall-faceted.webp",
-      "name": "Chill",
+      "name": "Chilled",
       "origin": null,
       "tint": null,
       "transfer": false,
       "statuses": [
-        "Convenient Effect: Chill",
+        "Convenient Effect: Chilled",
         "exhaustion"
       ],
       "_id": "SE6KD4KqiacbEyIT"
@@ -2097,7 +2097,14 @@
       "_id": "d1aLGyryBHJtYUlY"
     },
     {
-      "changes": [],
+      "changes": [
+        {
+          "key": "macro.execute",
+          "mode": 0,
+          "value": "Compendium.critical-hits-revisited.critical-hits-macros.Macro.xIywKrxEzDs1BDnj",
+          "priority": 20
+        }
+      ],
       "description": "<p>If the creature is wearing armor, the armor is destroyed (if non-magical) or rendered useless until cleaned during a long rest (if magical) and roll on the major injury chart. If the creature is not wearing armor, roll on the major injury chart and the creature is disfigured. While disfigured the creature has disadvantage on all Charisma ability checks except Charisma (Intimidation). Being disfigured can be removed with the spell greater restoration.</p>",
       "disabled": false,
       "duration": {
@@ -2214,7 +2221,7 @@
           "wallsBlock": "system"
         }
       },
-      "icon": "icons/skills/melee/strike-polearm-light-orange.webp",
+      "icon": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
       "name": "Weak Point",
       "origin": "Item.41YeXTxDuJDmSGWf",
       "tint": null,
@@ -2282,7 +2289,7 @@
           "wallsBlock": "system"
         }
       },
-      "icon": "icons/skills/melee/strike-polearm-light-orange.webp",
+      "icon": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
       "name": "Wear and Tear",
       "origin": "Item.41YeXTxDuJDmSGWf",
       "tint": null,
@@ -2350,7 +2357,7 @@
           "wallsBlock": "system"
         }
       },
-      "icon": "icons/skills/melee/strike-polearm-light-orange.webp",
+      "icon": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
       "name": "Exposed",
       "origin": "Item.41YeXTxDuJDmSGWf",
       "tint": null,
@@ -2673,9 +2680,7 @@
           "showIcon": false,
           "durationExpression": "",
           "macroRepeat": "none",
-          "specialDuration": [
-            "turnEnd"
-          ]
+          "specialDuration": []
         },
         "ActiveAuras": {
           "isAura": false,
@@ -2859,6 +2864,411 @@
         "Convenient Effect: Magically Mauled"
       ],
       "_id": "6GqHkbMqlQSVoCE9"
+    },
+    {
+      "changes": [],
+      "description": "<p>The creature cannot willingly move closer to you until the end of its next turn.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/light/beam-rays-orange-large.webp",
+      "name": "Dazzled",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Dazzled"
+      ],
+      "_id": "6lQd9SIIl6wZLnbK"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 0,
+          "value": "1",
+          "priority": 0
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.ability.check.all",
+          "mode": 0,
+          "value": "1",
+          "priority": 0
+        }
+      ],
+      "description": "<p>The creature is frightened until the end of its next turn.</p><p>- A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight.<br />- The creature can't willingly move closer to the source of its fear.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "turnEnd"
+          ]
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/light/beam-rays-orange-large.webp",
+      "name": "Disheartened",
+      "origin": null,
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Disheartened",
+        "frightened"
+      ],
+      "_id": "a28bazdKme5DOdPz"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.disadvantage.attack.all",
+          "mode": 0,
+          "value": "1",
+          "priority": 0
+        },
+        {
+          "key": "flags.midi-qol.disadvantage.ability.check.all",
+          "mode": 0,
+          "value": "1",
+          "priority": 0
+        },
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end,rollType=save, saveAbility=wis, saveDC=16, saveRemove=true",
+          "priority": 20
+        }
+      ],
+      "description": "<p>- A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight.<br />- The creature can't willingly move closer to the source of its fear.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/light/beam-rays-orange-large.webp",
+      "name": "Holy Terror",
+      "origin": null,
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Holy Terror",
+        "frightened"
+      ],
+      "_id": "dhrHJiByOFp1G3Eu"
+    },
+    {
+      "changes": [
+        {
+          "key": "ATL.light.dim",
+          "mode": 5,
+          "value": "30",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.bright",
+          "mode": 5,
+          "value": "10",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.color",
+          "mode": 5,
+          "value": "#dfcb68",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.alpha",
+          "mode": 5,
+          "value": "0.25",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.animation",
+          "mode": 5,
+          "value": "{\"type\": \"pulse\", \"speed\": 3,\"intensity\": 1}",
+          "priority": 50
+        },
+        {
+          "key": "flags.midi-qol.grants.attack.bonus.all",
+          "mode": 2,
+          "value": "+2",
+          "priority": 50
+        }
+      ],
+      "description": "<p>The creature glows for the next minute. While glowing it produces bright light up 10 feet and dim light up to 30 feet and all successful attacks against the creature are granted a +2 bonus on the attack roll.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": 60,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/light/beam-rays-orange-large.webp",
+      "name": "Rightgeous Mark",
+      "origin": null,
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Rightgeous Mark"
+      ],
+      "_id": "qCBCDWwGSlA56zN0"
+    },
+    {
+      "changes": [
+        {
+          "key": "ATL.light.dim",
+          "mode": 5,
+          "value": "30",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.bright",
+          "mode": 5,
+          "value": "10",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.color",
+          "mode": 5,
+          "value": "#dfcb68",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.alpha",
+          "mode": 5,
+          "value": "0.25",
+          "priority": 50
+        },
+        {
+          "key": "ATL.light.animation",
+          "mode": 5,
+          "value": "{\"type\": \"pulse\", \"speed\": 3,\"intensity\": 1}",
+          "priority": 50
+        },
+        {
+          "key": "flags.midi-qol.grants.attack.bonus.all",
+          "mode": 2,
+          "value": "+4",
+          "priority": 50
+        }
+      ],
+      "description": "<p>The creature glows for the next minute. While glowing it produces bright light up 10 feet and dim light up to 30 feet and all successful attacks against the creature are granted a +4 bonus on the attack roll.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": 60,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/light/beam-rays-orange-large.webp",
+      "name": "Punished",
+      "origin": null,
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Punished"
+      ],
+      "_id": "wUTGNbMhb2sUFLjb"
     }
   ],
   "folder": null,
@@ -2875,7 +3285,7 @@
     "systemVersion": "3.1.1",
     "coreVersion": "11.315",
     "createdTime": 1707120317423,
-    "modifiedTime": 1712053714104,
+    "modifiedTime": 1712078813429,
     "lastModifiedBy": "YIqINWNHSYOv12xm"
   }
 }
