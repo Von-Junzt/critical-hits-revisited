@@ -17,12 +17,14 @@ async function rollOnTable(tableName, target, rollTableID) {
     }
 }
 
-// rollForCriticalHits - This function rolls for critical hits and applies the effects to the target.
-// The effects are applied based on the attack damage type.
-// The attack damage type is determined by the highest damage value of the attack.
-// If there are multiple damage types with the same damage value, the first one that is bludgeoning, slashing, or piercing is chosen.
-// If there are multiple damage types with the same damage value and none of them is bludgeoning, slashing, or piercing, the first one is chosen.
-// The workflowObject is passed by the ItemMacro on the critical hits feat equipped by the actor.
+/*
+    rollForCriticalHits - This function rolls for critical hits and applies the effects to the target.
+    The effects are applied based on the attack damage type.
+    The attack damage type is determined by the highest damage value of the attack.
+    If there are multiple damage types with the same damage value, the first one that is bludgeoning, slashing, or piercing is chosen.
+    If there are multiple damage types with the same damage value and none of them is bludgeoning, slashing, or piercing, the first one is chosen.
+    The workflowObject is passed by the ItemMacro on the critical hits feat equipped by the actor.
+ */
 async function rollForCriticalHits(workflowObject) {
     let attackDamageType = getAttackDamageType(workflowObject);
     // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
