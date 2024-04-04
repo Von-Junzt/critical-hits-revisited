@@ -81,3 +81,5 @@ const critsRevisited = {
 
 critsRevisited.helperFunctions = require('./helperFunctions.js');
 critsRevisited.itemMacros = require('./itemMacros.js');
+
+module.exports = critsRevisited;
