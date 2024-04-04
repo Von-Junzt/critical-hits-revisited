@@ -3,7 +3,7 @@ async function rollOnTable(tableName, target, rollTableID) {
     // prepare the rollTablePack
     let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
     rollTablePack.getIndex();
-    // rolll on the table
+    // roll on the table
     let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
     for (let result of rollResult.results) {
         let rollRange = result.range.toString();
@@ -32,7 +32,7 @@ async function rollForCriticalHits(workflowObject) {
     if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
         // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
         let tableName = attackDamageType.charAt(0).toUpperCase() + attackDamageType.slice(1);
-        // geet the target
+        // get the target
         let target = workflowObject.damageItem.actorUuid;
         // get the rollTableID and roll on the table
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
