@@ -38,7 +38,18 @@ async function acidBath(target) {
     if(isMagical) {
         target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 10 });
         target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' :0 });
+        createChatMessage(target,'<div class="result-text"><b>Acid Bath</b> - The acid of the last attack has rendered ' + target.name + 's armor useless!' +'</div>');
     } else {
         equippedArmor.delete();
+        createChatMessage(target,'<div class="result-text"><b>Acid Bath</b> - The acid of the last attack has destroyed ' + target.name + 's armor!' +'</div>');
     }
+}
+
+async function createChatMessage(speaker, msgContent) {
+    let chatData = {
+        user: speaker._id,
+        content: msgContent,
+        speaker: ChatMessage.getSpeaker(),
+    };
+    ChatMessage.create(chatData);
 }
