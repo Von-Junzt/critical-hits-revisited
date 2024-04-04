@@ -1,3 +1,9 @@
+
+async function prepareEffects(effects, target) {
+    effects = Array.isArray(effects) ? effects : [effects];
+    await Promise.all(effects.map(effect => applyEffect(effect, target)));
+}
+
 async function applyEffect(effect, uuid) {
     // check if the effect is already applied
     let hasEffectApplied = await game.dfreds.effectInterface.hasEffectApplied(effect, uuid);
