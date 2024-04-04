@@ -45,6 +45,11 @@ const linkedEffects = {
         '14,15' : 'Weak Point',
         '16,17' : 'Wear and Tear'
     },
+    Lightning: {
+        '2,3' : 'Reaction',
+        '17,18' : 'Reaction',
+        '20,20' : 'Electrocuted'
+    },
     MinorInjuries: {
         '1,3' : 'Injured Leg',
         '4,8' : 'Injured Arm',
@@ -52,6 +57,14 @@ const linkedEffects = {
         '12,16' : 'Badly Beaten',
         '17,19' : 'Ringing Blow',
         '20,20' : 'Dead'
+    },
+    Necrotic: {
+        '2,3' : 'Spoiled',
+        '7,8' : 'Festered',
+        '12,13' : 'Decayed',
+        '14,16' : 'Rot',
+        '17,18' : 'Blight',
+        '20,20' : 'Atrophy'
     },
     MajorInjuries: {
         '1,3' : 'Crippled Leg',
@@ -62,6 +75,19 @@ const linkedEffects = {
         '20,20' : 'Unconscious'
     },
     Piercing: {},
+    Poison: {
+        '2,3' : 'Nauseous',
+        '7,8' : 'Sickened',
+        '12,13' : 'Poisoned 2',
+        '14,16' : 'Poisened 3',
+        '17,18' : 'Poisoned 2',
+        '20,20' : 'Poisoned 3'
+    },
+    Psychic: {
+        '2,3' : 'Disoriented',
+        '7,8' : 'Confused',
+        '12,13' : 'Dominated',
+    },
     Radiant: {
         '2,3' : 'Dazzled',
         '7,8' : 'Disheartened',
@@ -76,5 +102,13 @@ const linkedEffects = {
         '12,13' : 'Medium Bleeding',
         '14,16' : 'Major Bleeding',
         '20,20' : 'Severe Bleeding'
+    },
+    Thunder: {
+        '2,3' : 'Deafened',
+        '7,8' : 'Deafened 2',
+        '12,13' : ['Deafened 2','Stunned 1'],
+        '14,16' : 'Deafened',
+        '17,18' : ['Deafened 3', 'Stunned'],
+        '20,20' : ['Deafened', 'Stunned 2']
     }
 }
