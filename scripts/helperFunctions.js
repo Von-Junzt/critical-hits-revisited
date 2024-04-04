@@ -1,6 +1,8 @@
 async function applyEffect(effect, uuid) {
+    // check if the effect is already applied
     let hasEffectApplied = await game.dfreds.effectInterface.hasEffectApplied(effect, uuid);
     if (!hasEffectApplied) {
+        // apply the effect
         game.dfreds.effectInterface.addEffect({ effectName: effect, uuid});
     }
 }
@@ -17,7 +19,7 @@ async function deleteChatMessages (messageText){
 async function acidBath(target) {
     const equippedArmor = target.system.attributes.ac.equippedArmor;
     if(!equippedArmor) return;
-
+    // check if the equipped armor is magical, if not delete the armor. if yes, update the armor value and magical bonus
     const isMagical = equippedArmor.labels.properties.some(entry => entry.label === "Magical");
     if(isMagical) {
         target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 10 });
