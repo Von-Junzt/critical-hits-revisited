@@ -192,7 +192,9 @@
           "showIcon": false,
           "durationExpression": "",
           "macroRepeat": "startEveryTurn",
-          "specialDuration": []
+          "specialDuration": [
+            "None"
+          ]
         },
         "ActiveAuras": {
           "isAura": false,
@@ -1077,7 +1079,7 @@
         {
           "key": "flags.midi-qol.OverTime",
           "mode": 0,
-          "value": "turn=start, 2d8, label=Bleeding",
+          "value": "turn=start, damageRoll=2d8, label=Bleeding",
           "priority": 20
         }
       ],
@@ -1906,6 +1908,12 @@
           "key": "flags.midi-qol.disadvantage.ability.check.cha",
           "mode": 2,
           "value": "1",
+          "priority": 20
+        },
+        {
+          "key": "",
+          "mode": 2,
+          "value": "",
           "priority": 20
         }
       ],
@@ -4087,7 +4095,7 @@
     "systemVersion": "3.1.1",
     "coreVersion": "11.315",
     "createdTime": 1707120317423,
-    "modifiedTime": 1712236172937,
+    "modifiedTime": 1712265815545,
     "lastModifiedBy": "YIqINWNHSYOv12xm"
   }
 }

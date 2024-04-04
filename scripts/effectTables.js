@@ -45,6 +45,28 @@ export const effectTables = {
         '14,15' : 'Weak Point',
         '16,17' : 'Wear and Tear'
     },
+    Insanity: {
+        '1' : 'Synesthesia',
+        '2' : 'Kleptomania',
+        '3' : 'Paranoia',
+        '4' : 'Obsession',
+        '5' : 'Addiction',
+        '6' : 'Odd Thinking',
+        '7' : 'Narcissism',
+        '8' : 'Delusional',
+        '9' : 'Pica',
+        '10' : 'Retrograde amnesia',
+        '11' : 'Overwhelmed',
+        '12' : 'Anterograde amnesia',
+        '13' : 'Dependence',
+        '14' : 'Anxious',
+        '15' : 'Mute',
+        '16' : 'Narcolepsy',
+        '17' : 'Insomnia',
+        '18' : 'Homicidal',
+        '19' : 'Suicidal',
+        '20' : 'Catatonia'
+    },
     Lightning: {
         '2,3' : 'Reaction',
         '17,18' : 'Reaction',
