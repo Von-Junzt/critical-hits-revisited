@@ -7,36 +7,22 @@ async function applyEffect(effect, uuid) {
 
 // search and delete unnecessary chat messages
 async function deleteChatMessages (messageText){
-    for (let message of game.messages.contents) {
-        if (message.flavor.search(messageText) > -1 || message.content.search(messageText) > -1) {
-            message.delete();
-        }
+    const messagesToDelete = game.messages.contents.filter(message =>
+        message.flavor.includes(messageText) || message.content.includes(messageText)
+    );
+    for (let message of messagesToDelete) {
+        message.delete();
     }
 }
-
 async function acidBath(target) {
-    if(!(typeof(target.system.attributes.ac.equippedArmor) === undefined)) {
+    const equippedArmor = target.system.attributes.ac.equippedArmor;
+    if(!equippedArmor) return;
 
-        let equippedArmor =  target.system.attributes.ac.equippedArmor;
-
-        if(equippedArmor) {
-
-            let equippedArmorItem = target.system.attributes.ac.equippedArmor;
-            let armorLabels = target.system.attributes.ac.equippedArmor.labels.properties;
-            let isMagical;
-
-            for (let i = 0; i < armorLabels.length; i++) {
-                if(armorLabels[i].label === "Magical") {
-                    isMagical = true;
-                }
-            }
-
-            if(!isMagical) {
-                equippedArmorItem.delete();
-            } else {
-                target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 10 });
-                target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' :0 });
-            }
-        }
+    const isMagical = equippedArmor.labels.properties.find(label => label === "Magical");
+    if(isMagical) {
+        target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 10 });
+        target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' :0 });
+    } else {
+        equippedArmor.delete();
     }
 }
