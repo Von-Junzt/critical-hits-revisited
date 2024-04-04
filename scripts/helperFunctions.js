@@ -21,7 +21,7 @@ async function acidBath(target) {
     const isMagical = equippedArmor.labels.properties.find(label => label === "Magical");
     if(isMagical) {
         target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value' : 10 });
-        target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' :0 });
+        target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus' : 0 });
     } else {
         equippedArmor.delete();
     }
