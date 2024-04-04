@@ -1,11 +1,15 @@
 // Description: This script contains the main functions for the module.
 async function rollOnTable(tableName, target, rollTableID) {
+    // prepare the rollTablePack
     let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
     rollTablePack.getIndex();
+    // rolll on the table
     let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
     for (let result of rollResult.results) {
         let rollRange = result.range.toString();
+        // check if the effects parent property is Minor Injuries or Major Injuries and set the tableName accordingly
         tableName = result.parent.name === "Minor Injuries" ? 'MinorInjuries' : result.parent.name === "Major Injuries" ? 'MajorInjuries' : tableName;
+        // get the linked effects
         let appliedEffect = linkedEffects[tableName][rollRange];
         if (appliedEffect) {
             await prepareEffects(appliedEffect, target);
@@ -15,9 +19,14 @@ async function rollOnTable(tableName, target, rollTableID) {
 
 async function rollForCriticalHits(workflowObject) {
     let attackDamageType = getAttackDamageType(workflowObject);
+    // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
+    // critical hits for these damage types
     if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
+        // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
         let tableName = attackDamageType.charAt(0).toUpperCase() + attackDamageType.slice(1);
+        // geet the target
         let target = workflowObject.damageItem.actorUuid;
+        // get the rollTableID and roll on the table
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
         rollTablePack.getIndex();
         let rollTableID = rollTablePack.index.find(t => t.name === tableName)._id;
@@ -27,8 +36,12 @@ async function rollForCriticalHits(workflowObject) {
 
 async function rollForCriticalFumbles(workflowObject){
     let attackDamageType = workflowObject.item.labels.damageType;
+    // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
+    // critical fumbles for these damage types
     if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
+        // get the attacker
         let target = workflowObject.tokenUuid;
+        // get the rollTableID and roll on the table
         let rollTableID = "TIJizkcNCKbq2qWD";
         await rollOnTable('Fumble', target, rollTableID);
     }
