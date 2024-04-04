@@ -1,4 +1,6 @@
-const itemMacros = {
+import { helperFunctions } from './helperFunctions.js';
+
+export const itemMacros = {
     // acidBath - This function applies the acid bath effect to the target. And destroys the equipped armor if it is not magical.
     acidBath: async function (target) {
         // check if the target has an equipped armor. if not, return
@@ -9,10 +11,10 @@ const itemMacros = {
         if (isMagical) {
             target.system.attributes.ac.equippedArmor.system.updateSource({'armor.value': 10});
             target.system.attributes.ac.equippedArmor.system.updateSource({'armor.magicalBonus': 0});
-            helperFunctions.createChatMessage(target, '<div class="result-text"><b>Acid Bath</b> - The acid of the last attack has rendered ' + target.name + 's armor useless!' + '</div>');
+            await helperFunctions.createChatMessage(target, '<div class="result-text"><b>Acid Bath</b> - The acid of the last attack has rendered ' + target.name + 's armor useless! It has magical properties so it can be repaired.' + '</div>');
         } else {
             equippedArmor.delete();
-            helperFunctions.createChatMessage(target, '<div class="result-text"><b>Acid Bath</b> - The acid of the last attack has destroyed ' + target.name + 's armor!' + '</div>');
+            await helperFunctions.createChatMessage(target, '<div class="result-text"><b>Acid Bath</b> - The acid of the last attack has destroyed ' + target.name + 's armor because it has no magical properties!' + '</div>');
         }
     }
 }

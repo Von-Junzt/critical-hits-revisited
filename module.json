@@ -69,8 +69,8 @@
       ]
     }
   ],
-  "scripts": [
+  "esmodules": [
     "scripts/main.js",
-    "scripts/linkedEffects.js"
+    "scripts/effectTables.js"
   ]
 }

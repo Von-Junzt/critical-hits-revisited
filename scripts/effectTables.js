@@ -1,4 +1,4 @@
-const linkedEffects = {
+export const effectTables = {
     Acid: {
         '1,1' : 'Scarred',
         '2,3' : 'Disfigured',

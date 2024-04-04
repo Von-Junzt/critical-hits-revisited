@@ -1,11 +1,11 @@
 // Description: This file contains helper functions that are used in the main scripts.
 // prepareEffects - This function prepares the effects to be applied to the target.
-const helperFunctions = {
+export const helperFunctions = {
     prepareEffects: async function (effects, target) {
         // check if the effects are an array, if not convert it to an array
         effects = Array.isArray(effects) ? effects : [effects];
         // call the applyEffects function with the effects and target
-        await Promise.all(effects.map(effect => helperFunctions.applyEffect(effect, target)));
+        await Promise.all(effects.map(effect => this.applyEffect(effect, target)));
     },
     // applyEffect - This function applies the effect to the target.
     applyEffect: async function (effect, uuid) {

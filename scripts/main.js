@@ -1,6 +1,14 @@
 // Description: This script contains the main functions for the module.
+console.log("Critical Hits Revisited is starting to load!");
 
-const critsRevisited = {
+import {helperFunctions} from './helperFunctions.js';
+import {itemMacros} from "./itemMacros.js";
+import {effectTables} from "./effectTables.js";
+
+console.log(helperFunctions);
+console.log(itemMacros);
+
+export const critsRevisited = {
     rollOnTable: async function (tableName, target, rollTableID) {
         // prepare the rollTablePack
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
@@ -12,7 +20,7 @@ const critsRevisited = {
             // check if the effects parent property is Minor Injuries or Major Injuries and set the tableName accordingly
             tableName = result.parent.name === "Minor Injuries" ? 'MinorInjuries' : result.parent.name === "Major Injuries" ? 'MajorInjuries' : tableName;
             // get the linked effects
-            let appliedEffect = linkedEffects[tableName][rollRange];
+            let appliedEffect = effectTables[tableName][rollRange];
             if (appliedEffect) {
                 await helperFunctions.prepareEffects(appliedEffect, target);
             }
@@ -27,7 +35,7 @@ const critsRevisited = {
     The workflowObject is passed by the ItemMacro on the critical hits feat equipped by the actor.
     */
     rollForCriticalHits: async function (workflowObject) {
-        let attackDamageType = critsRevisited.getAttackDamageType(workflowObject);
+        let attackDamageType = this.getAttackDamageType(workflowObject);
         // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
         // critical hits for these damage types
         if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
@@ -39,7 +47,7 @@ const critsRevisited = {
             let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
             rollTablePack.getIndex();
             let rollTableID = rollTablePack.index.find(t => t.name === tableName)._id;
-            await critsRevisited.rollOnTable(tableName, target, rollTableID);
+            await this.rollOnTable(tableName, target, rollTableID);
         }
     },
     rollForCriticalFumbles: async function (workflowObject) {
@@ -51,7 +59,7 @@ const critsRevisited = {
             let target = workflowObject.tokenUuid;
             // get the rollTableID and roll on the table
             let rollTableID = "TIJizkcNCKbq2qWD";
-            await critsRevisited.rollOnTable('Fumble', target, rollTableID);
+            await this.rollOnTable('Fumble', target, rollTableID);
         }
     },
     // getAttackDamageType - This function gets the attack damage type from the workflowObject.
@@ -79,7 +87,13 @@ const critsRevisited = {
     }
 }
 
-critsRevisited.helperFunctions = require('./helperFunctions.js');
-critsRevisited.itemMacros = require('./itemMacros.js');
+// Add the helperFunctions and itemMacros to critsRevisited
+critsRevisited.helperFunctions = helperFunctions;
+critsRevisited.itemMacros = itemMacros;
 
-module.exports = critsRevisited;
+// Attach critsRevisited to the game object once Foundry is fully loaded
+Hooks.once('ready', () => {
+    game.critsRevisited = critsRevisited;
+});
+
+console.log("Critical Hits Revisited has finished loading!");
