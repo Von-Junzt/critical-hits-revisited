@@ -1,10 +1,9 @@
-// Description: This file contains helper functions that are used in the main scripts.
-// prepareEffects - This function prepares the effects to be applied to the target.
+// Description: helper functions that are used in the main scripts.
+// prepareEffects - This function checks if the target is immune to the effect and calls the applyEffect function if not.
 export const helperFunctions = {
     prepareEffects: async function (effects, targetUuid, tableName) {
-        // check if the effects are an array, if not convert it to an array
+        // check if effects are an array, if not convert
         effects = Array.isArray(effects) ? effects : [effects];
-        // call the checkImmunity function for each effect and apply the effect if the target is not immune
         await Promise.all(effects.map(async effect => {
             const isImmune = await this.checkImmunity(effect, targetUuid, tableName);
             if (!isImmune) {
@@ -12,12 +11,10 @@ export const helperFunctions = {
             }
         }));
     },
-    // applyEffect - This function applies the effect to the target.
+    // applyEffect - This function applies the effect to the target if it is not already applied.
     applyEffect: async function (effect, targetUuid) {
-        // check if the effect is already applied
         let hasEffectApplied = await game.dfreds.effectInterface.hasEffectApplied(effect, targetUuid);
         if (!hasEffectApplied) {
-            // apply the effect
             game.dfreds.effectInterface.addEffect({effectName: effect, uuid: targetUuid});
         }
     },
@@ -43,7 +40,7 @@ export const helperFunctions = {
             await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is immune!</div>`);
             return true;
         }
-        // This is for debug only
+        // This ChatMessage is for debug only
         // this.capitalizeFirstLetter(effect);
         // await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is not immune.</div>`);
         // return false;

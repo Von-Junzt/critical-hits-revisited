@@ -12,14 +12,16 @@ export const critsRevisited = {
 
     // damageTypes that have no critical hits or fumbles
     undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
-
+    // damageTypes that are not preferred for critical hits
+    nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
+    // this function gathers the rollTableID from the compendium and rolls on the table
     rollOnTable: async function (tableName, targetUuid, rollTableID,) {
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
         let rollTableIdex = await rollTablePack.getIndex();
         let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
-            // check if the effects parent property is Minor Injuries or Major Injuries and set the tableName accordingly
+            // clean the tableName from whitespaces
             tableName = result.parent.name.replace(/\s+/g, '');
             // get the linked effects
             let appliedEffect = effectTables[tableName][rollRange];
@@ -28,38 +30,34 @@ export const critsRevisited = {
             }
         }
     },
+    // this function is called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject of the attack has to be passed.
     rollForCriticalHits: async function (workflowObject) {
         let attackDamageType = await this.getAttackDamageType(workflowObject);
         if (attackDamageType === null || typeof attackDamageType !== 'string') {
             return;
         }
-        // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
-        // critical hits for these damage types
+        // make shure the attackDamageType is not in the undesiredTypes array
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
             let tableName = helperFunctions.capitalizeFirstLetter(attackDamageType);
-            // get the target
             let targetUuid = workflowObject.damageItem.actorUuid;
-            // get the rollTableID and roll on the table
             let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
             let rollTableIndex = await rollTablePack.getIndex(); // Changed line
             let rollTableID = rollTableIndex.find(t => t.name === tableName)._id; // Changed line
             await this.rollOnTable(tableName, targetUuid, rollTableID); // Changed line
         }
     },
+    // this function is called from the itemMacro, when a critical fumble is rolled. In the call, the workflowObject of the attack has to be passed.
     rollForCriticalFumbles: async function (workflowObject) {
         let attackDamageType = workflowObject.item.labels.damageType;
-        // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
-        // critical fumbles for these damage types
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // get the attacker
             let targetUuid = workflowObject.tokenUuid;
-            // get the rollTableID and roll on the table
             let rollTableID = "TIJizkcNCKbq2qWD";
             await this.rollOnTable('Fumble', targetUuid, rollTableID);
         }
     },
-    // getAttackDamageType - This function gets the attack damage type from the workflowObject.
+    // getAttackDamageType - This core function gets the attack damageTypes from the workflowObject and returns the most relevant one.
     getAttackDamageType: async function (workflowObject) {
         let attackDamageType;
         // check has multiple damage types
@@ -72,29 +70,22 @@ export const critsRevisited = {
                     return [detail.type, detail.damage];
                 }
             }));
-            // Filter out null values from the array if the array is empty after removing immunities, return null
+            // Filter out null values from the array if the array is empty after removing immunities, return null. rollForCriticalHits will handle this case.
             damageDetails = damageDetails.filter(detail => detail !== undefined);
             if(damageDetails.length === 0) return null;
-
-            // Sort the array by damage value.
-            let maxDamageValue = Math.max(...damageDetails.map(([_, damage]) => damage)); // Changed line
-            let maxDamageTypes = damageDetails.filter(([_, damage]) => damage === maxDamageValue); // Changed line
-            //  If there are multiple damage types with the same damage value, choose the first one that is not
-            //  bludgeoning, slashing, or piercing.
+            // Sort the array by damage value and push the highest damage types to a new array.
+            let maxDamageValue = Math.max(...damageDetails.map(([_, damage]) => damage));
+            let maxDamageTypes = damageDetails.filter(([_, damage]) => damage === maxDamageValue);
+            //  If there are multiple damage types with the same damage value, choose the first one that is not bludgeoning, slashing, or piercing.
             if (maxDamageTypes.length > 1) {
-                let nonPreferredTypes = ['bludgeoning', 'slashing', 'piercing'];
-                let preferredType = maxDamageTypes.find(([type]) => !nonPreferredTypes.includes(type));
+                let preferredType = maxDamageTypes.find(([type]) => !this.nonPreferredTypes.includes(type));
                 attackDamageType = preferredType ? preferredType[0] : maxDamageTypes[0][0];
             } else {
                 attackDamageType = maxDamageTypes[0][0];
             }
         } else {
             attackDamageType = workflowObject.damageDetail[0]?.type || null;
-            console.log(attackDamageType);
-            console.log(typeof(attackDamageType));
         }
-        console.log(attackDamageType);
-        console.log(typeof(attackDamageType));
         return attackDamageType;
     }
 }
