@@ -43,6 +43,11 @@ export const critsRevisited = {
             let tableName = attackDamageType.charAt(0).toUpperCase() + attackDamageType.slice(1);
             // get the target
             let targetUuid = workflowObject.damageItem.actorUuid;
+            // Check if the target is immune to the damage type. If so, create message and return.
+            const isImmune = await helperFunctions.checkImmunity(attackDamageType, targetUuid, tableName);
+            if (isImmune) {
+                return;
+            }
             // get the rollTableID and roll on the table
             let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
             rollTablePack.getIndex();
