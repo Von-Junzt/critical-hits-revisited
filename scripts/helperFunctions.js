@@ -39,9 +39,11 @@ export const helperFunctions = {
         const isImmune = target.system.traits.ci.value.some(entry => entry === effect.toLowerCase());
         const hasDamageImmunity = target.system.traits.di.value.some(entry => entry === tableName.toLowerCase());
         if (isImmune || hasDamageImmunity) {
+            this.capitalizeFirstLetter(effect);
             await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is immune!</div>`);
             return true;
         }
+        this.capitalizeFirstLetter(effect);
         await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is not immune.</div>`);
         return false;
     },
@@ -53,5 +55,9 @@ export const helperFunctions = {
             speaker: ChatMessage.getSpeaker(),
         };
         ChatMessage.create(chatData);
+    },
+    // This function returns a string with the first letter capitalized.
+    capitalizeFirstLetter: function (string) {
+        return string.charAt(0) === string.charAt(0).toUpperCase() ? string : string.charAt(0).toUpperCase() + string.slice(1);
     }
 }

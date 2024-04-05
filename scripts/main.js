@@ -20,7 +20,7 @@ export const critsRevisited = {
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
             // check if the effects parent property is Minor Injuries or Major Injuries and set the tableName accordingly
-            tableName = result.parent.name === "Minor Injuries" ? 'MinorInjuries' : result.parent.name === "Major Injuries" ? 'MajorInjuries' : tableName;
+            tableName = result.parent.name.replace(/\s+/g, '');
             // get the linked effects
             let appliedEffect = effectTables[tableName][rollRange];
             if (appliedEffect) {
@@ -37,7 +37,7 @@ export const critsRevisited = {
         // critical hits for these damage types
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
-            let tableName = attackDamageType.charAt(0).toUpperCase() + attackDamageType.slice(1);
+            let tableName = helperFunctions.capitalizeFirstLetter(attackDamageType);
             // get the target
             let targetUuid = workflowObject.damageItem.actorUuid;
             // get the rollTableID and roll on the table
