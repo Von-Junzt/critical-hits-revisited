@@ -73,10 +73,12 @@ export const critsRevisited = {
             let maxDamageValue = sortArray[0][1];
             // get the damageTypes with the highest damage value
             sortArray = sortArray.filter(element => (element[1] === maxDamageValue))
-            //TODO: Rewrite the code so that if there are multiple damage types with the same damage value, select the first
-            // one that is not bludgeoning, slashing, or piercing.
+            // when there are multiple damage types with the same maximum damage value, try to find a type that is not
+            // 'bludgeoning', 'slashing', or 'piercing'. If not, default to the first type in the sorted array.
             if (sortArray.length > 1) {
-                attackDamageType = workflowObject.damageDetail.find(detail => ['bludgeoning', 'slashing', 'piercing'].includes(detail.type)).type;
+                let nonPreferredTypes = ['bludgeoning', 'slashing', 'piercing'];
+                let preferredType = sortArray.find(([type]) => !nonPreferredTypes.includes(type));
+                attackDamageType = preferredType ? preferredType[0] : sortArray[0][0];
             } else {
                 attackDamageType = sortArray[0][0];
             }
