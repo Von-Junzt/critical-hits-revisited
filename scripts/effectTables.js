@@ -119,7 +119,7 @@ export const effectTables = {
         '20,20' : 'Punished'
     },
     Slashing: {
-        '1,3' : 'Open Cut',
+        '1,3' : 'Bleeding Cut',
         '7,8' : 'Minor Bleeding',
         '12,13' : 'Medium Bleeding',
         '14,16' : 'Major Bleeding',
