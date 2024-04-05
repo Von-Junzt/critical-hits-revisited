@@ -38,12 +38,10 @@ export const helperFunctions = {
         const target = await fromUuid(targetUuid);
         const isImmune = target.system.traits.ci.value.some(entry => entry === effect.toLowerCase());
         const hasDamageImmunity = target.system.traits.di.value.some(entry => entry === tableName.toLowerCase());
-
         if (isImmune || hasDamageImmunity) {
             await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is immune!</div>`);
             return true;
         }
-
         await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is not immune.</div>`);
         return false;
     },
