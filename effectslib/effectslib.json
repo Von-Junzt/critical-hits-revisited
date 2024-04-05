@@ -1349,12 +1349,12 @@
         }
       },
       "icon": "icons/skills/wounds/blood-spurt-spray-red.webp",
-      "name": "Open Cut",
+      "name": "Bleeding Cut",
       "origin": "Item.41YeXTxDuJDmSGWf",
       "tint": null,
       "transfer": false,
       "statuses": [
-        "Convenient Effect: Open Cut"
+        "Convenient Effect: Bleeding Cut"
       ],
       "_id": "rNoE9EMfhCRAKGk5"
     },
@@ -4095,7 +4095,7 @@
     "systemVersion": "3.1.1",
     "coreVersion": "11.315",
     "createdTime": 1707120317423,
-    "modifiedTime": 1712265815545,
+    "modifiedTime": 1712326123568,
     "lastModifiedBy": "YIqINWNHSYOv12xm"
   }
 }

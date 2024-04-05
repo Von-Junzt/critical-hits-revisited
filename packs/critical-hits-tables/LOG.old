@@ -1,5 +1,14 @@
-2024/04/04-21:22:58.660331 ffff8a7cf040 Recovering log #204
-2024/04/04-21:22:58.660991 ffff8a7cf040 Level-0 table #206: started
-2024/04/04-21:22:58.662850 ffff8a7cf040 Level-0 table #206: 4874 bytes OK
-2024/04/04-21:22:58.666874 ffff8a7cf040 Delete type=0 #204
-2024/04/04-21:22:58.666911 ffff8a7cf040 Delete type=3 #203
+2024/04/05-21:52:11.701780 ffff9e7cf040 Recovering log #281
+2024/04/05-21:52:11.705873 ffff9e7cf040 Delete type=0 #281
+2024/04/05-21:52:11.706325 ffff9e7cf040 Delete type=3 #280
+2024/04/05-21:58:49.027846 fffe7edc3040 Level-0 table #285: started
+2024/04/05-21:58:49.028717 fffe7edc3040 Level-0 table #285: 0 bytes OK
+2024/04/05-21:58:49.030799 fffe7edc3040 Delete type=0 #283
+2024/04/05-21:58:49.033919 fffe7edc3040 Manual compaction at level-0 from '!folders!Lbc9sfAKPFYSfCUK' @ 72057594037927935 : 1 .. '!tables.results!wj1MRxp7iZr41OTC.NZCpcywTmGQC8RTR' @ 0 : 0; will stop at '!tables.results!3HAc6mGwpb57a65I.lza4dTyOtKem4HHV' @ 3418 : 0
+2024/04/05-21:58:49.033930 fffe7edc3040 Compacting 1@0 + 1@1 files
+2024/04/05-21:58:49.036488 fffe7edc3040 Generated table #286@0: 213 keys, 33629 bytes
+2024/04/05-21:58:49.036505 fffe7edc3040 Compacted 1@0 + 1@1 files => 33629 bytes
+2024/04/05-21:58:49.038052 fffe7edc3040 compacted to: files[ 0 1 0 0 0 0 0 ]
+2024/04/05-21:58:49.038152 fffe7edc3040 Delete type=2 #220
+2024/04/05-21:58:49.038208 fffe7edc3040 Delete type=2 #232
+2024/04/05-21:58:49.038495 fffe7edc3040 Manual compaction at level-0 from '!tables.results!3HAc6mGwpb57a65I.lza4dTyOtKem4HHV' @ 3418 : 0 .. '!tables.results!wj1MRxp7iZr41OTC.NZCpcywTmGQC8RTR' @ 0 : 0; will stop at (end)
