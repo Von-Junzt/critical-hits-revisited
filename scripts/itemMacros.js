@@ -16,16 +16,5 @@ export const itemMacros = {
             equippedArmor.delete();
             await helperFunctions.createChatMessage(target, '<div class="result-text"><b>Acid Bath</b> - The acid of the last attack has destroyed ' + target.name + 's armor because it has no magical properties!' + '</div>');
         }
-    },
-    checkBleedingImmunity: async function (target) {
-        // check if the target is immune to bleeding. if yes, remove the bleeding effect and return
-        const isImmune = target.system.traits.ci.value.some(entry => entry === "bleeding");
-        if (isImmune) {
-            let effectName = 'Bleeding';
-            let uuid = target.uuid;
-            game.dfreds.effectInterface.removeEffect({effectName, uuid})
-            await helperFunctions.createChatMessage(target, '<div class="result-text"><b>Bleeding</b> - ' + target.name + ' is immune to bleeding!' + '</div>');
-            return true;
-        }
     }
 }
