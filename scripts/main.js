@@ -35,7 +35,11 @@ export const critsRevisited = {
     The workflowObject is passed by the ItemMacro on the critical hits feat equipped by the actor.
     */
     rollForCriticalHits: async function (workflowObject) {
-        let attackDamageType = this.getAttackDamageType(workflowObject);
+        // get the attackDamageType. If it returns empty, return.
+        let attackDamageType = await this.getAttackDamageType(workflowObject);
+        if (attackDamageType === null || typeof attackDamageType !== 'string') {
+            return;
+        }
         // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
         // critical hits for these damage types
         if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
@@ -43,11 +47,6 @@ export const critsRevisited = {
             let tableName = attackDamageType.charAt(0).toUpperCase() + attackDamageType.slice(1);
             // get the target
             let targetUuid = workflowObject.damageItem.actorUuid;
-            // Check if the target is immune to the damage type. If so, create message and return.
-            const isImmune = await helperFunctions.checkImmunity(attackDamageType, targetUuid, tableName);
-            if (isImmune) {
-                return;
-            }
             // get the rollTableID and roll on the table
             let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
             rollTablePack.getIndex();
@@ -68,13 +67,24 @@ export const critsRevisited = {
         }
     },
     // getAttackDamageType - This function gets the attack damage type from the workflowObject.
-    getAttackDamageType: function (workflowObject) {
+    getAttackDamageType: async function (workflowObject) {
         let attackDamageType;
         // check has multiple damage types
         if (workflowObject.damageDetail.length > 0) {
+            // Check if the target has immunities to the damage types. If so, remove them from the array.
+            let targetUuid = workflowObject.damageItem.actorUuid;
+            let damageDetails = await Promise.all(workflowObject.damageDetail.map(async detail => {
+                const isImmune = await helperFunctions.checkImmunity(detail.type, targetUuid, detail.type);
+                if (!isImmune) {
+                    return [detail.type, detail.damage];
+                }
+            }));
+            // Filter out null values from the array if the array is empty after removing immunities, return null
+            damageDetails = damageDetails.filter(detail => detail !== undefined);
+            if(damageDetails.length === 0) return null;
+
             // if there are multiple damageTypes, push them into an array and sort them by damage value
-            let sortArray = workflowObject.damageDetail.map(detail => [detail.type, detail.damage]);
-            sortArray.sort(([, a], [, b]) => b - a);
+            let sortArray = damageDetails.sort(([, a], [, b]) => b - a);
             let maxDamageValue = sortArray[0][1];
             // get the damageTypes with the highest damage value
             sortArray = sortArray.filter(element => (element[1] === maxDamageValue))
@@ -88,8 +98,12 @@ export const critsRevisited = {
                 attackDamageType = sortArray[0][0];
             }
         } else {
-            attackDamageType = workflowObject.damageDetail[0].type;
+            attackDamageType = workflowObject.damageDetail[0]?.type || null;
+            console.log(attackDamageType);
+            console.log(typeof(attackDamageType));
         }
+        console.log(attackDamageType);
+        console.log(typeof(attackDamageType));
         return attackDamageType;
     }
 }
