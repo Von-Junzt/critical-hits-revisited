@@ -1,3 +1,4 @@
+// TODO: Implement optional damage roll tables for critical hits and fumbles
 const damageRolls = {
     Bludgeoning: {
         '1,1': 'Scarred',
