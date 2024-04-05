@@ -5,7 +5,11 @@ export const itemMacros = {
     acidBath: async function (target) {
         // check if the target has an equipped armor. if not, return
         const equippedArmor = target.system.attributes.ac.equippedArmor;
-        if (!equippedArmor) return;
+        if (!equippedArmor) {
+            await helperFunctions.createChatMessage(target, '<div class="result-text"><b>Acid Bath</b> - ' + target.name + ' has no armor equipped!' + '</div>');
+            return;
+        }
+
         // check if the equipped armor is magical, if not delete the armor. if yes, update the armor value and magical bonus
         const isMagical = equippedArmor.labels.properties.some(entry => entry.label === "Magical");
         if (isMagical) {
