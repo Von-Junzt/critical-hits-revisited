@@ -33,7 +33,7 @@ export const helperFunctions = {
     // checkImmunity - This function checks if the target has immunity to the effect by checking for the object name of the effect in the target's immunity array.
     checkImmunity: async function (effect, targetUuid, tableName) {
         if (effect.toLowerCase().includes('bleeding')) {
-            let effect = 'Bleeding';
+            effect = 'Bleeding';
         }
         const target = await fromUuid(targetUuid);
         const isImmune = target.system.traits.ci.value.some(entry => entry === effect.toLowerCase());
