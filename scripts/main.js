@@ -9,7 +9,6 @@ console.log(helperFunctions);
 console.log(itemMacros);
 
 export const critsRevisited = {
-
     // damageTypes that have no critical hits or fumbles
     undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
     // damageTypes that are not preferred for critical hits
@@ -36,7 +35,7 @@ export const critsRevisited = {
         if (attackDamageType === null || typeof attackDamageType !== 'string') {
             return;
         }
-        // make shure the attackDamageType is not in the undesiredTypes array
+        // make sure the attackDamageType is not in the undesiredTypes array
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
             let tableName = helperFunctions.capitalizeFirstLetter(attackDamageType);
