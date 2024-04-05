@@ -9,7 +9,7 @@ console.log(helperFunctions);
 console.log(itemMacros);
 
 export const critsRevisited = {
-    rollOnTable: async function (tableName, target, rollTableID) {
+    rollOnTable: async function (tableName, targetUuid, rollTableID) {
         // prepare the rollTablePack
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
         rollTablePack.getIndex();
@@ -22,7 +22,7 @@ export const critsRevisited = {
             // get the linked effects
             let appliedEffect = effectTables[tableName][rollRange];
             if (appliedEffect) {
-                await helperFunctions.prepareEffects(appliedEffect, target);
+                await helperFunctions.prepareEffects(appliedEffect, targetUuid, tableName);
             }
         }
     },
@@ -42,12 +42,12 @@ export const critsRevisited = {
             // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
             let tableName = attackDamageType.charAt(0).toUpperCase() + attackDamageType.slice(1);
             // get the target
-            let target = workflowObject.damageItem.actorUuid;
+            let targetUuid = workflowObject.damageItem.actorUuid;
             // get the rollTableID and roll on the table
             let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
             rollTablePack.getIndex();
             let rollTableID = rollTablePack.index.find(t => t.name === tableName)._id;
-            await this.rollOnTable(tableName, target, rollTableID);
+            await this.rollOnTable(tableName, targetUuid, rollTableID);
         }
     },
     rollForCriticalFumbles: async function (workflowObject) {
@@ -56,10 +56,10 @@ export const critsRevisited = {
         // critical fumbles for these damage types
         if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
             // get the attacker
-            let target = workflowObject.tokenUuid;
+            let targetUuid = workflowObject.tokenUuid;
             // get the rollTableID and roll on the table
             let rollTableID = "TIJizkcNCKbq2qWD";
-            await this.rollOnTable('Fumble', target, rollTableID);
+            await this.rollOnTable('Fumble', targetUuid, rollTableID);
         }
     },
     // getAttackDamageType - This function gets the attack damage type from the workflowObject.
@@ -73,8 +73,8 @@ export const critsRevisited = {
             let maxDamageValue = sortArray[0][1];
             // get the damageTypes with the highest damage value
             sortArray = sortArray.filter(element => (element[1] === maxDamageValue))
-            // if there are multiple damage types with the same damage value, get the first one that is bludgeoning, slashing, or piercing
-            // we are assuming that weapons that deal multiple damage types always have bludgeoning, slashing, or piercing
+            //TODO: Rewrite the code so that if there are multiple damage types with the same damage value, select the first
+            // one that is not bludgeoning, slashing, or piercing.
             if (sortArray.length > 1) {
                 attackDamageType = workflowObject.damageDetail.find(detail => ['bludgeoning', 'slashing', 'piercing'].includes(detail.type)).type;
             } else {
