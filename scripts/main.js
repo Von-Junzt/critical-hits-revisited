@@ -9,11 +9,13 @@ console.log(helperFunctions);
 console.log(itemMacros);
 
 export const critsRevisited = {
-    rollOnTable: async function (tableName, targetUuid, rollTableID) {
-        // prepare the rollTablePack
+
+    // damageTypes that have no critical hits or fumbles
+    undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
+
+    rollOnTable: async function (tableName, targetUuid, rollTableID,) {
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
-        rollTablePack.getIndex();
-        // roll on the table
+        let rollTableIdex = await rollTablePack.getIndex();
         let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
@@ -26,39 +28,30 @@ export const critsRevisited = {
             }
         }
     },
-    /*
-    rollForCriticalHits - This function rolls for critical hits and applies the effects to the target.
-    The effects are applied based on the attack damage type.
-    The attack damage type is determined by the highest damage value of the attack.
-    If there are multiple damage types with the same damage value, the first one that is bludgeoning, slashing, or piercing is chosen.
-    If there are multiple damage types with the same damage value and none of them is bludgeoning, slashing, or piercing, the first one is chosen.
-    The workflowObject is passed by the ItemMacro on the critical hits feat equipped by the actor.
-    */
     rollForCriticalHits: async function (workflowObject) {
-        // get the attackDamageType. If it returns empty, return.
         let attackDamageType = await this.getAttackDamageType(workflowObject);
         if (attackDamageType === null || typeof attackDamageType !== 'string') {
             return;
         }
         // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
         // critical hits for these damage types
-        if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
+        if (!this.undesiredTypes.includes(attackDamageType)) {
             // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
             let tableName = attackDamageType.charAt(0).toUpperCase() + attackDamageType.slice(1);
             // get the target
             let targetUuid = workflowObject.damageItem.actorUuid;
             // get the rollTableID and roll on the table
             let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
-            rollTablePack.getIndex();
-            let rollTableID = rollTablePack.index.find(t => t.name === tableName)._id;
-            await this.rollOnTable(tableName, targetUuid, rollTableID);
+            let rollTableIndex = await rollTablePack.getIndex(); // Changed line
+            let rollTableID = rollTableIndex.find(t => t.name === tableName)._id; // Changed line
+            await this.rollOnTable(tableName, targetUuid, rollTableID); // Changed line
         }
     },
     rollForCriticalFumbles: async function (workflowObject) {
         let attackDamageType = workflowObject.item.labels.damageType;
         // make shure the attackDamageType is not "none", "no type", "no damage", "temphp", or "", because there are no
         // critical fumbles for these damage types
-        if (!["none", "no type", "no damage", "temphp", ""].includes(attackDamageType)) {
+        if (!this.undesiredTypes.includes(attackDamageType)) {
             // get the attacker
             let targetUuid = workflowObject.tokenUuid;
             // get the rollTableID and roll on the table
@@ -83,19 +76,17 @@ export const critsRevisited = {
             damageDetails = damageDetails.filter(detail => detail !== undefined);
             if(damageDetails.length === 0) return null;
 
-            // if there are multiple damageTypes, push them into an array and sort them by damage value
-            let sortArray = damageDetails.sort(([, a], [, b]) => b - a);
-            let maxDamageValue = sortArray[0][1];
-            // get the damageTypes with the highest damage value
-            sortArray = sortArray.filter(element => (element[1] === maxDamageValue))
-            // when there are multiple damage types with the same maximum damage value, try to find a type that is not
-            // 'bludgeoning', 'slashing', or 'piercing'. If not, default to the first type in the sorted array.
-            if (sortArray.length > 1) {
+            // Sort the array by damage value.
+            let maxDamageValue = Math.max(...damageDetails.map(([_, damage]) => damage)); // Changed line
+            let maxDamageTypes = damageDetails.filter(([_, damage]) => damage === maxDamageValue); // Changed line
+            //  If there are multiple damage types with the same damage value, choose the first one that is not
+            //  bludgeoning, slashing, or piercing.
+            if (maxDamageTypes.length > 1) {
                 let nonPreferredTypes = ['bludgeoning', 'slashing', 'piercing'];
-                let preferredType = sortArray.find(([type]) => !nonPreferredTypes.includes(type));
-                attackDamageType = preferredType ? preferredType[0] : sortArray[0][0];
+                let preferredType = maxDamageTypes.find(([type]) => !nonPreferredTypes.includes(type));
+                attackDamageType = preferredType ? preferredType[0] : maxDamageTypes[0][0];
             } else {
-                attackDamageType = sortArray[0][0];
+                attackDamageType = maxDamageTypes[0][0];
             }
         } else {
             attackDamageType = workflowObject.damageDetail[0]?.type || null;
