@@ -43,7 +43,7 @@ export const helperFunctions = {
         // This ChatMessage is for debug only
         // this.capitalizeFirstLetter(effect);
         // await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is not immune.</div>`);
-        // return false;
+        return false;
     },
     // createChatMessage - This function creates a chat message with the given speaker and message content.
     createChatMessage: async function (speaker, msgContent) {
