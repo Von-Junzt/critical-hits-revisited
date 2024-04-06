@@ -18,12 +18,15 @@ export const critsRevisited = {
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
         let rollTableIdex = await rollTablePack.getIndex();
         let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
+        console.log(rollResult);
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
             // clean the tableName from whitespaces
-            tableName = result.parent.name.replace(/\s+/g, '');
+            tableName = tableName.replace(/\s+/g, '');
+            console.log(tableName);
             // get the linked effects
             let appliedEffect = effectTables[tableName][rollRange];
+            console.log(appliedEffect)
             if (appliedEffect) {
                 await helperFunctions.prepareEffects(appliedEffect, targetUuid, tableName);
             }
@@ -51,7 +54,8 @@ export const critsRevisited = {
         let attackDamageType = workflowObject.item.labels.damageType;
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // get the attacker
-            let targetUuid = workflowObject.tokenUuid;
+            console.log(workflowObject)
+            let targetUuid = workflowObject.actor.uuid;
             let rollTableID = "TIJizkcNCKbq2qWD";
             await this.rollOnTable('Fumble', targetUuid, rollTableID);
         }
