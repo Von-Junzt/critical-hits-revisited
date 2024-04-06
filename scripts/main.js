@@ -16,7 +16,7 @@ export const critsRevisited = {
     // this function gathers the rollTableID from the compendium and rolls on the table
     rollOnTable: async function (tableName, targetUuid, rollTableID,) {
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
-        let rollTableIdex = await rollTablePack.getIndex();
+        let rollTableIndex = await rollTablePack.getIndex();
         let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
         console.log(rollResult);
         for (let result of rollResult.results) {
