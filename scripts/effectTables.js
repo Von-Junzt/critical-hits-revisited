@@ -115,7 +115,7 @@ export const effectTables = {
         '7,8' : 'Disheartened',
         '12,13' : 'Disheartened',
         '14,16' : 'Holy Terror',
-        '17,18' : 'Righteous Mark',
+        '17,18' : 'Rightgeous Mark',
         '20,20' : 'Punished'
     },
     Slashing: {
