@@ -36,8 +36,8 @@ export const helperFunctions = {
         const isImmune = target.system.traits.ci.value.some(entry => entry === effect.toLowerCase());
         const hasDamageImmunity = target.system.traits.di.value.some(entry => entry === tableName.toLowerCase());
         if (isImmune || hasDamageImmunity) {
-            this.capitalizeFirstLetter(effect);
-            await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is immune!</div>`);
+            effect = this.capitalizeFirstLetter(effect);
+            await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>'${effect}'</b> - ` + target.name + ` is immune!</div>`);
             return true;
         }
         // This ChatMessage is for debug only
