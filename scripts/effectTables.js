@@ -83,10 +83,10 @@ export const effectTables = {
     Necrotic: {
         '2,3' : 'Spoiled',
         '7,8' : 'Festered',
-        '12,13' : 'Decayed',
+        '12,13' : 'Festered',
         '14,16' : 'Rot',
-        '17,18' : 'Blight',
-        '20,20' : 'Atrophy'
+        '17,18' : 'Festered',
+        '20,20' : ['Festered', 'Rot']
     },
     MajorInjuries: {
         '1,3' : 'Crippled Leg',

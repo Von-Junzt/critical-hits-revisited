@@ -3223,7 +3223,7 @@
           "priority": 50
         }
       ],
-      "description": "<p>The creature glows for the next minute. While glowing it produces bright light up 10 feet and dim light up to 30 feet and all successful attacks against the creature are granted a +4 bonus on the attack roll.</p>",
+      "description": "<p>The creature glows for the next minute. While glowing it produces bright light up 10 feet and dim light up to 30 feet and all successful attacks against the creature are granted a +4 bonus to their attack roll.</p>",
       "disabled": false,
       "duration": {
         "rounds": null,
@@ -4079,6 +4079,194 @@
         "poisoned"
       ],
       "_id": "AomeQXSNFLGTGEoB"
+    },
+    {
+      "changes": [],
+      "description": "<p>The creature cannot regain hit points until the end of its next turn.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": [
+            "turnEnd",
+            "longRest",
+            "shortRest"
+          ]
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "name": "Spoiled",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Spoiled"
+      ],
+      "_id": "pzq0af8O59I3She7"
+    },
+    {
+      "changes": [],
+      "description": "<p>The creature’s maximum hit points are reduced by the same amount as your damage roll.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "name": "Festered",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Festered"
+      ],
+      "_id": "dCzgI9Csjd1e96GC"
+    },
+    {
+      "changes": [
+        {
+          "key": "flags.midi-qol.OverTime",
+          "mode": 2,
+          "value": "turn=end, saveAbility= con, saveDC=16, saveRemove=true",
+          "priority": 20
+        }
+      ],
+      "description": "<p>The creature cannot regain hit points for the next minute. It may make a saving throw (DC 16) at the end of each of its turns to end this effect.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": 60,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "name": "Rot",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Rot"
+      ],
+      "_id": "i9EvtKxUpcpMqCp9"
     }
   ],
   "folder": null,
@@ -4095,7 +4283,7 @@
     "systemVersion": "3.1.1",
     "coreVersion": "11.315",
     "createdTime": 1707120317423,
-    "modifiedTime": 1712326123568,
+    "modifiedTime": 1712411451415,
     "lastModifiedBy": "YIqINWNHSYOv12xm"
   }
 }
