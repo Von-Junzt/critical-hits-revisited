@@ -63,7 +63,7 @@ export const critsRevisited = {
     // getAttackDamageType - This core function gets the attack damageTypes from the workflowObject and returns the most relevant one.
     getAttackDamageType: async function (workflowObject) {
         let attackDamageType;
-        // check has multiple damage types
+        // check if there are multiple damage types
         if (workflowObject.damageDetail.length > 0) {
             // Check if the target has immunities to the damage types. If so, remove them from the array.
             let targetUuid = workflowObject.damageItem.actorUuid;
@@ -73,7 +73,7 @@ export const critsRevisited = {
                     return [detail.type, detail.damage];
                 }
             }));
-            // Filter out null values from the array if the array is empty after removing immunities, return null. rollForCriticalHits will handle this case.
+            // Filter out null values from the array. If the array is empty after removing immunities, return null. rollForCriticalHits will handle this case.
             damageDetails = damageDetails.filter(detail => detail !== undefined);
             if(damageDetails.length === 0) return null;
             // Sort the array by damage value and push the highest damage types to a new array.
