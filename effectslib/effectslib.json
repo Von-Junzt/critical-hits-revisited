@@ -4145,7 +4145,7 @@
     },
     {
       "changes": [],
-      "description": "<p>The creature’s maximum hit points are reduced by the same amount as your damage roll.</p>",
+      "description": "<p>The creature’s maximum hit points are reduced by the same amount as the damage dealt with the last attack.</p>",
       "disabled": false,
       "duration": {
         "rounds": null,
@@ -4267,6 +4267,124 @@
         "Convenient Effect: Rot"
       ],
       "_id": "i9EvtKxUpcpMqCp9"
+    },
+    {
+      "changes": [],
+      "description": "<p>The creature’s maximum hit points are reduced by the same amount as the damage dealt with the last attack.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "name": "Atrophy",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Atrophy"
+      ],
+      "_id": "H1rZ55KAUgk3mgfV"
+    },
+    {
+      "changes": [],
+      "description": "<p>The creature’s maximum hit points are reduced by the same amount as the damage dealt with the last attack.</p>",
+      "disabled": false,
+      "duration": {
+        "rounds": null,
+        "seconds": null,
+        "turns": null,
+        "startTime": null,
+        "combat": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "flags": {
+        "dfreds-convenient-effects": {
+          "isConvenient": true,
+          "isDynamic": false,
+          "isViewable": true,
+          "nestedEffects": [],
+          "subEffects": []
+        },
+        "dae": {
+          "disableIncapacitated": false,
+          "selfTarget": false,
+          "selfTargetAlways": false,
+          "dontApply": false,
+          "stackable": "noneName",
+          "showIcon": false,
+          "durationExpression": "",
+          "macroRepeat": "none",
+          "specialDuration": []
+        },
+        "ActiveAuras": {
+          "isAura": false,
+          "aura": "None",
+          "nameOverride": "",
+          "radius": "",
+          "alignment": "",
+          "type": "",
+          "customCheck": "",
+          "ignoreSelf": false,
+          "height": false,
+          "hidden": false,
+          "displayTemp": false,
+          "hostile": false,
+          "onlyOnce": false,
+          "wallsBlock": "system"
+        }
+      },
+      "icon": "icons/magic/death/hand-undead-skeleton-fire-pink.webp",
+      "name": "Blight",
+      "origin": "Item.41YeXTxDuJDmSGWf",
+      "tint": null,
+      "transfer": false,
+      "statuses": [
+        "Convenient Effect: Blight"
+      ],
+      "_id": "0aKcLIs2u06YBEUE"
     }
   ],
   "folder": null,
@@ -4275,7 +4393,7 @@
       "world": "die-vergessenen-reiche",
       "system": "dnd5e",
       "coreVersion": "11.315",
-      "systemVersion": "3.1.1"
+      "systemVersion": "3.1.2"
     }
   },
   "_stats": {
@@ -4283,7 +4401,7 @@
     "systemVersion": "3.1.1",
     "coreVersion": "11.315",
     "createdTime": 1707120317423,
-    "modifiedTime": 1712411451415,
+    "modifiedTime": 1712774334777,
     "lastModifiedBy": "YIqINWNHSYOv12xm"
   }
 }
