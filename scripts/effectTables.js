@@ -101,7 +101,7 @@ export const effectTables = {
         '2,3' : 'Nauseous',
         '7,8' : 'Sickened',
         '12,13' : 'Poisoned 2',
-        '14,16' : 'Poisened 3',
+        '14,16' : 'Poisoned 3',
         '17,18' : 'Poisoned 2',
         '20,20' : 'Poisoned 3'
     },
