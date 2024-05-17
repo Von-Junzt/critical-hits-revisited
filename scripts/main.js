@@ -22,7 +22,7 @@ export const critsRevisited = {
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
             // clean the tableName from whitespaces
-            tableName = tableName.replace(/\s+/g, '');
+            tableName = result.parent.name.replace(/\s+/g, '');
             console.log(tableName);
             // get the linked effects
             let appliedEffect = effectTables[tableName][rollRange];
