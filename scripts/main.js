@@ -5,8 +5,8 @@ import {helperFunctions} from './helperFunctions.js';
 import {itemMacros} from "./itemMacros.js";
 import {effectTables} from "./effectTables.js";
 
-console.log(helperFunctions);
-console.log(itemMacros);
+// console.log(helperFunctions);
+// console.log(itemMacros);
 
 export const critsRevisited = {
     // damageTypes that have no critical hits or fumbles
@@ -18,15 +18,15 @@ export const critsRevisited = {
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
         let rollTableIndex = await rollTablePack.getIndex();
         let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
-        console.log(rollResult);
+        // console.log(rollResult);
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
             // clean the tableName from whitespaces
             tableName = result.parent.name.replace(/\s+/g, '');
-            console.log(tableName);
+            // console.log(tableName);
             // get the linked effects
             let appliedEffect = effectTables[tableName][rollRange];
-            console.log(appliedEffect)
+            // console.log(appliedEffect)
             if (appliedEffect) {
                 await helperFunctions.prepareEffects(appliedEffect, targetUuid, tableName);
             }
@@ -54,10 +54,10 @@ export const critsRevisited = {
         let attackDamageType = workflowObject.item.labels.damageType;
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // get the attacker
-            console.log(workflowObject)
+            // console.log(workflowObject)
             let targetUuid = workflowObject.actor.uuid;
             let rollTableID = "TIJizkcNCKbq2qWD";
-            await this.rollOnTable('Fumble', targetUuid, rollTableID);
+            await this.rollOnTable('CriticalFumbles', targetUuid, rollTableID);
         }
     },
     // getAttackDamageType - This core function gets the attack damageTypes from the workflowObject and returns the most relevant one.
