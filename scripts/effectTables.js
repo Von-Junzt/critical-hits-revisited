@@ -38,7 +38,7 @@ export const effectTables = {
         '17,18' : 'Enscorcelled',
         '20,20' : 'Magically Mauled'
     },
-    Fumble: {
+    CriticalFumbles: {
         '1,1' : 'Exposed',
         '6,7' : 'Grappled',
         '8,10' : 'Prone',
