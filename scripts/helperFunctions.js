@@ -7,16 +7,11 @@ export const helperFunctions = {
         await Promise.all(effects.map(async effect => {
             const isImmune = await this.checkImmunity(effect, targetUuid, tableName);
             if (!isImmune) {
-                await this.applyEffect(effect, targetUuid);
+                let target = await fromUuid(targetUuid);
+                this.capitalizeFirstLetter(effect);
+                await await chrisPremades.utils.effectUtils.createEffect(target, chrisPremades.utils.effectUtils.getSidebarEffectData(effect));
             }
         }));
-    },
-    // applyEffect - This function applies the effect to the target if it is not already applied.
-    applyEffect: async function (effect, targetUuid) {
-        let hasEffectApplied = await game.dfreds.effectInterface.hasEffectApplied(effect, targetUuid);
-        if (!hasEffectApplied) {
-            game.dfreds.effectInterface.addEffect({effectName: effect, uuid: targetUuid});
-        }
     },
     // deleteChatMessages - This function searches and deletes chat messages
     deleteChatMessages: async function (messageText) {
