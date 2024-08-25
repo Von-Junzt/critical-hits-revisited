@@ -4,6 +4,7 @@ console.log("Critical Hits Revisited is starting to load!");
 import {helperFunctions} from './helperFunctions.js';
 import {itemMacros} from "./itemMacros.js";
 import {effectTables} from "./effectTables.js";
+import {effectData} from "../lib/effecData.js";
 
 export const critsRevisited = {
     // damageTypes that have no critical hits or fumbles
@@ -93,6 +94,7 @@ export const critsRevisited = {
 // Add the helperFunctions and itemMacros to critsRevisited
 critsRevisited.helperFunctions = helperFunctions;
 critsRevisited.itemMacros = itemMacros;
+critsRevisited.effectData = effectData;
 
 // Attach critsRevisited to the game object once Foundry is fully loaded
 Hooks.once('ready', () => {

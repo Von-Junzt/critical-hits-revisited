@@ -1,5 +1,7 @@
 // Description: helper functions that are used in the main scripts.
 // prepareEffects - This function checks if the target is immune to the effect and calls the applyEffect function if not.
+import {effectData} from "../lib/effecData.js";
+
 export const helperFunctions = {
     prepareEffects: async function (effects, targetUuid, tableName) {
         // check if effects are an array, if not convert
@@ -7,10 +9,15 @@ export const helperFunctions = {
         await Promise.all(effects.map(async effect => {
             const isImmune = await this.checkImmunity(effect, targetUuid, tableName);
             if (!isImmune) {
-                let target = await fromUuid(targetUuid);
-                let effectData = chrisPremades.utils.effectUtils.getSidebarEffectData(this.capitalizeFirstLetter(effect));
-                this.capitalizeFirstLetter(effect);
-                await chrisPremades.utils.effectUtils.createEffect(target, effectData);
+                // check if the effect is in the effectData object, if not apply the sidebar effect
+                if (!effectData[await this.normalizeString(effect)]) {
+                    let appliedEffect = chrisPremades.utils.effectUtils.getSidebarEffectData(effect);
+                    let effectTarget = await fromUuid(targetUuid);
+                    await chrisPremades.utils.effectUtils.createEffect(effectTarget, appliedEffect);
+                } else {
+                    let appliedEffect = effectData[await this.normalizeString(effect)];
+                    await MidiQOL.socket().executeAsGM("createEffects", { actorUuid: targetUuid, effects: appliedEffect });
+                }
             }
         }));
     },
@@ -59,5 +66,9 @@ export const helperFunctions = {
         let effectDatabase = game.items.find(i => i.name === "CPR Effect Interface Storage").effects;
         let effectID = effectDatabase.find(e => e.name === effectName)._id;
         await chrisPremades.utils.effectUtils.toggleSidebarEffect(effectID);
+    },
+    // normalizeString - Remove all spaces and convert to lowercase
+    normalizeString: async function (input) {
+        return input.replace(/\s+/g, '').toLowerCase();
     }
 }
