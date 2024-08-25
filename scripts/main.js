@@ -30,7 +30,7 @@ export const critsRevisited = {
             }
         }
     },
-    // This function is called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject of the attack has to be passed.
+    // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject of the attack has to be passed.
     rollForCriticalHits: async function (workflowObject) {
         let attackDamageType = await this.getAttackDamageType(workflowObject);
         if (attackDamageType === null || typeof attackDamageType !== 'string') {
@@ -47,7 +47,7 @@ export const critsRevisited = {
             await this.rollOnTable(tableName, targetUuid, rollTableID); // Changed line
         }
     },
-    // This function is called from the itemMacro, when a critical fumble is rolled. In the call, the workflowObject of the attack has to be passed.
+    // Called from the itemMacro, when a critical fumble is rolled. In the call, the workflowObject of the attack has to be passed.
     rollForCriticalFumbles: async function (workflowObject) {
         let attackDamageType = workflowObject.item.labels.damageType;
         if (!this.undesiredTypes.includes(attackDamageType)) {
@@ -58,7 +58,7 @@ export const critsRevisited = {
             await this.rollOnTable('CriticalFumbles', targetUuid, rollTableID);
         }
     },
-    // getAttackDamageType - This core function gets the attack damageTypes from the workflowObject and returns the most relevant one.
+    // Gets the attack damageTypes from the workflowObject and returns the most relevant one.
     getAttackDamageType: async function (workflowObject) {
         let attackDamageType;
         // check if there are multiple damage types

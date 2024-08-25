@@ -23,7 +23,7 @@ export const helperFunctions = {
             }
         }));
     },
-    // deleteChatMessages - This function searches and deletes chat messages
+    // Searches and deletes chat messages
     deleteChatMessages: async function (messageText) {
         const messagesToDelete = game.messages.contents.filter(message =>
             message.flavor.includes(messageText) || message.content.includes(messageText)
@@ -32,7 +32,7 @@ export const helperFunctions = {
             message.delete();
         }
     },
-    // checkImmunity - This function checks if the target has immunity to the effect by checking for the object name of the effect in the target's immunity array.
+    // Checks if the target has immunity to the effect by checking for the object name of the effect in the target's immunity array.
     checkImmunity: async function (effect, targetUuid, tableName) {
         if (effect.toLowerCase().includes('bleeding')) {
             effect = 'Bleeding';
@@ -50,7 +50,7 @@ export const helperFunctions = {
         // await helperFunctions.createChatMessage(targetUuid, `<div class="result-text"><b>${effect}</b> - ` + target.name + ` is not immune.</div>`);
         return false;
     },
-    // createChatMessage - This function creates a chat message with the given speaker and message content.
+    // Creates a chat message with the given speaker and message content.
     createChatMessage: async function (speaker, msgContent) {
         let chatData = {
             user: speaker._id,
@@ -59,11 +59,11 @@ export const helperFunctions = {
         };
         ChatMessage.create(chatData);
     },
-    // capitalizeFirstLetter - This function returns a string with the first letter capitalized.
+    // Returns a string with the first letter capitalized.
     capitalizeFirstLetter: function (string) {
         return string.charAt(0) === string.charAt(0).toUpperCase() ? string : string.charAt(0).toUpperCase() + string.slice(1);
     },
-    // applyCPREffect - This function searches a CPR effect by string and applies it to the selected target.
+    // Searches a CPR effect by string and applies it to the selected target.
     applyCPREffect: async function (effectName) {
         let effectDatabase = game.items.find(i => i.name === "CPR Effect Interface Storage").effects;
         let effectID = effectDatabase.find(e => e.name === effectName)._id;

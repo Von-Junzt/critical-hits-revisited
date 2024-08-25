@@ -69,8 +69,7 @@ export const effectTables = {
     },
     Lightning: {
         '2,3' : 'Reaction',
-        '17,18' : 'Reaction',
-        '20,20' : 'Electrocuted'
+        '17,18' : 'Reaction'
     },
     MinorInjuries: {
         '1,3' : 'Injured Leg',
