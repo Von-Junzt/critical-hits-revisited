@@ -5,9 +5,6 @@ import {helperFunctions} from './helperFunctions.js';
 import {itemMacros} from "./itemMacros.js";
 import {effectTables} from "./effectTables.js";
 
-// console.log(helperFunctions);
-// console.log(itemMacros);
-
 export const critsRevisited = {
     // damageTypes that have no critical hits or fumbles
     undesiredTypes: ["none", "no type", "no damage", "temphp", ""],

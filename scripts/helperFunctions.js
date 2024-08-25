@@ -50,8 +50,14 @@ export const helperFunctions = {
         };
         ChatMessage.create(chatData);
     },
-    // This function returns a string with the first letter capitalized.
+    // capitalizeFirstLetter - This function returns a string with the first letter capitalized.
     capitalizeFirstLetter: function (string) {
         return string.charAt(0) === string.charAt(0).toUpperCase() ? string : string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    // applyCPREffect - This function searches a CPR effect by string and applies it to the selected target.
+    applyCPREffect: async function (effectName) {
+        let effectDatabase = game.items.find(i => i.name === "CPR Effect Interface Storage").effects;
+        let effectID = effectDatabase.find(e => e.name === effectName)._id;
+        await chrisPremades.utils.effectUtils.toggleSidebarEffect(effectID);
     }
 }

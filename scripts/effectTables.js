@@ -78,7 +78,7 @@ export const effectTables = {
         '9,11' : 'Multiple Injuries',
         '12,16' : 'Badly Beaten',
         '17,19' : 'Ringing Blow',
-        '20,20' : 'Dead'
+        '20,20' : 'Unconscious'
     },
     Necrotic: {
         '2,3' : 'Spoiled',
@@ -94,7 +94,7 @@ export const effectTables = {
         '9,11' : 'Severly Wounded',
         '12,16' : 'Edge of Death',
         '17,19' : 'Blinded',
-        '20,20' : 'Unconscious'
+        '20,20' : 'Dead'
     },
     Piercing: {},
     Poison: {
