@@ -10,13 +10,15 @@ export const helperFunctions = {
             const isImmune = await this.checkImmunity(effect, targetUuid, tableName);
             if (!isImmune) {
                 // check if the effect is in the effectData object, if not apply the sidebar effect
-                if (!effectData[await this.normalizeString(effect)]) {
-                    let appliedEffect = chrisPremades.utils.effectUtils.getSidebarEffectData(effect);
-                    let effectTarget = await fromUuid(targetUuid);
+                const normalizedEffectName = await this.normalizeString(effect);
+                if (!effectData[normalizedEffectName]) {
+                    const appliedEffect = chrisPremades.utils.effectUtils.getSidebarEffectData(effect);
+                    const effectTarget = await fromUuid(targetUuid);
                     await chrisPremades.utils.effectUtils.createEffect(effectTarget, appliedEffect);
                 } else {
-                    let appliedEffect = effectData[await this.normalizeString(effect)];
-                    await MidiQOL.socket().executeAsGM("createEffects", { actorUuid: targetUuid, effects: appliedEffect });
+                    const appliedEffect = effectData[normalizedEffectName];
+                    const effectTarget = await fromUuid(targetUuid);
+                    await chrisPremades.utils.effectUtils.createEffect(effectTarget, appliedEffect);
                 }
             }
         }));
