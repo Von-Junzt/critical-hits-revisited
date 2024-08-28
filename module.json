@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "compatibility": {
     "minimum": "11",
-    "verified": "11"
+    "verified": "12"
   },
   "description": "Critical Hits Tables as found in https://sterlingvermin.files.wordpress.com/2016/09/critical-hits-revisited.pdf",
   "authors": [
