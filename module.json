@@ -71,6 +71,6 @@
   ],
   "esmodules": [
     "scripts/main.js",
-    "scripts/effectTables.js"
+    "lib/data/effectTables.js"
   ]
 }
