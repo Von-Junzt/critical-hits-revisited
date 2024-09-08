@@ -11,6 +11,7 @@ export const helperFunctions = {
             if (!isImmune) {
                 // check if the effect is in the effectData object, if not apply the sidebar effect
                 const normalizedEffectName = await this.normalizeString(effect);
+                // TODO: Use MidiQOL socketed method to apply the effect
                 if (!effectData[normalizedEffectName]) {
                     const appliedEffect = chrisPremades.utils.effectUtils.getSidebarEffectData(effect);
                     const effectTarget = await fromUuid(targetUuid);

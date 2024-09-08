@@ -93,7 +93,7 @@ export const effectTables = {
         '9,11' : 'Severly Wounded',
         '12,16' : 'Edge of Death',
         '17,19' : 'Blinded',
-        '20,20' : 'Dead'
+        '20,20' : 'Decapitated' // DECAPITATED USES EFFECT MACRO
     },
     Piercing: {},
     Poison: {

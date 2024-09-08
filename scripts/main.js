@@ -93,7 +93,7 @@ export const critsRevisited = {
 
 // Add the helperFunctions and itemMacros to critsRevisited
 critsRevisited.helperFunctions = helperFunctions;
-critsRevisited.itemMacros = effectMacros;
+critsRevisited.effectMacros = effectMacros;
 critsRevisited.effectData = effectData;
 
 // Attach critsRevisited to the game object once Foundry is fully loaded
