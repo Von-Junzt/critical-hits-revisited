@@ -1,10 +1,10 @@
 // Description: This script contains the main functions for the module.
 console.log("Critical Hits Revisited is starting to load!");
 
-import {helperFunctions} from './helperFunctions.js';
-import {effectMacros} from "./effectMacros.js";
-import {effectTables} from "./effectTables.js";
-import {effectData} from "../lib/effecData.js";
+import {helperFunctions} from '../lib/helperfunctions/helperFunctions.js';
+import {effectMacros} from "../lib/effectmacros/effectMacros.js";
+import {effectTables} from "../lib/data/effectTables.js";
+import {effectData} from "../lib/data/effecData.js";
 
 export const critsRevisited = {
     // damageTypes that have no critical hits or fumbles
