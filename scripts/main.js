@@ -2,7 +2,7 @@
 console.log("Critical Hits Revisited is starting to load!");
 
 import {helperFunctions} from './helperFunctions.js';
-import {itemMacros} from "./itemMacros.js";
+import {effectMacros} from "./effectMacros.js";
 import {effectTables} from "./effectTables.js";
 import {effectData} from "../lib/effecData.js";
 
@@ -93,7 +93,7 @@ export const critsRevisited = {
 
 // Add the helperFunctions and itemMacros to critsRevisited
 critsRevisited.helperFunctions = helperFunctions;
-critsRevisited.itemMacros = itemMacros;
+critsRevisited.itemMacros = effectMacros;
 critsRevisited.effectData = effectData;
 
 // Attach critsRevisited to the game object once Foundry is fully loaded
