@@ -1,7 +1,7 @@
 // Description: This script contains the main functions for the module.
 console.log("Critical Hits Revisited is starting to load!");
 
-import {helperFunctions} from '../lib/helperfunctions/helperFunctions.js';
+import {utils} from '../lib/utils/utils.js';
 import {effectMacros} from "../lib/effectmacros/effectMacros.js";
 import {effectTables} from "../lib/data/effectTables.js";
 import {effectData} from "../lib/data/effecData.js";
@@ -15,7 +15,7 @@ export const critsRevisited = {
     rollOnTable: async function (tableName, targetUuid, rollTableID,) {
         let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
         let rollTableIndex = await rollTablePack.getIndex();
-        let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({rollMode: "gmroll"}));
+        let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({displayChat: true, rollMode: "publicroll"}));
         // console.log(rollResult);
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
@@ -26,7 +26,7 @@ export const critsRevisited = {
             let appliedEffect = effectTables[tableName][rollRange];
             // console.log(appliedEffect)
             if (appliedEffect) {
-                await helperFunctions.prepareEffects(appliedEffect, targetUuid, tableName);
+                await utils.prepareEffects(appliedEffect, targetUuid, tableName);
             }
         }
     },
@@ -39,7 +39,7 @@ export const critsRevisited = {
         // make sure the attackDamageType is not in the undesiredTypes array
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
-            let tableName = helperFunctions.capitalizeFirstLetter(attackDamageType);
+            let tableName = utils.capitalizeFirstLetter(attackDamageType);
             let targetUuid = workflowObject.damageItem.actorUuid;
             let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
             let rollTableIndex = await rollTablePack.getIndex(); // Changed line
@@ -66,7 +66,7 @@ export const critsRevisited = {
             // Check if the target has immunities to the damage types. If so, remove them from the array.
             let targetUuid = workflowObject.damageItem.actorUuid;
             let damageDetails = await Promise.all(workflowObject.damageDetail.map(async detail => {
-                const isImmune = await helperFunctions.checkImmunity(detail.type, targetUuid, detail.type);
+                const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type);
                 if (!isImmune) {
                     return [detail.type, detail.damage];
                 }
@@ -92,7 +92,7 @@ export const critsRevisited = {
 }
 
 // Add the helperFunctions and itemMacros to critsRevisited
-critsRevisited.helperFunctions = helperFunctions;
+critsRevisited.utils = utils;
 critsRevisited.effectMacros = effectMacros;
 critsRevisited.effectData = effectData;
 
