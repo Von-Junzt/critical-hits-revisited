@@ -12,19 +12,14 @@ export const critsRevisited = {
     // damageTypes that are not preferred for critical hits
     nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
     // this function gathers the rollTableID from the compendium and rolls on the table
-    rollOnTable: async function (tableName, targetUuid, rollTableID,) {
-        let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
-        let rollTableIndex = await rollTablePack.getIndex();
-        let rollResult = await rollTablePack.getDocument(rollTableID).then(table => table.draw({displayChat: true, rollMode: "publicroll"}));
-        // console.log(rollResult);
+    rollOnTable: async function (tableName, targetUuid) {
+        let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
             // clean the tableName from whitespaces
             tableName = result.parent.name.replace(/\s+/g, '');
-            // console.log(tableName);
             // get the linked effects
             let appliedEffect = effectTables[tableName][rollRange];
-            // console.log(appliedEffect)
             if (appliedEffect) {
                 await utils.prepareEffects(appliedEffect, targetUuid, tableName);
             }
@@ -41,10 +36,11 @@ export const critsRevisited = {
             // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
             let tableName = utils.capitalizeFirstLetter(attackDamageType);
             let targetUuid = workflowObject.damageItem.actorUuid;
-            let rollTablePack = game.packs.get("critical-hits-revisited.critical-hits-tables");
-            let rollTableIndex = await rollTablePack.getIndex(); // Changed line
-            let rollTableID = rollTableIndex.find(t => t.name === tableName)._id; // Changed line
-            await this.rollOnTable(tableName, targetUuid, rollTableID); // Changed line
+            if(!game.tables.getName(tableName)) {
+               ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+               return;
+            }
+            await this.rollOnTable(tableName, targetUuid); // Changed line
         }
     },
     // Called from the itemMacro, when a critical fumble is rolled. In the call, the workflowObject of the attack has to be passed.
@@ -52,10 +48,12 @@ export const critsRevisited = {
         let attackDamageType = workflowObject.item.labels.damageType;
         if (!this.undesiredTypes.includes(attackDamageType)) {
             // get the attacker
-            // console.log(workflowObject)
             let targetUuid = workflowObject.actor.uuid;
-            let rollTableID = "TIJizkcNCKbq2qWD";
-            await this.rollOnTable('CriticalFumbles', targetUuid, rollTableID);
+            if (!game.tables.getName('Critical Fumbles')) {
+                ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
+                return;
+            }
+            await this.rollOnTable('Critical Fumbles', targetUuid);
         }
     },
     // Gets the attack damageTypes from the workflowObject and returns the most relevant one.
