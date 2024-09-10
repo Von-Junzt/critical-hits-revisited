@@ -70,7 +70,7 @@
     }
   ],
   "esmodules": [
-    "scripts/main.js",
+    "main.js",
     "lib/data/effectTables.js"
   ]
 }
