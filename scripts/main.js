@@ -11,20 +11,7 @@ export const critsRevisited = {
     undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
     // damageTypes that are not preferred for critical hits
     nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
-    // this function gathers the rollTableID from the compendium and rolls on the table
-    rollOnTable: async function (tableName, targetUuid) {
-        let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
-        for (let result of rollResult.results) {
-            let rollRange = result.range.toString();
-            // clean the tableName from whitespaces
-            tableName = result.parent.name.replace(/\s+/g, '');
-            // get the linked effects
-            let appliedEffect = effectTables[tableName][rollRange];
-            if (appliedEffect) {
-                await utils.prepareEffects(appliedEffect, targetUuid, tableName);
-            }
-        }
-    },
+
     // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject of the attack has to be passed.
     rollForCriticalHits: async function (workflowObject) {
         let attackDamageType = await this.getAttackDamageType(workflowObject);
@@ -54,6 +41,20 @@ export const critsRevisited = {
                 return;
             }
             await this.rollOnTable('Critical Fumbles', targetUuid);
+        }
+    },
+    // this function gathers the rollTableID from the compendium and rolls on the table
+    rollOnTable: async function (tableName, targetUuid) {
+        let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
+        for (let result of rollResult.results) {
+            let rollRange = result.range.toString();
+            // clean the tableName from whitespaces
+            tableName = result.parent.name.replace(/\s+/g, '');
+            // get the linked effects
+            let effects = effectTables[tableName][rollRange];
+            if (effects) {
+                await utils.prepareEffects(effects, targetUuid, tableName);
+            }
         }
     },
     // Gets the attack damageTypes from the workflowObject and returns the most relevant one.
