@@ -15,33 +15,61 @@ export const critsRevisited = {
     // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject of the attack has to be passed.
     rollForCriticalHits: async function (workflowObject) {
         let attackDamageType = await this.getAttackDamageType(workflowObject);
-        if (attackDamageType === null || typeof attackDamageType !== 'string') {
+        if (attackDamageType === null || typeof attackDamageType !== 'string' || this.undesiredTypes.includes(attackDamageType)) {
             return;
         }
-        // make sure the attackDamageType is not in the undesiredTypes array
-        if (!this.undesiredTypes.includes(attackDamageType)) {
-            // capitalize the first letter of the attackDamageType to fit the rollTable name in Foundry compendium
-            let tableName = utils.capitalizeFirstLetter(attackDamageType);
-            let targetUuid = workflowObject.damageItem.actorUuid;
-            if(!game.tables.getName(tableName)) {
-               ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
-               return;
+        let tableName = utils.capitalizeFirstLetter(attackDamageType);
+        if(!game.tables.getName(tableName)) {
+            ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+            return;
+        }
+        let targetUuid;
+        if(workflowObject.damageList.length > 1) {
+            for (const item of workflowObject.damageList) {
+                if(item.actorUuid) {
+                    targetUuid = item.actorUuid;
+                    await this.rollOnTable(tableName, targetUuid);
+                }
             }
-            await this.rollOnTable(tableName, targetUuid); // Changed line
+        } else {
+            let targetUuid = workflowObject.damageList[0].actorUuid;
+            await this.rollOnTable(tableName, targetUuid);
+        }
+    },
+    // Called from the itemMacro, when a saving throw is fumbled. In the call, the workflowObject of the attack has to be passed.
+    rollForFumbledSaves: async function (workflowObject) {
+        if(!workflowObject.damageDetail) {
+            return;
+        }
+        let attackDamageType = await this.getAttackDamageType(workflowObject);
+        if (attackDamageType === null || typeof attackDamageType !== 'string' || this.undesiredTypes.includes(attackDamageType)) {
+            return;
+        }
+        let tableName = utils.capitalizeFirstLetter(attackDamageType);
+        if(!game.tables.getName(tableName)) {
+            ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+            return;
+        }
+        let targetUuid;
+        for(const token of workflowObject.fumbleSaves) {
+            if(token.document.uuid) {
+                targetUuid = token.actor.uuid;
+                await this.rollOnTable(tableName, targetUuid);
+            }
         }
     },
     // Called from the itemMacro, when a critical fumble is rolled. In the call, the workflowObject of the attack has to be passed.
     rollForCriticalFumbles: async function (workflowObject) {
         let attackDamageType = workflowObject.item.labels.damageType;
-        if (!this.undesiredTypes.includes(attackDamageType)) {
-            // get the attacker
-            let targetUuid = workflowObject.actor.uuid;
-            if (!game.tables.getName('Critical Fumbles')) {
-                ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
-                return;
-            }
-            await this.rollOnTable('Critical Fumbles', targetUuid);
+        if(this.undesiredTypes.includes(attackDamageType)) {
+            return;
         }
+        let targetUuid = workflowObject.actor.uuid;
+        if (!game.tables.getName('Critical Fumbles')) {
+            ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
+            return;
+        }
+        await this.rollOnTable('Critical Fumbles', targetUuid);
     },
     // this function gathers the rollTableID from the compendium and rolls on the table
     rollOnTable: async function (tableName, targetUuid) {
