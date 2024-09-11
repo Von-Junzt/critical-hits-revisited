@@ -7,9 +7,9 @@ import {effectTables} from "./lib/data/effectTables.js";
 import {effectData} from "./lib/data/effecData.js";
 
 export const critsRevisited = {
-    // damageTypes that have no critical hits or fumbles
+    // damageTypes that have no critical hits or fumbles and will end the function early
     undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
-    // damageTypes that are not preferred for critical hits
+    // damageTypes that are not preferred for critical hits amd will be used as a last resort
     nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
 
     // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject of the attack has to be passed.
@@ -24,16 +24,11 @@ export const critsRevisited = {
             return;
         }
         let targetUuid;
-        if(workflowObject.damageList.length > 1) {
-            for (const item of workflowObject.damageList) {
-                if(item.actorUuid) {
-                    targetUuid = item.actorUuid;
-                    await this.rollOnTable(tableName, targetUuid);
-                }
+        for (const item of workflowObject.damageList) {
+            if(item.actorUuid) {
+                targetUuid = item.actorUuid;
+                await this.rollOnTable(tableName, targetUuid);
             }
-        } else {
-            let targetUuid = workflowObject.damageList[0].actorUuid;
-            await this.rollOnTable(tableName, targetUuid);
         }
     },
     // Called from the itemMacro, when a saving throw is fumbled. In the call, the workflowObject of the attack has to be passed.
@@ -81,7 +76,7 @@ export const critsRevisited = {
             // get the linked effects
             let effects = effectTables[tableName][rollRange];
             if (effects) {
-                await utils.prepareEffects(effects, targetUuid, tableName);
+                await utils.applyEffects(effects, targetUuid, tableName);
             }
         }
     },
