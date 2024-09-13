@@ -15,60 +15,56 @@ export const critsRevisited = {
     // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject and the critState
     // string have to be passed.
     rollForCriticalEvents: async function (workflowObject, critState) {
-        let attackDamageType = await this.getAttackDamageType(workflowObject);
-        if (attackDamageType === null || typeof attackDamageType !== 'string' || this.undesiredTypes.includes(attackDamageType)) {
+        let attackDamageType = "Critical Fumbles";
+        if (critState !== "isFumble") {
+            ui.notifications.info('isFumble is not set to true. Critical Hits Revisited will run.');
+            attackDamageType = await this.getAttackDamageType(workflowObject.damageDetail, workflowObject.damageItem)
+        } else if (!attackDamageType || this.undesiredTypes.includes(attackDamageType)) {
             return;
         }
-        const critEventHandler = {
-            isCritical: async () =>{
-                let tableName = utils.capitalizeFirstLetter(attackDamageType);
-                if(!game.tables.getName(tableName)) {
-                    ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
-                    return;
-                }
-                let targetUuid;
-                for (const item of workflowObject.damageList) {
-                    if(item.actorUuid) {
-                        targetUuid = item.actorUuid;
-                        await this.rollOnTable(tableName, targetUuid);
-                    }
-                }
-            },
-            isFumble: async () => {
-                let attackDamageType = workflowObject.item.labels.damageType;
-                if(this.undesiredTypes.includes(attackDamageType)) {
-                    return;
-                }
-                let targetUuid = workflowObject.actor.uuid;
-                if (!game.tables.getName('Critical Fumbles')) {
-                    ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
-                    return;
-                }
-                await this.rollOnTable('Critical Fumbles', targetUuid);
-            },
-            isFumbledSave: async () => {
-                let attackDamageType = await this.getAttackDamageType(workflowObject);
-                if (attackDamageType === null || typeof attackDamageType !== 'string' || this.undesiredTypes.includes(attackDamageType)) {
-                    return;
-                }
-                let tableName = utils.capitalizeFirstLetter(attackDamageType);
-                if(!game.tables.getName(tableName)) {
-                    ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
-                    return;
-                }
-                let targetUuid;
-                for(const token of workflowObject.fumbleSaves) {
-                    if(token.document.uuid) {
-                        targetUuid = token.actor.uuid;
-                        await this.rollOnTable(tableName, targetUuid);
-                    }
-                }
-            }
-        }
 
+        const critEventHandler = {
+            isCritical: async () => this.handleCriticalEvent(workflowObject.damageList, attackDamageType),
+            isFumble: async () => this.handleFumbleEvent(workflowObject.actor.uuid),
+            isFumbledSave: async () => this.handleFumbledSaveEvent(workflowObject.fumbleSaves, attackDamageType)
+        };
         await critEventHandler[critState]();
         console.log("Critical Hits Revisited: Critical Event rolled!");
         return true;
+    },
+    handleCriticalEvent: async function (damageList, attackDamageType) {
+        ui.notifications.info(`Critical Hits Revisited: Critical Hit!`);
+        let tableName = utils.capitalizeFirstLetter(attackDamageType);
+        if (!game.tables.getName(tableName)) {
+            ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+            return;
+        }
+        for (const token of damageList) {
+            if (token.actorUuid) {
+                await this.rollOnTable(tableName, token.actorUuid);
+            }
+        }
+    },
+    handleFumbleEvent: async function (actorUuid) {
+        ui.notifications.info(`Critical Hits Revisited: Critical Fumble!`);
+        if (!game.tables.getName('Critical Fumbles')) {
+            ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
+            return;
+        }
+        await this.rollOnTable('Critical Fumbles', actorUuid);
+    },
+    handleFumbledSaveEvent: async function (fumbleSaves, attackDamageType) {
+        ui.notifications.info(`Critical Hits Revisited: Fumbled Save!`);
+        let tableName = utils.capitalizeFirstLetter(attackDamageType);
+        if (!game.tables.getName(tableName)) {
+            ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+            return;
+        }
+        for (const token of fumbleSaves) {
+            if (token.document.uuid) {
+                await this.rollOnTable(tableName, token.actor.uuid);
+            }
+        }
     },
     // this function gathers the rollTableID from the compendium and rolls on the table
     rollOnTable: async function (tableName, targetUuid) {
@@ -85,24 +81,24 @@ export const critsRevisited = {
         }
     },
     // Gets the attack damageTypes from the workflowObject and returns the most relevant one.
-    getAttackDamageType: async function (workflowObject) {
+    getAttackDamageType: async function (damageDetail, damageItem) {
         let attackDamageType;
         // check if there are multiple damage types
-        if (workflowObject.damageDetail.length > 0) {
+        if (damageDetail.length > 0) {
             // Check if the target has immunities to the damage types. If so, remove them from the array.
-            let targetUuid = workflowObject.damageItem.actorUuid;
-            let damageDetails = await Promise.all(workflowObject.damageDetail.map(async detail => {
+            let targetUuid = damageItem.actorUuid;
+            let filteredDetails = await Promise.all(damageDetail.map(async detail => {
                 const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type);
                 if (!isImmune) {
                     return [detail.type, detail.damage];
                 }
             }));
             // Filter out null values from the array. If the array is empty after removing immunities, return null. rollForCriticalHits will handle this case.
-            damageDetails = damageDetails.filter(detail => detail !== undefined);
-            if(damageDetails.length === 0) return null;
+            filteredDetails = filteredDetails.filter(detail => detail !== undefined);
+            if(filteredDetails.length === 0) return null;
             // Sort the array by damage value and push the highest damage types to a new array.
-            let maxDamageValue = Math.max(...damageDetails.map(([_, damage]) => damage));
-            let maxDamageTypes = damageDetails.filter(([_, damage]) => damage === maxDamageValue);
+            let maxDamageValue = Math.max(...filteredDetails.map(([_, damage]) => damage));
+            let maxDamageTypes = filteredDetails.filter(([_, damage]) => damage === maxDamageValue);
             //  If there are multiple damage types with the same damage value, choose the first one that is not bludgeoning, slashing, or piercing.
             if (maxDamageTypes.length > 1) {
                 let preferredType = maxDamageTypes.find(([type]) => !this.nonPreferredTypes.includes(type));
@@ -111,7 +107,7 @@ export const critsRevisited = {
                 attackDamageType = maxDamageTypes[0][0];
             }
         } else {
-            attackDamageType = workflowObject.damageDetail[0]?.type || null;
+            attackDamageType = damageDetail[0]?.type || null;
         }
         return attackDamageType;
     }
