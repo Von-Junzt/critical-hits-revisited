@@ -22,28 +22,28 @@ export const critsRevisited = {
             return;
         }
         const critEventHandler = {
-            isCritical: async () => this.handleCriticalEvent(workflowObject.damageList, attackDamageType),
-            isFumble: async () => this.handleFumbleEvent(workflowObject.actor.uuid),
-            isFumbledSave: async () => this.handleFumbledSaveEvent(workflowObject.fumbleSaves, attackDamageType)
+            isCritical: async () => this.handleCritEvents(workflowObject.damageList, attackDamageType),
+            isFumble: async () => this.handleCritEvents(workflowObject.actor.uuid, attackDamageType),
+            isFumbledSave: async () => this.handleCritEvents(workflowObject.fumbleSaves, attackDamageType)
         };
         await critEventHandler[critState]();
         console.log("Critical Hits Revisited: Critical Event rolled!");
         return true;
     },
-    handleCriticalEvent: async function (targets, attackDamageType) {
-        for (const token of targets) {
-            if (token.actorUuid) {
-                await this.rollOnTable(attackDamageType, token.actorUuid);
+    handleCritEvents: async function (targets, attackDamageType) {
+        if (typeof(targets) === "string") {
+            await this.rollOnTable(attackDamageType, targets);
+        } else if (targets instanceof Set) {
+            for (const token of targets) {
+                if (token.document.uuid) {
+                    await this.rollOnTable(attackDamageType, token.actor.uuid);
+                }
             }
-        }
-    },
-    handleFumbleEvent: async function (target) {
-        await this.rollOnTable('Critical Fumbles', target);
-    },
-    handleFumbledSaveEvent: async function (targets, attackDamageType) {
-        for (const token of targets) {
-            if (token.document.uuid) {
-                await this.rollOnTable(attackDamageType, token.actor.uuid);
+        } else {
+            for (const token of targets) {
+                if (token.actorUuid) {
+                    await this.rollOnTable(attackDamageType, token.actorUuid);
+                }
             }
         }
     },
