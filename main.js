@@ -21,7 +21,6 @@ export const critsRevisited = {
         } else if (!attackDamageType || this.undesiredTypes.includes(attackDamageType)) {
             return;
         }
-
         const critEventHandler = {
             isCritical: async () => this.handleCriticalEvent(workflowObject.damageList, attackDamageType),
             isFumble: async () => this.handleFumbleEvent(workflowObject.actor.uuid),
@@ -31,24 +30,23 @@ export const critsRevisited = {
         console.log("Critical Hits Revisited: Critical Event rolled!");
         return true;
     },
-    handleCriticalEvent: async function (damageList, attackDamageType) {
-        for (const token of damageList) {
+    handleCriticalEvent: async function (targets, attackDamageType) {
+        for (const token of targets) {
             if (token.actorUuid) {
                 await this.rollOnTable(attackDamageType, token.actorUuid);
             }
         }
     },
-    handleFumbleEvent: async function (actorUuid) {
-        await this.rollOnTable('Critical Fumbles', actorUuid);
+    handleFumbleEvent: async function (target) {
+        await this.rollOnTable('Critical Fumbles', target);
     },
-    handleFumbledSaveEvent: async function (fumbleSaves, attackDamageType) {
-        for (const token of fumbleSaves) {
+    handleFumbledSaveEvent: async function (targets, attackDamageType) {
+        for (const token of targets) {
             if (token.document.uuid) {
                 await this.rollOnTable(attackDamageType, token.actor.uuid);
             }
         }
     },
-    // this function gathers the rollTableID from the compendium and rolls on the table
     rollOnTable: async function (attackDamageType, targetUuid) {
         let tableName = utils.capitalizeFirstLetter(attackDamageType);
         let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
@@ -63,12 +61,10 @@ export const critsRevisited = {
             }
         }
     },
-    // Gets the attack damageTypes from the workflowObject and returns the most relevant one.
     getAttackDamageType: async function (damageDetail, damageItem) {
+        if (damageDetail.length === 0) return;
         let attackDamageType;
-        // check if there are multiple damage types
         if (damageDetail.length > 0) {
-            // Check if the target has immunities to the damage types. If so, remove them from the array.
             let targetUuid = damageItem.actorUuid;
             let filteredDetails = await Promise.all(damageDetail.map(async detail => {
                 const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type);
@@ -76,13 +72,10 @@ export const critsRevisited = {
                     return [detail.type, detail.damage];
                 }
             }));
-            // Filter out null values from the array. If the array is empty after removing immunities, return null. rollForCriticalHits will handle this case.
             filteredDetails = filteredDetails.filter(detail => detail !== undefined);
             if(filteredDetails.length === 0) return null;
-            // Sort the array by damage value and push the highest damage types to a new array.
             let maxDamageValue = Math.max(...filteredDetails.map(([_, damage]) => damage));
             let maxDamageTypes = filteredDetails.filter(([_, damage]) => damage === maxDamageValue);
-            //  If there are multiple damage types with the same damage value, choose the first one that is not bludgeoning, slashing, or piercing.
             if (maxDamageTypes.length > 1) {
                 let preferredType = maxDamageTypes.find(([type]) => !this.nonPreferredTypes.includes(type));
                 attackDamageType = preferredType ? preferredType[0] : maxDamageTypes[0][0];
