@@ -32,37 +32,29 @@ export const critsRevisited = {
         return true;
     },
     handleCriticalEvent: async function (damageList, attackDamageType) {
-        let tableName = utils.capitalizeFirstLetter(attackDamageType);
-        if (!game.tables.getName(tableName)) {
-            return;
-        }
         for (const token of damageList) {
             if (token.actorUuid) {
-                await this.rollOnTable(tableName, token.actorUuid);
+                await this.rollOnTable(attackDamageType, token.actorUuid);
             }
         }
     },
     handleFumbleEvent: async function (actorUuid) {
-        if (!game.tables.getName('Critical Fumbles')) {
-            ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
-            return;
-        }
         await this.rollOnTable('Critical Fumbles', actorUuid);
     },
     handleFumbledSaveEvent: async function (fumbleSaves, attackDamageType) {
+        for (const token of fumbleSaves) {
+            if (token.document.uuid) {
+                await this.rollOnTable(attackDamageType, token.actor.uuid);
+            }
+        }
+    },
+    // this function gathers the rollTableID from the compendium and rolls on the table
+    rollOnTable: async function (attackDamageType, targetUuid) {
         let tableName = utils.capitalizeFirstLetter(attackDamageType);
         if (!game.tables.getName(tableName)) {
             ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
             return;
         }
-        for (const token of fumbleSaves) {
-            if (token.document.uuid) {
-                await this.rollOnTable(tableName, token.actor.uuid);
-            }
-        }
-    },
-    // this function gathers the rollTableID from the compendium and rolls on the table
-    rollOnTable: async function (tableName, targetUuid) {
         let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
