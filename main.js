@@ -12,59 +12,63 @@ export const critsRevisited = {
     // damageTypes that are not preferred for critical hits amd will be used as a last resort
     nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
 
-    // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject of the attack has to be passed.
-    rollForCriticalHits: async function (workflowObject) {
+    // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject and the critState
+    // string have to be passed.
+    rollForCriticalEvents: async function (workflowObject, critState) {
         let attackDamageType = await this.getAttackDamageType(workflowObject);
         if (attackDamageType === null || typeof attackDamageType !== 'string' || this.undesiredTypes.includes(attackDamageType)) {
             return;
         }
-        let tableName = utils.capitalizeFirstLetter(attackDamageType);
-        if(!game.tables.getName(tableName)) {
-            ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
-            return;
-        }
-        let targetUuid;
-        for (const item of workflowObject.damageList) {
-            if(item.actorUuid) {
-                targetUuid = item.actorUuid;
-                await this.rollOnTable(tableName, targetUuid);
+        const critEventHandler = {
+            isCritical: async () =>{
+                let tableName = utils.capitalizeFirstLetter(attackDamageType);
+                if(!game.tables.getName(tableName)) {
+                    ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+                    return;
+                }
+                let targetUuid;
+                for (const item of workflowObject.damageList) {
+                    if(item.actorUuid) {
+                        targetUuid = item.actorUuid;
+                        await this.rollOnTable(tableName, targetUuid);
+                    }
+                }
+            },
+            isFumble: async () => {
+                let attackDamageType = workflowObject.item.labels.damageType;
+                if(this.undesiredTypes.includes(attackDamageType)) {
+                    return;
+                }
+                let targetUuid = workflowObject.actor.uuid;
+                if (!game.tables.getName('Critical Fumbles')) {
+                    ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
+                    return;
+                }
+                await this.rollOnTable('Critical Fumbles', targetUuid);
+            },
+            isFumbledSave: async () => {
+                let attackDamageType = await this.getAttackDamageType(workflowObject);
+                if (attackDamageType === null || typeof attackDamageType !== 'string' || this.undesiredTypes.includes(attackDamageType)) {
+                    return;
+                }
+                let tableName = utils.capitalizeFirstLetter(attackDamageType);
+                if(!game.tables.getName(tableName)) {
+                    ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+                    return;
+                }
+                let targetUuid;
+                for(const token of workflowObject.fumbleSaves) {
+                    if(token.document.uuid) {
+                        targetUuid = token.actor.uuid;
+                        await this.rollOnTable(tableName, targetUuid);
+                    }
+                }
             }
         }
-    },
-    // Called from the itemMacro, when a saving throw is fumbled. In the call, the workflowObject of the attack has to be passed.
-    rollForFumbledSaves: async function (workflowObject) {
-        if(!workflowObject.damageDetail) {
-            return;
-        }
-        let attackDamageType = await this.getAttackDamageType(workflowObject);
-        if (attackDamageType === null || typeof attackDamageType !== 'string' || this.undesiredTypes.includes(attackDamageType)) {
-            return;
-        }
-        let tableName = utils.capitalizeFirstLetter(attackDamageType);
-        if(!game.tables.getName(tableName)) {
-            ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
-            return;
-        }
-        let targetUuid;
-        for(const token of workflowObject.fumbleSaves) {
-            if(token.document.uuid) {
-                targetUuid = token.actor.uuid;
-                await this.rollOnTable(tableName, targetUuid);
-            }
-        }
-    },
-    // Called from the itemMacro, when a critical fumble is rolled. In the call, the workflowObject of the attack has to be passed.
-    rollForCriticalFumbles: async function (workflowObject) {
-        let attackDamageType = workflowObject.item.labels.damageType;
-        if(this.undesiredTypes.includes(attackDamageType)) {
-            return;
-        }
-        let targetUuid = workflowObject.actor.uuid;
-        if (!game.tables.getName('Critical Fumbles')) {
-            ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
-            return;
-        }
-        await this.rollOnTable('Critical Fumbles', targetUuid);
+
+        await critEventHandler[critState]();
+        console.log("Critical Hits Revisited: Critical Event rolled!");
+        return true;
     },
     // this function gathers the rollTableID from the compendium and rolls on the table
     rollOnTable: async function (tableName, targetUuid) {
