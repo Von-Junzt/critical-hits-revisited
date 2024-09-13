@@ -17,7 +17,6 @@ export const critsRevisited = {
     rollForCriticalEvents: async function (workflowObject, critState) {
         let attackDamageType = "Critical Fumbles";
         if (critState !== "isFumble") {
-            ui.notifications.info('isFumble is not set to true. Critical Hits Revisited will run.');
             attackDamageType = await this.getAttackDamageType(workflowObject.damageDetail, workflowObject.damageItem)
         } else if (!attackDamageType || this.undesiredTypes.includes(attackDamageType)) {
             return;
@@ -33,10 +32,8 @@ export const critsRevisited = {
         return true;
     },
     handleCriticalEvent: async function (damageList, attackDamageType) {
-        ui.notifications.info(`Critical Hits Revisited: Critical Hit!`);
         let tableName = utils.capitalizeFirstLetter(attackDamageType);
         if (!game.tables.getName(tableName)) {
-            ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
             return;
         }
         for (const token of damageList) {
@@ -46,7 +43,6 @@ export const critsRevisited = {
         }
     },
     handleFumbleEvent: async function (actorUuid) {
-        ui.notifications.info(`Critical Hits Revisited: Critical Fumble!`);
         if (!game.tables.getName('Critical Fumbles')) {
             ui.notifications.warn(`Critical Hits Revisited: No table found for Critical Fumbles.`);
             return;
@@ -54,7 +50,6 @@ export const critsRevisited = {
         await this.rollOnTable('Critical Fumbles', actorUuid);
     },
     handleFumbledSaveEvent: async function (fumbleSaves, attackDamageType) {
-        ui.notifications.info(`Critical Hits Revisited: Fumbled Save!`);
         let tableName = utils.capitalizeFirstLetter(attackDamageType);
         if (!game.tables.getName(tableName)) {
             ui.notifications.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
