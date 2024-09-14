@@ -15,10 +15,13 @@ export const critsRevisited = {
     // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject and the critState
     // string have to be passed.
     rollForCriticalEvents: async function (workflowObject, critState) {
+        console.log("Critical Hits Revisited: Rolling for critical event...");
         let attackDamageType = "Critical Fumbles";
         if (critState !== "isFumble") {
             attackDamageType = await this.getAttackDamageType(workflowObject.damageDetail, workflowObject.damageItem)
-        } else if (!attackDamageType || this.undesiredTypes.includes(attackDamageType)) {
+        }
+        if (!attackDamageType || this.undesiredTypes.includes(attackDamageType)) {
+            console.warn("Critical Hits Revisited: No critical hit or fumble for this damage type.");
             return;
         }
         const critEventHandler = {
@@ -43,9 +46,7 @@ export const critsRevisited = {
         let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
-            // clean the tableName from whitespaces
             tableName = result.parent.name.replace(/\s+/g, '');
-            // get the linked effects
             let effects = effectTables[tableName][rollRange];
             if (effects) {
                 await utils.applyEffects(effects, targetUuid, tableName);
@@ -53,13 +54,19 @@ export const critsRevisited = {
         }
     },
     getAttackDamageType: async function (damageDetail, damageItem) {
-        if (damageDetail.length === 0) return;
+        if (damageDetail.length === 0) {
+            console.warn("Critical Hits Revisited: No damage detail found.");
+            return;
+        }
         const targetUuid = damageItem.actorUuid;
         const filteredDetails = (await Promise.all(damageDetail.map(async detail => {
             const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type);
             return isImmune ? null : [detail.type, detail.damage];
         }))).filter(detail => detail !== null);
-        if (filteredDetails.length === 0) return null;
+        if (filteredDetails.length === 0) {
+            console.warn("Critical Hits Revisited: No valid damage types found.");
+            return null;
+        }
         const maxDamageValue = Math.max(...filteredDetails.map(([_, damage]) => damage));
         const maxDamageTypes = filteredDetails.filter(([_, damage]) => damage === maxDamageValue);
         if (maxDamageTypes.length > 1) {
