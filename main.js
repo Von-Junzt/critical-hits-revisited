@@ -23,7 +23,7 @@ export const critsRevisited = {
         }
         const critEventHandler = {
             isCritical: async () => this.handleCritEvents(workflowObject.damageList, attackDamageType),
-            isFumble: async () => this.handleCritEvents(workflowObject.actor.uuid, attackDamageType),
+            isFumble: async () => this.rollOnTable(workflowObject.actor.uuid, attackDamageType),
             isFumbledSave: async () => this.handleCritEvents(workflowObject.fumbleSaves, attackDamageType)
         };
         await critEventHandler[critState]();
@@ -31,23 +31,14 @@ export const critsRevisited = {
         return true;
     },
     handleCritEvents: async function (targets, attackDamageType) {
-        if (typeof(targets) === "string") {
-            await this.rollOnTable(attackDamageType, targets);
-        } else if (targets instanceof Set) {
-            for (const token of targets) {
-                if (token.document.uuid) {
-                    await this.rollOnTable(attackDamageType, token.actor.uuid);
-                }
-            }
-        } else {
-            for (const token of targets) {
-                if (token.actorUuid) {
-                    await this.rollOnTable(attackDamageType, token.actorUuid);
-                }
+        for (const token of targets) {
+            const uuid = token.actorUuid ?? token.document?.actor.uuid;
+            if (uuid) {
+                await this.rollOnTable(uuid, attackDamageType);
             }
         }
     },
-    rollOnTable: async function (attackDamageType, targetUuid) {
+    rollOnTable: async function (targetUuid, attackDamageType) {
         let tableName = utils.capitalizeFirstLetter(attackDamageType);
         let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
         for (let result of rollResult.results) {
