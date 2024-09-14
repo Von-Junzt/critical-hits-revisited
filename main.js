@@ -54,29 +54,20 @@ export const critsRevisited = {
     },
     getAttackDamageType: async function (damageDetail, damageItem) {
         if (damageDetail.length === 0) return;
-        let attackDamageType;
-        if (damageDetail.length > 0) {
-            let targetUuid = damageItem.actorUuid;
-            let filteredDetails = await Promise.all(damageDetail.map(async detail => {
-                const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type);
-                if (!isImmune) {
-                    return [detail.type, detail.damage];
-                }
-            }));
-            filteredDetails = filteredDetails.filter(detail => detail !== undefined);
-            if(filteredDetails.length === 0) return null;
-            let maxDamageValue = Math.max(...filteredDetails.map(([_, damage]) => damage));
-            let maxDamageTypes = filteredDetails.filter(([_, damage]) => damage === maxDamageValue);
-            if (maxDamageTypes.length > 1) {
-                let preferredType = maxDamageTypes.find(([type]) => !this.nonPreferredTypes.includes(type));
-                attackDamageType = preferredType ? preferredType[0] : maxDamageTypes[0][0];
-            } else {
-                attackDamageType = maxDamageTypes[0][0];
-            }
+        const targetUuid = damageItem.actorUuid;
+        const filteredDetails = (await Promise.all(damageDetail.map(async detail => {
+            const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type);
+            return isImmune ? null : [detail.type, detail.damage];
+        }))).filter(detail => detail !== null);
+        if (filteredDetails.length === 0) return null;
+        const maxDamageValue = Math.max(...filteredDetails.map(([_, damage]) => damage));
+        const maxDamageTypes = filteredDetails.filter(([_, damage]) => damage === maxDamageValue);
+        if (maxDamageTypes.length > 1) {
+            const preferredType = maxDamageTypes.find(([type]) => !this.nonPreferredTypes.includes(type));
+            return preferredType ? preferredType[0] : maxDamageTypes[0][0];
         } else {
-            attackDamageType = damageDetail[0]?.type || null;
+            return maxDamageTypes[0][0];
         }
-        return attackDamageType;
     }
 }
 
