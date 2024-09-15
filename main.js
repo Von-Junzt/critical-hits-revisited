@@ -16,10 +16,14 @@ export const critsRevisited = {
     // string have to be passed.
     rollForCriticalEvents: async function (workflowObject, critState) {
         console.log("Critical Hits Revisited: Rolling for critical event...");
-        let attackDamageType = "Critical Fumbles";
-        if (critState !== "isFumble") {
-            attackDamageType = await this.getAttackDamageType(workflowObject.damageDetail, workflowObject.damageItem)
-        }
+        let actionType = workflowObject.item.system.actionType;
+        let attackDamageType = critState !== "isFumble"
+            ? await this.getAttackDamageType(workflowObject.damageDetail, workflowObject.damageItem)
+            : actionType === "rsak"
+                ? "Spell Critical Fumbles"
+                : actionType === "rwak"
+                    ? "Ranged Critical Fumbles"
+                    : "Melee Critical Fumbles";
         if (!attackDamageType || this.undesiredTypes.includes(attackDamageType)) {
             console.warn("Critical Hits Revisited: No critical hit or fumble for this damage type.");
             return;
