@@ -9,17 +9,15 @@ import {effectData} from "./lib/data/effecData.js";
 export const critsRevisited = {
     // damageTypes that have no critical hits or fumbles and will end the function early
     undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
-    // damageTypes that are not preferred for critical hits amd will be used as a last resort
+    // damageTypes that are not preferred for critical hits amd will be used as a "last resort"
     nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
-
-    // Called from the itemMacro, when a critical hit is rolled. In the call, the workflowObject and the critState
-    // string have to be passed.
     rollForCriticalEvents: async function (workflowObject, critState) {
+        //TODO: Add a crit and fumble check for spells without attack rolls,saves but with actionType = "other" and tokens in workflowObject.damageList, eg. Magic Missile. A new roll should be made for each target and if it's a crit/fumble, the effects should be rolled and applied accordingly.
         console.log("Critical Hits Revisited: Rolling for critical event...");
         let actionType = workflowObject.item.system.actionType;
         let attackDamageType = critState !== "isFumble"
             ? await this.getAttackDamageType(workflowObject.damageDetail, workflowObject.damageItem)
-            : actionType === "rsak"
+            : actionType === "rsak" || actionType === "other"
                 ? "Spell Critical Fumbles"
                 : actionType === "rwak"
                     ? "Ranged Critical Fumbles"
@@ -85,6 +83,8 @@ export const critsRevisited = {
         }
     }
 }
+
+Hooks.on
 
 // Add the helperFunctions and itemMacros to critsRevisited
 critsRevisited.utils = utils;
