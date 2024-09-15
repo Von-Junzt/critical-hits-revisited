@@ -81,10 +81,27 @@ export const critsRevisited = {
         } else {
             return maxDamageTypes[0][0];
         }
+    },
+    checkForCriticalHit: async function (workflowObject) {
+        const { isCritical, isFumble, fumbleSaves, item: { system: { actionType } }, damageList } = workflowObject;
+        if (isCritical) {
+            await critsRevisited.rollForCriticalEvents(workflowObject, "isCritical");
+        } else if (isFumble) {
+            await critsRevisited.rollForCriticalEvents(workflowObject, "isFumble");
+        } else if (fumbleSaves.size > 0) {
+            await this.rollForCriticalEvents(workflowObject, "isFumbledSave");
+        } else if (actionType === "other" && damageList.length > 0) {
+            for (const token of damageList) {
+                const roll = await new Roll("1d20").evaluate();
+                roll.toMessage({ flavor: "Rolling for critical hit" });
+                const critState = roll.result === "20" ? "isCritical" : roll.result === "1" ? "isFumble" : null;
+                if (critState) {
+                    await critsRevisited.rollForCriticalEvents(workflowObject, critState);
+                }
+            }
+        }
     }
 }
-
-Hooks.on
 
 // Add the helperFunctions and itemMacros to critsRevisited
 critsRevisited.utils = utils;
@@ -94,6 +111,12 @@ critsRevisited.effectData = effectData;
 // Attach critsRevisited to the game object once Foundry is fully loaded
 Hooks.once('ready', () => {
     game.critsRevisited = critsRevisited;
+});
+
+Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
+    console.warn("Critical Hits Revisited: Checking for critical hit...");
+    console.log(workflow);
+    await critsRevisited.checkForCriticalHit(workflow);
 });
 
 console.log("Critical Hits Revisited has finished loading!");

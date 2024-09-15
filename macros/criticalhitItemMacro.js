@@ -11,7 +11,7 @@ if (args[0].macroPass === 'postActiveEffects') {
 };
  */
 
-// this macro is used to roll for critical hits and fumbles. it is added to the critical hit item in foundry vtt
+/* this macro is used to roll for critical hits and fumbles. it is added to the critical hit item in foundry vtt
 if (args[0].macroPass === 'postActiveEffects') {
     if (workflow.isCritical) {
         game.critsRevisited.rollForCriticalEvents(workflow, "isCritical"); // Critical Hit for item with attack roll and damage roll
@@ -23,10 +23,31 @@ if (args[0].macroPass === 'postActiveEffects') {
         for (const token of workflow.damageList) {
             const roll = await new Roll("1d20").evaluate();
             roll.toMessage({flavor: "Rolling for critical hit"});
-            if (roll.result === 20) {
+            if (roll.result === "20") {
                 game.critsRevisited.rollForCriticalEvents(workflow, "isCritical");
-            } else if (roll.result === 1) {
+            } else if (roll.result === "1") {
                 game.critsRevisited.rollForCriticalEvents(workflow, "isFumble");
+            }
+        }
+    }
+} */
+
+if (args[0].macroPass === 'postActiveEffects') {
+    const { isCritical, isFumble, fumbleSaves, item: { system: { actionType } }, damageList } = workflow;
+
+    if (isCritical) {
+        game.critsRevisited.rollForCriticalEvents(workflow, "isCritical");
+    } else if (isFumble) {
+        game.critsRevisited.rollForCriticalEvents(workflow, "isFumble");
+    } else if (fumbleSaves.size > 0) {
+        game.critsRevisited.rollForCriticalEvents(workflow, "isFumbledSave");
+    } else if (actionType === "other" && damageList.length > 0) {
+        for (const token of damageList) {
+            const roll = await new Roll("1d20").evaluate();
+            roll.toMessage({ flavor: "Rolling for critical hit" });
+            const critState = roll.result === "20" ? "isCritical" : roll.result === "1" ? "isFumble" : null;
+            if (critState) {
+                game.critsRevisited.rollForCriticalEvents(workflow, critState);
             }
         }
     }
