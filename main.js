@@ -47,6 +47,10 @@ export const critsRevisited = {
     },
     rollOnTable: async function (targetUuid, attackDamageType) {
         let tableName = utils.capitalizeFirstLetter(attackDamageType);
+        if (!game.tables.getName(tableName)) {
+            console.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
+            return;
+        }
         let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
