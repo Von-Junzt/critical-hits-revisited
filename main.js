@@ -83,21 +83,26 @@ export const critsRevisited = {
     },
     checkForCriticalHit: async function (workflowObject) {
         const { isCritical, isFumble, fumbleSaves, item: { system: { actionType } }, damageList } = workflowObject;
+        const actionList = ["rsak", "rwak", "mwak"];
         if (isCritical) {
             await critsRevisited.rollForCriticalEvents(workflowObject, "isCritical");
         } else if (isFumble) {
             await critsRevisited.rollForCriticalEvents(workflowObject, "isFumble");
         } else if (fumbleSaves.size > 0) {
             await this.rollForCriticalEvents(workflowObject, "isFumbledSave");
-        } else if (actionType === "other" && damageList.length > 0) {
-            for (const token of damageList) {
-                const roll = await new Roll("1d20").evaluate();
-                roll.toMessage({ flavor: "Rolling for critical hit" });
-                const critState = roll.result === "20" ? "isCritical" : roll.result === "1" ? "isFumble" : null;
-                if (critState) {
-                    await critsRevisited.rollForCriticalEvents(workflowObject, critState);
+        } else if (!actionList.includes(actionType)) {
+            if(damageList) {
+                for (const token of damageList) {
+                    const roll = await new Roll("1d20").evaluate();
+                    roll.toMessage({ flavor: "Rolling for critical hit" });
+                    const critState = roll.result === "20" ? "isCritical" : roll.result === "1" ? "isFumble" : null;
+                    if (critState) {
+                        await critsRevisited.rollForCriticalEvents(workflowObject, critState);
+                    }
                 }
             }
+        } else {
+            console.warn("Critical Hits Revisited: No critical hit recognized.");
         }
     }
 }
