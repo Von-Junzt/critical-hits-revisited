@@ -12,7 +12,6 @@ export const critsRevisited = {
     // damageTypes that are not preferred for critical hits amd will be used as a "last resort"
     nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
     rollForCriticalEvents: async function (workflowObject, critState) {
-        //TODO: Add a crit and fumble check for spells without attack rolls,saves but with actionType = "other" and tokens in workflowObject.damageList, eg. Magic Missile. A new roll should be made for each target and if it's a crit/fumble, the effects should be rolled and applied accordingly.
         console.log("Critical Hits Revisited: Rolling for critical event...");
         let actionType = workflowObject.item.system.actionType;
         let attackDamageType = critState !== "isFumble"
@@ -114,7 +113,7 @@ Hooks.once('ready', () => {
 });
 
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
-    console.warn("Critical Hits Revisited: Checking for critical hit...");
+    console.log("Critical Hits Revisited: Hooked into midi-qol.postActiveEffects, let's check for critical hits!");
     console.log(workflow);
     await critsRevisited.checkForCriticalHit(workflow);
 });
