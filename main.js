@@ -94,7 +94,12 @@ export const critsRevisited = {
             if(damageList) {
                 for (const token of damageList) {
                     const roll = await new Roll("1d20").evaluate();
-                    roll.toMessage({ flavor: "Rolling for critical hit" });
+                    const speakerActor = workflowObject.actor;
+                    roll.toMessage({
+                        content: `Rolling for critical hit`,
+                        speaker: ChatMessage.getSpeaker(speakerActor),
+                        flavor: "Rolling for critical hit"
+                    });
                     const critState = roll.result === "20" ? "isCritical" : roll.result === "1" ? "isFumble" : null;
                     if (critState) {
                         await critsRevisited.rollForCriticalEvents(workflowObject, critState);
