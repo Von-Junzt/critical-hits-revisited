@@ -43,7 +43,7 @@ export const critsRevisited = {
         }
     },
     rollOnTable: async function (targetUuid, attackDamageType) {
-        let tableName = utils.capitalizeFirstLetter(attackDamageType);
+        let tableName = attackDamageType.capitalize();
         if (!game.tables.getName(tableName)) {
             console.warn(`Critical Hits Revisited: No table found for ${tableName}.`);
             return;
