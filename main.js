@@ -11,6 +11,9 @@ export const critsRevisited = {
     undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
     // damageTypes that are not preferred for critical hits amd will be used as a "last resort"
     nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
+    OPTIONS: {
+        other_crits_enabled: false
+    },
     rollForCriticalEvents: async function (workflowObject, critState) {
         console.log("Critical Hits Revisited: Rolling for critical event...");
         let actionType = workflowObject.item.system.actionType;
@@ -90,7 +93,7 @@ export const critsRevisited = {
             await critsRevisited.rollForCriticalEvents(workflowObject, "isFumble");
         } else if (fumbleSaves.size > 0) {
             await this.rollForCriticalEvents(workflowObject, "isFumbledSave");
-        } else if (!actionList.includes(actionType)) {
+        } else if (!actionList.includes(actionType) && options.other_crits_enabled) {
             if(damageList) {
                 for (const token of damageList) {
                     const roll = await new Roll("1d20").evaluate();
