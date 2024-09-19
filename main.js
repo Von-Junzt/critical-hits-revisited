@@ -6,19 +6,13 @@ import {effectMacros} from "./lib/effectmacros/effectMacros.js";
 import {effectTables} from "./lib/data/effectTables.js";
 import {effectData} from "./lib/data/effecData.js";
 
+const UNDESIRED_TYPES = ["none", "no type", "no damage", "temphp", ""];
+const NON_PREFERRED_TYPES = ['bludgeoning', 'slashing', 'piercing'];
+const ACTIONS_LIST = ["rsak", "rwak", "mwak"];
+const UNDESIRED_ACTIONS_LIST = ["heal", "save"];
+const OPTIONS = { CRITS_ON_OTHER_ENABLED: true };
+
 export const critsRevisited = {
-    // damageTypes that have no critical hits or fumbles and will end the function early
-    undesiredTypes: ["none", "no type", "no damage", "temphp", ""],
-    // damageTypes that are not preferred for critical hits amd will be used as a "last resort"
-    nonPreferredTypes: ['bludgeoning', 'slashing', 'piercing'],
-    // action types that should allways trigger critical hits
-    actionsList: ["rsak", "rwak", "mwak"],
-    // action types that should never trigger critical hits in midi-qol.preItemRoll
-    undesiredActionsList: ["heal", "save"],
-    // Options for the module
-    OPTIONS: {
-        CRITS_ON_OTHER_ENABLED: true
-    },
     rollForCriticalEvents: async function (workflow, critState) {
         console.log("Critical Hits Revisited: Rolling for critical event...");
         let actionType = workflow.item.system.actionType;
@@ -29,7 +23,7 @@ export const critsRevisited = {
                 : actionType === "rwak"
                     ? "Ranged Critical Fumbles"
                     : "Melee Critical Fumbles";
-        if (!attackDamageType || this.undesiredTypes.includes(attackDamageType)) {
+        if (!attackDamageType ||  UNDESIRED_TYPES.includes(attackDamageType)) {
             console.warn("Critical Hits Revisited: No critical hit or fumble for this damage type. Aborting script.");
             return;
         }
@@ -83,7 +77,7 @@ export const critsRevisited = {
         const maxDamageValue = Math.max(...filteredDetails.map(([_, damage]) => damage));
         const maxDamageTypes = filteredDetails.filter(([_, damage]) => damage === maxDamageValue);
         if (maxDamageTypes.length > 1) {
-            const preferredType = maxDamageTypes.find(([type]) => !this.nonPreferredTypes.includes(type));
+            const preferredType = maxDamageTypes.find(([type]) => !NON_PREFERRED_TYPES.includes(type));
             return preferredType ? preferredType[0] : maxDamageTypes[0][0];
         } else {
             return maxDamageTypes[0][0];
@@ -115,16 +109,16 @@ Hooks.once('ready', () => {
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
     console.log('Critical Hits Revisited: Hooked into midi-qol.preCheckHits, checking for critical hits...');
-    if(critsRevisited.OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.item.type === "spell" && !critsRevisited.actionsList.includes(workflow.item.system.actionType) && !critsRevisited.undesiredActionsList.includes(workflow.item.system.actionType)) {
+    if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.item.type === "spell" && !ACTIONS_LIST.includes(workflow.item.system.actionType) && !UNDESIRED_ACTIONS_LIST.includes(workflow.item.system.actionType)) {
         console.log("Critical Hits Revisited: This is a spell attack, with no attack action. Checking for critical hits or fumbles...");
         console.log(workflow);
         const attackDamageType = workflow.item.labels.damageTypes.toLowerCase();
-        if (critsRevisited.undesiredTypes.includes(attackDamageType)) {
+        if (UNDESIRED_TYPES.includes(attackDamageType)) {
             console.warn("Critical Hits Revisited: No critical hit or fumble for this damage type. Workflow aborted.");
             workflow = false;
             return;
         } else {
-            const roll = await new Roll("1").evaluate();
+            const roll = await new Roll("1d20").evaluate();
             await roll.toMessage({
                 flavor: "Rolling for critical hit",
                 content: "Rolling for critical hit",
@@ -154,7 +148,7 @@ Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
         console.log("Critical Hits Revisited: Hooked into midi-qol.postActiveEffects.");
         console.log(workflow);
         await critsRevisited.checkForCriticalHit(workflow);
-    } else if(critsRevisited.OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === "isOtherSpellCritical") {
+    } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === "isOtherSpellCritical") {
         const attackDamageType = await critsRevisited.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
         await critsRevisited.handleCritEvents(workflow.damageList, attackDamageType)
         return false;
