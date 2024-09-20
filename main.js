@@ -71,7 +71,7 @@ export const critsRevisited = {
         const targetUuid = damageItem.actorUuid;
         const filteredDetails = [];
         for (const detail of damageDetail) {
-            const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type);
+            const isImmune = await utils.checkImmunity(detail.type, targetUuid, detail.type, detail.type.capitalize());
             if (!isImmune) {
                 filteredDetails.push([detail.type, detail.damage]);
             }
