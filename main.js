@@ -209,7 +209,7 @@ Hooks.on('midi-qol.preItemRoll', async (workflow) => {
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
     if(workflow.continueCritCheck) {
         utils.debug('Hooked into midi-qol.postActiveEffects.');
-        utils.debug('', workflow);
+        utils.debug('Workflow:', workflow);
         await critsRevisited.checkForCriticalHit(workflow);
     } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
         const attackDamageType = await critsRevisited.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
