@@ -18,48 +18,53 @@ const FUMBLE_TYPES = {
 
 export const critsRevisited = {
     rollForCriticalEvents: async function (workflow, critState) {
-        utils.debug("Critical Hits Revisited: Rolling for critical event...");
+        utils.debug('Critical Hits Revisited: Rolling for critical event...');
         let actionType = workflow.item.system.actionType;
+        utils.debug(`Action type: ${actionType}`);
         let attackDamageType = critState !== "isFumble"
             ? await this.getAttackDamageType(workflow.damageDetail, workflow.damageItem)
-            : this.determineFumbleType(actionType);
+            : await this.determineFumbleType(actionType);
         if (!attackDamageType || UNDESIRED_TYPES.has(attackDamageType)) {
-            utils.debug("Critical Hits Revisited: No critical hit or fumble for this damage type. Aborting script.");
+            utils.debug('Critical Hits Revisited: No critical hit or fumble for this damage type. Aborting script.');
             return false;
         }
         const critEventHandler = {
             isCritical: () => this.handleCritEvents(workflow.damageList, workflow.damageDetail, workflow.damageItem),
-            isFumble: () => this.rollOnTable(workflow.actor.uuid, attackDamageType),
+            isFumble: () => {
+                utils.debug(`Rolling on table for fumble. Actor UUID: ${workflow.actor.uuid}, Attack Damage Type: ${attackDamageType}`);
+                return this.rollOnTable(workflow.actor.uuid, attackDamageType);
+            },
             isFumbledSave: () => this.handleCritEvents(workflow.fumbleSaves, workflow.damageDetail, workflow.damageItem)
         };
         await critEventHandler[critState]();
-        utils.debug("Critical Hits Revisited: Critical Event successfully rolled!");
+        utils.debug('Critical Hits Revisited: Critical Event successfully rolled!');
         return true;
     },
     handleCritEvents: async function (targets, damageDetail, damageItem) {
         const rollPromises = targets.map(async token => {
             const uuid = token.actorUuid ?? token.document?.actor.uuid;
             if (!uuid) return null;
-
             const attackDamageType = await this.getAttackDamageType(damageDetail, {...damageItem, actorUuid: uuid});
             if (!attackDamageType) {
                 utils.debug(`No valid damage type for target ${uuid}. Skipping critical effect.`);
                 return null;
             }
-
             return this.rollOnTable(uuid, attackDamageType);
         });
-
         await Promise.all(rollPromises.filter(Boolean));
     },
     // This function
     rollOnTable: async function (targetUuid, attackDamageType) {
+        utils.debug(`Rolling on table. Target UUID: ${targetUuid}, Attack Damage Type: ${attackDamageType}`);
         let tableName = attackDamageType.capitalize();
+        utils.debug(`Table name: ${tableName}`);
         if (!game.tables.getName(tableName)) {
             console.warn(`Critical Hits Revisited: No table found for ${tableName}. Aborting script.`);
             return false;
         }
-        let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: "publicroll"});
+        utils.debug(`Table found. Drawing from ${tableName}`);
+        let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: 'publicroll'});
+        utils.debug('Roll result:' + rollResult);
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
             tableName = result.parent.name.replace(/\s+/g, '');
@@ -73,20 +78,20 @@ export const critsRevisited = {
     checkForCriticalHit: async function (workflow) {
         const {isCritical, isFumble, fumbleSaves, item: {system: {actionType}}, damageList, damageDetail} = workflow;
         if (isCritical) {
-            return await critsRevisited.rollForCriticalEvents(workflow, "isCritical");
+            return await critsRevisited.rollForCriticalEvents(workflow, 'isCritical');
         } else if (isFumble) {
-            return await critsRevisited.rollForCriticalEvents(workflow, "isFumble");
+            return await critsRevisited.rollForCriticalEvents(workflow, 'isFumble');
         } else if (fumbleSaves.size > 0) {
-            return await this.rollForCriticalEvents(workflow, "isFumbledSave");
+            return await this.rollForCriticalEvents(workflow, 'isFumbledSave');
         } else {
-            console.warn("Critical Hits Revisited: No critical hit recognized.");
+            console.warn('Critical Hits Revisited: No critical hit recognized.');
             return false;
         }
     },
     // This function determines the attack damage type based on the damage detail
     getAttackDamageType: async function (damageDetail, damageItem) {
         if (damageDetail.length === 0) {
-            console.warn("Critical Hits Revisited: No damage detail found. Aborting script.");
+            console.warn('Critical Hits Revisited: No damage detail found. Aborting script.');
             return false;
         }
         const targetUuid = damageItem.actorUuid;
@@ -98,7 +103,7 @@ export const critsRevisited = {
             }
         }
         if (filteredDetails.length === 0) {
-            console.warn("Critical Hits Revisited: No valid damage types found. Aborting script.");
+            console.warn('Critical Hits Revisited: No valid damage types found. Aborting script.');
             return false;
         }
         const maxDamageValue = Math.max(...filteredDetails.map(([_, damage]) => damage));
@@ -112,7 +117,11 @@ export const critsRevisited = {
     },
     // This function determines the fumble type based on the action type
     determineFumbleType: async function(actionType) {
-        return FUMBLE_TYPES[actionType] || "Melee Critical Fumbles";
+        utils.debug(`Action type received: ${actionType}`);
+        utils.debug(`FUMBLE_TYPES object: ${JSON.stringify(FUMBLE_TYPES)}`);
+        let fumbletype = FUMBLE_TYPES[actionType];
+        utils.debug(`Fumble type determined: ${fumbletype}`);
+        return fumbletype;
     }
 }
 
@@ -140,7 +149,7 @@ critsRevisited.effectData = effectData;
 // Register the settings and set the initial value for CRITS_ON_OTHER_ENABLED
 Hooks.once('init', () => {
     registerSettings();
-    OPTIONS.CRITS_ON_OTHER_ENABLED = game.settings.get("critical-hits-revisited", "critsOnOtherEnabled");
+    OPTIONS.CRITS_ON_OTHER_ENABLED = game.settings.get('critical-hits-revisited', "critsOnOtherEnabled");
 });
 
 
@@ -153,50 +162,50 @@ Hooks.on('midi-qol.preItemRoll', async (workflow) => {
     utils.debug('Critical Hits Revisited: Hooked into midi-qol.preCheckHits, checking for critical hits...');
     // This part of the script will only work for single-target spells.
     if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.item.type === "spell" && !ACTIONS_LIST.has(workflow.item.system.actionType) && !UNDESIRED_ACTIONS_LIST.has(workflow.item.system.actionType)) {
-        utils.debug("Critical Hits Revisited: This is a spell attack, with no attack action. Checking for critical hits or fumbles...");
+        utils.debug('Critical Hits Revisited: This is a spell attack, with no attack action. Checking for critical hits or fumbles...');
         utils.debug(workflow);
         const attackDamageType = workflow.item.labels.damageTypes.toLowerCase();
         if (UNDESIRED_TYPES.has(attackDamageType)) {
-            console.warn("Critical Hits Revisited: No critical hit or fumble for this damage type. Workflow aborted.");
+            console.warn('Critical Hits Revisited: No critical hit or fumble for this damage type. Workflow aborted.');
             workflow.aborted = true;
             return false;
         } else {
             const roll = await new Roll("1d20").evaluate();
             await roll.toMessage({
-                flavor: "Rolling for critical hit",
-                content: "Rolling for critical hit",
+                flavor: 'Rolling for critical hit',
+                content: 'Rolling for critical hit',
                 speaker: ChatMessage.getSpeaker(workflow.actor),
             });
-            const critState = roll.result === "20" ? "isOtherSpellCritical" : roll.result === "1" ? "isFumble" : null;
+            const critState = roll.result === '20' ? 'isOtherSpellCritical' : roll.result === '1' ? 'isFumble' : null;
             workflow.critState = critState;
-            if (critState === "isFumble") {
-                utils.debug("Critical Hits Revisited: Fumble for spell with other action detected, rolling on the spell fumble table and aborting workflow.");
-                await critsRevisited.rollOnTable(workflow.actor.uuid, "Spell Critical Fumbles");
+            if (critState === 'isFumble') {
+                utils.debug('Critical Hits Revisited: Fumble for spell with other action detected, rolling on the spell fumble table and aborting workflow.');
+                await critsRevisited.rollOnTable(workflow.actor.uuid, 'Spell Critical Fumbles');
                 workflow.aborted = true;
                 return false;
-            } else if (critState === "isOtherSpellCritical") {
-                utils.debug("Critical Hits Revisited: Critical hit for spell with other action detected, rolling on the spell critical hit table.");
+            } else if (critState === 'isOtherSpellCritical') {
+                utils.debug('Critical Hits Revisited: Critical hit for spell with other action detected, rolling on the spell critical hit table.');
                 workflow.continueCritCheck = false;
                 return true;
             }
         }
     } else {
-        utils.debug("Critical Hits Revisited: No critical hits or fumbles for spells with other action detected. Continuing workflow...");
+        utils.debug('Critical Hits Revisited: No critical hits or fumbles for spells with other action detected. Continuing workflow...');
         workflow.continueCritCheck = true;
     }
 });
 
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
     if(workflow.continueCritCheck) {
-        utils.debug("Critical Hits Revisited: Hooked into midi-qol.postActiveEffects.");
+        utils.debug('Critical Hits Revisited: Hooked into midi-qol.postActiveEffects.');
         utils.debug(workflow);
         await critsRevisited.checkForCriticalHit(workflow);
-    } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === "isOtherSpellCritical") {
+    } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
         const attackDamageType = await critsRevisited.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
         await critsRevisited.handleCritEvents(workflow.damageList, attackDamageType)
         return false;
     } else {
-        console.warn("Critical Hits Revisited: Workflow was previously aborted. Aborting script.");
+        console.warn('Critical Hits Revisited: Workflow was previously aborted. Aborting script.');
         return false;
     }
 });
