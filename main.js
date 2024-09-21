@@ -3,7 +3,6 @@ import {utils} from "./lib/utils/utils.js";
 import {effectMacros} from "./lib/effectmacros/effectMacros.js";
 import {effectTables} from "./lib/data/effectTables.js";
 import {effectData} from "./lib/data/effectData.js";
-
 import { registerSettings } from './settings.js';
 
 const UNDESIRED_TYPES = new Set(["none", "no type", "no damage", "temphp", ""]);
