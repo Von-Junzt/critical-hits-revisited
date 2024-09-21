@@ -66,7 +66,7 @@ export const critsRevisited = {
         }
         utils.debug(`Table found. Drawing from ${tableName}`);
         let rollResult = await game.tables.getName(tableName).draw({displayChat: true, rollMode: 'publicroll'});
-        utils.debug('Roll result: ' + JSON.stringify(rollResult));
+        utils.debug('Roll result: ', rollResult);
         for (let result of rollResult.results) {
             let rollRange = result.range.toString();
             tableName = result.parent.name.replace(/\s+/g, '');
@@ -125,7 +125,7 @@ export const critsRevisited = {
     // This function determines the fumble type based on the action type
     determineFumbleType: function(actionType) {
         utils.debug(`Action type received: ${actionType}`);
-        utils.debug(`FUMBLE_TYPES Map: ${JSON.stringify([...FUMBLE_TYPES])}`);
+        utils.debug(`FUMBLE_TYPES Map:`, FUMBLE_TYPES);
         let fumbletype = FUMBLE_TYPES.get(actionType);
         utils.debug(`Fumble type determined: ${fumbletype}`);
         return fumbletype;
@@ -209,7 +209,7 @@ Hooks.on('midi-qol.preItemRoll', async (workflow) => {
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
     if(workflow.continueCritCheck) {
         utils.debug('Hooked into midi-qol.postActiveEffects.');
-        utils.debug(workflow);
+        utils.debug('', workflow);
         await critsRevisited.checkForCriticalHit(workflow);
     } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
         const attackDamageType = await critsRevisited.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
