@@ -11,6 +11,7 @@ import {workflowCache} from "./lib/utils/workflowCache.js";
 critCheckWorkflow.mainScriptUtils = mainScriptUtils;
 critCheckWorkflow.effectMacros = effectMacros;
 critCheckWorkflow.effectData = effectData;
+critCheckWorkflow.workflowCache = workflowCache;
 
 // Register the settings and set the initial value for CRITS_ON_OTHER_ENABLED
 Hooks.once('init', () => {
