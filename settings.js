@@ -1,3 +1,5 @@
+import { OPTIONS, updateOptions } from "./options.js";
+
 export const registerSettings = function() {
   game.settings.register("critical-hits-revisited", "critsOnOtherEnabled", {
     name: "Enable Crits on Other Spells",
@@ -7,7 +9,7 @@ export const registerSettings = function() {
     type: Boolean,
     default: true,
     onChange: value => {
-      game.critsRevisited.OPTIONS.CRITS_ON_OTHER_ENABLED = value;
+      OPTIONS.CRITS_ON_OTHER_ENABLED = value;
     }
   });
 
@@ -17,6 +19,12 @@ export const registerSettings = function() {
     scope: "world",
     config: true,
     type: Boolean,
-    default: false
-  })
+    default: false,
+    onChange: value => {
+      OPTIONS.DEBUG_MODE = value;
+    }
+  });
+
+  // Initialize options
+  updateOptions();
 };

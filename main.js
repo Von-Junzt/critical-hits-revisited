@@ -3,9 +3,8 @@ import {mainScriptUtils} from "./lib/utils/mainScriptUtils.js";
 import {effectMacros} from "./lib/effectmacros/effectMacros.js";
 import {effectData} from "./lib/data/effectData.js";
 import {registerSettings} from './settings.js';
-import {
-    critCheckWorkflow
-} from "./lib/logic/critCheckWorkflow.js";
+import {critCheckWorkflow} from "./lib/logic/critCheckWorkflow.js";
+import {OPTIONS, updateOptions} from "./options.js";
 
 // Add the helperFunctions and itemMacros to critCheckWorkflow
 critCheckWorkflow.mainScriptUtils = mainScriptUtils;
@@ -21,6 +20,7 @@ Hooks.once('init', () => {
 
 // Attach critCheckWorkflow to the game object once Foundry is fully loaded
 Hooks.once('ready', () => {
+    updateOptions();
     game.critsRevisited = critCheckWorkflow;
 });
 
@@ -35,7 +35,7 @@ Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
         await critCheckWorkflow.checkForCriticalHit(workflow);
     } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
         const attackDamageType = await critCheckWorkflow.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
-        await critCheckWorkflow.handleCritEvents(workflow.damageList, attackDamageType)
+        await critCheckWorkflow.handleCritEvents(workflow.damageList, workflow.damageDetail, workflow.damageItem);
         return false;
     } else {
         console.warn('Workflow was previously aborted. Aborting script.');
