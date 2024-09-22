@@ -4,11 +4,7 @@ import {effectMacros} from "./lib/effectmacros/effectMacros.js";
 import {effectData} from "./lib/data/effectData.js";
 import {registerSettings} from './settings.js';
 import {
-    ACTIONS_LIST,
-    critCheckWorkflow,
-    OPTIONS,
-    UNDESIRED_ACTIONS_LIST,
-    UNDESIRED_TYPES
+    critCheckWorkflow
 } from "./lib/logic/critCheckWorkflow.js";
 
 // Add the helperFunctions and itemMacros to critCheckWorkflow
@@ -29,7 +25,7 @@ Hooks.once('ready', () => {
 });
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
-    critCheckWorkflow.checkForCritsOnOther(workflow);
+    await critCheckWorkflow.checkForCritsOnOther(workflow);
 });
 
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
