@@ -1,10 +1,11 @@
 // Description: This script contains the main functions for the module.
+import {critCheckWorkflow} from "./lib/logic/critCheckWorkflow.js";
 import {mainScriptUtils} from "./lib/utils/mainScriptUtils.js";
 import {effectMacros} from "./lib/effectmacros/effectMacros.js";
 import {effectData} from "./lib/data/effectData.js";
 import {registerSettings} from './settings.js';
-import {critCheckWorkflow} from "./lib/logic/critCheckWorkflow.js";
 import {OPTIONS, updateOptions} from "./options.js";
+import {workflowCache} from "./lib/utils/workflowCache.js";
 
 // Add the helperFunctions and itemMacros to critCheckWorkflow
 critCheckWorkflow.mainScriptUtils = mainScriptUtils;
@@ -25,6 +26,7 @@ Hooks.once('ready', () => {
 });
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
+    await workflowCache.deleteAllWorkflows();
     await critCheckWorkflow.checkForCritsOnOther(workflow);
 });
 
@@ -32,6 +34,7 @@ Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
     if(workflow.continueCritCheck) {
         mainScriptUtils.debug('Hooked into midi-qol.postActiveEffects.');
         mainScriptUtils.debug('Workflow:', workflow);
+        await workflowCache.saveWorkflow(workflow);
         await critCheckWorkflow.checkForCriticalHit(workflow);
     } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
         const attackDamageType = await critCheckWorkflow.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
