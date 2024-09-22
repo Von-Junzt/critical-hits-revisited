@@ -10,7 +10,7 @@ import {
     OPTIONS,
     UNDESIRED_ACTIONS_LIST,
     UNDESIRED_TYPES
-} from "./lib/logic/critCheckWorkflow";
+} from "./lib/logic/critCheckWorkflow.js";
 
 // Add the helperFunctions and itemMacros to critCheckWorkflow
 critCheckWorkflow.mainScriptUtils = mainScriptUtils;
