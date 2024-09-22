@@ -29,44 +29,7 @@ Hooks.once('ready', () => {
 });
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
-    if (!OPTIONS.CRITS_ON_OTHER_ENABLED) {
-        workflow.continueCritCheck = true;
-        return;
-    }
-    mainScriptUtils.debug('Hooked into midi-qol.preCheckHits, checking for critical hits...');
-    if (workflow.item.type !== "spell" || ACTIONS_LIST.has(workflow.item.system.actionType) || UNDESIRED_ACTIONS_LIST.has(workflow.item.system.actionType)) {
-        workflow.continueCritCheck = true;
-        return;
-    }
-    mainScriptUtils.debug('This is a spell attack, with no attack action. Checking for critical hits or fumbles...');
-    mainScriptUtils.debug(workflow);
-    const attackDamageType = workflow.item.labels.damageTypes.toLowerCase();
-    if (UNDESIRED_TYPES.has(attackDamageType)) {
-        console.warn('No critical hit or fumble for this damage type. Workflow aborted.');
-        workflow.aborted = true;
-        return false;
-    }
-    const roll = await new Roll("1d20").evaluate();
-    await roll.toMessage({
-        flavor: 'Rolling for critical hit',
-        content: 'Rolling for critical hit',
-        speaker: ChatMessage.getSpeaker(workflow.actor),
-    });
-    const critState = roll.result === '20' ? 'isOtherSpellCritical' : roll.result === '1' ? 'isFumble' : null;
-    workflow.critState = critState;
-    if (critState === 'isFumble') {
-        mainScriptUtils.debug('Fumble for spell with other action detected, rolling on the spell fumble table and aborting workflow.');
-        await critCheckWorkflow.rollOnTable(workflow.actor.uuid, 'Spell Critical Fumbles');
-        workflow.aborted = true;
-        return false;
-    }
-    if (critState === 'isOtherSpellCritical') {
-        mainScriptUtils.debug('Critical hit for spell with other action detected, rolling on the spell critical hit table.');
-        workflow.continueCritCheck = false;
-        return true;
-    }
-    mainScriptUtils.debug('No critical hits or fumbles for spells with other action detected. Continuing workflow...');
-    workflow.continueCritCheck = true;
+    critCheckWorkflow.checkForCritsOnOther(workflow);
 });
 
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
