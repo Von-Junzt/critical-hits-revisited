@@ -6,7 +6,6 @@ import {registerSettings} from './settings.js';
 import {
     ACTIONS_LIST,
     critCheckWorkflow,
-    memoize,
     OPTIONS,
     UNDESIRED_ACTIONS_LIST,
     UNDESIRED_TYPES
