@@ -1,7 +1,7 @@
 import { mainScriptUtils } from "./mainScriptUtils.js";
 
 export const workflowCache = {
-    WORKFLOW_ITEM_NAME: 'CriticalHitsRevisitedWorkflow',
+    WORKFLOW_ITEM_NAME: 'critsRevisitedWorkflowCache',
 
     async getWorkflowItem() {
         let workflowItem = game.items.getName(this.WORKFLOW_ITEM_NAME);
