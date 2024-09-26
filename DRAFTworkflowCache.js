@@ -9,8 +9,23 @@ export const workflowCache = {
             workflowItem = await Item.create({
                 name: this.WORKFLOW_ITEM_NAME,
                 type: 'data', // Adjust this type as needed
-                data: null
+                data: null,
+                permission: { default: CONST.ENTITY_PERMISSIONS.OBSERVER },
+                flags: { 
+                    "critical-hits-revisited": { 
+                        hideFromSidebar: true 
+                    } 
+                }
             });
+        } else {
+            // Ensure permissions and flags are set correctly for existing item
+            if (workflowItem.data.permission.default !== CONST.ENTITY_PERMISSIONS.OBSERVER || 
+                !workflowItem.getFlag("critical-hits-revisited", "hideFromSidebar")) {
+                await workflowItem.update({
+                    "permission.default": CONST.ENTITY_PERMISSIONS.OBSERVER,
+                    "flags.critical-hits-revisited.hideFromSidebar": true
+                });
+            }
         }
         return workflowItem;
     },
