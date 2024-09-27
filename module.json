@@ -69,6 +69,7 @@
       ]
     }
   ],
+  "socket": true,
   "esmodules": [
     "main.js",
     "lib/data/effectTables.js"
