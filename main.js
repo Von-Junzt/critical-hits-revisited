@@ -14,7 +14,8 @@ Hooks.once('socketlib.ready', async function() {
     socket = socketlib.registerModule('critical-hits-revisited');
     socket.register("saveWorkflow", workflowCache.saveWorkflow);
     socket.register("deleteAllWorkflows", workflowCache.deleteWorkflow);
-    socket.register("sentReeling",effectMacros.sentReeling)
+    socket.register("saveDialogResult", workflowCache.saveDialogResult);
+    socket.register('sentReeling', effectMacros.sentReeling);
 });
 
 // Register the settings and set the initial value for CRITS_ON_OTHER_ENABLED
@@ -33,7 +34,6 @@ Hooks.once('ready', () => {
         workflowCache,
         socket,
     };
-
 });
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
