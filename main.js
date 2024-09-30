@@ -33,6 +33,7 @@ Hooks.once('ready', () => {
         effectData,
         workflowCache,
         socket,
+        mainScriptUtils
     };
 });
 
