@@ -38,7 +38,7 @@ Hooks.once('ready', () => {
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
     await workflowCache.deleteWorkflow();
-    await workflowCache.deleteCachedDialogResult();
+    // await workflowCache.deleteCachedDialogResult();
     await critCheckWorkflow.checkForCritsOnOther(workflow);
 });
 
