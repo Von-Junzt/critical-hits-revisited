@@ -6,6 +6,7 @@ import {effectData} from "./lib/data/effectData.js";
 import {registerSettings} from './settings.js';
 import {OPTIONS, updateOptions} from "./options.js";
 import {workflowCache} from "./lib/utils/workflowCache.js";
+import {animationUtils} from "./lib/utils/animationUtils.js";
 
 export let socket;
 
@@ -26,6 +27,7 @@ Hooks.once('init', () => {
 Hooks.once('ready', () => {
     updateOptions();
     game.critsRevisited = {
+        animationUtils,
         critCheckWorkflow,
         effectMacros,
         effectData,
