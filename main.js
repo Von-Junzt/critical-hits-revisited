@@ -14,7 +14,6 @@ Hooks.once('socketlib.ready', async function() {
     socket = socketlib.registerModule('critical-hits-revisited');
     socket.register("saveWorkflow", workflowCache.saveWorkflow);
     socket.register("deleteAllWorkflows", workflowCache.deleteWorkflow);
-    socket.register("saveDialogResult", workflowCache.saveDialogResult);
 });
 
 // Register the settings and set the initial value for CRITS_ON_OTHER_ENABLED
@@ -38,7 +37,6 @@ Hooks.once('ready', () => {
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
     await workflowCache.deleteWorkflow();
-    // await workflowCache.deleteCachedDialogResult();
     await critCheckWorkflow.checkForCritsOnOther(workflow);
 });
 
