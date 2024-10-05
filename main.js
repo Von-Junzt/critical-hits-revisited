@@ -39,7 +39,7 @@ Hooks.once('ready', () => {
 
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
     if (workflow.isCritical && workflow.isFumble) {
-        mainScriptUtils.debug('main.js - isCritical and isFumble conditions detected. Aborting script.');
+        mainScriptUtils.debug('main - isCritical and isFumble conditions detected. Aborting script.');
         console.warn('isCritical and isFumble conditions detected. Aborting script.');
         return;
     }
@@ -49,8 +49,8 @@ Hooks.on('midi-qol.preItemRoll', async (workflow) => {
 
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
     if(workflow.continueCritCheck) {
-        mainScriptUtils.debug('main.js - Hooked into midi-qol.postActiveEffects.');
-        mainScriptUtils.debug('main.js - Workflow:', workflow);
+        mainScriptUtils.debug('main - Hooked into midi-qol.postActiveEffects.');
+        mainScriptUtils.debug('main - Workflow:', workflow);
         await game.critsRevisited.socket.executeAsUser("saveWorkflow", game.user.id, {workflow: workflow});
         await critCheckWorkflow.checkForCriticalHit(workflow);
     } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
