@@ -1,0 +1,156 @@
+{
+  "folder": "Lbc9sfAKPFYSfCUK",
+  "name": "Piercing",
+  "img": "icons/skills/melee/strike-sword-dagger-runes-red.webp",
+  "description": "",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        11
+      ],
+      "drawn": false,
+      "_id": "Sum3EGI4AeLJQNXU",
+      "text": "<b>Great hit!</b> Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/skills/melee/strike-sword-dagger-runes-red.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        12,
+        13
+      ],
+      "drawn": false,
+      "_id": "gI2O91KjIofvjwjF",
+      "text": "<b>Swiss cheese!</b> Roll twice on the minor injury chart and use the lower result.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/skills/melee/strike-sword-dagger-runes-red.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        14,
+        16
+      ],
+      "drawn": false,
+      "_id": "RFM1svXQsPT6HoDy",
+      "text": "<b>Punctured!</b> Roll on the minor injury chart.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/skills/melee/strike-sword-dagger-runes-red.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "_id": "QOjYHS1haKzo15ev",
+      "text": "<b>Cruel prick!</b> Roll on the major injury chart.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/skills/melee/strike-sword-dagger-runes-red.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "_id": "vocpT5kBGLQFTuBH",
+      "text": "<b>Run through!</b> Roll on the major injury chart.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/skills/melee/strike-sword-dagger-runes-red.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "_id": "rRJxd0eCCtQlW0rc",
+      "text": "<b>Pierce!</b> Roll on the minor injury chart, and roll on the major injury chart.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/skills/melee/strike-sword-dagger-runes-red.webp"
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        17,
+        20
+      ],
+      "drawn": false,
+      "text": "Major Injuries",
+      "documentId": "wj1MRxp7iZr41OTC",
+      "img": "icons/skills/wounds/bone-broken-marrow-red.webp",
+      "_id": "7rtQaLZGhUDAoLWa",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        12,
+        16
+      ],
+      "drawn": false,
+      "text": "Minor Injuries",
+      "documentId": "jg8U1RTOQO8TLxjX",
+      "img": "icons/skills/wounds/anatomy-bone-joint.webp",
+      "_id": "vqLQWZCf3Utg6OgO",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "text": "Minor Injuries",
+      "documentId": "jg8U1RTOQO8TLxjX",
+      "img": "icons/skills/wounds/anatomy-bone-joint.webp",
+      "_id": "LwZogbNocplUJ0tH",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "die-vergessenen-reiche-reworked",
+      "system": "dnd5e",
+      "coreVersion": "12.331",
+      "systemVersion": "3.3.1"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.331",
+    "systemId": "dnd5e",
+    "systemVersion": "3.3.1",
+    "createdTime": 1726394059275,
+    "modifiedTime": 1726394059275,
+    "lastModifiedBy": "byW8uRmdCnHPlu8H"
+  },
+  "formula": "1d20"
+}

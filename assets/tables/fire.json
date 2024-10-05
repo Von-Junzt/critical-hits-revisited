@@ -1,0 +1,197 @@
+{
+  "folder": "mVIznjaPHSr0wn5X",
+  "name": "Fire",
+  "img": "icons/magic/fire/explosion-flame-lightning-strike.webp",
+  "description": "",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "_id": "RrBflV5vdojmWeF7",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        2,
+        3
+      ],
+      "drawn": false,
+      "_id": "yt91l6ibSEdwMsUd",
+      "text": "Heat wave! Attacks that deal fire damage have advantage when made against the creature until the end of its next turn.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        4,
+        6
+      ],
+      "drawn": false,
+      "_id": "xnC72JBpDC3QmlsD",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        7,
+        8
+      ],
+      "drawn": false,
+      "_id": "21yiCuK41PPxJRYY",
+      "text": "On Fire! The creature is on fire. While the creature is on fire it takes 2d4 fire damage at the start of each of its turns. The creature can end this condition by dropping prone and using 5 feet of movement to roll on the ground.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        9,
+        11
+      ],
+      "drawn": false,
+      "_id": "ElUTApLGSqx84RRU",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        12,
+        13
+      ],
+      "drawn": false,
+      "_id": "BlDHVnFgXZ52BB9O",
+      "text": "Ablaze! The creature is on fire. While the creature is on fire it takes 2d6 fire damage at the start of each of its turns. The creature can end this condition by dropping prone and using 5 feet of movement to roll on the ground.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        14,
+        16
+      ],
+      "drawn": false,
+      "_id": "f0PKa4hBaQNfdbH6",
+      "text": "Burnt to a crisp! The creature is charred. If the creature has resistance to fire, it loses that resistance. If the creature does not have resistance to fire, it gains vulnerability to fire. Both of these effects can be ended the same as a minor injury.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "_id": "Ju60Hio5eFLx3ucz",
+      "text": "Hellfire! Roll on the minor injury chart. Additionally, the creature is on fire. While the creature is on fire it takes 2d6 fire damage at the start of each of its turns. The creature can end this condition by dropping prone and using 5 feet of movement to roll on the ground.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "_id": "V97xd4FaLf8VeWmW",
+      "text": "Combustion! Roll on the major injury chart.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "_id": "93lFpAv8PJvla7UX",
+      "text": "Inferno! Roll on the major injury chart. Additionally, the creature is on fire. While the creature is on fire it takes 2d8 fire damage at the start of each of its turns. The creature can end this condition by dropping prone and using 5 feet of movement to roll on the ground.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/fire/explosion-flame-lightning-strike.webp"
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "text": "Minor Injuries",
+      "documentId": "jg8U1RTOQO8TLxjX",
+      "img": "icons/skills/wounds/anatomy-bone-joint.webp",
+      "_id": "J1in6KkVfZJYpUiw",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        19,
+        20
+      ],
+      "drawn": false,
+      "text": "Major Injuries",
+      "documentId": "wj1MRxp7iZr41OTC",
+      "img": "icons/skills/wounds/bone-broken-marrow-red.webp",
+      "_id": "BSiJ6B28Fg0RhCNI",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "die-vergessenen-reiche-reworked",
+      "system": "dnd5e",
+      "coreVersion": "12.331",
+      "systemVersion": "3.3.1"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.331",
+    "systemId": "dnd5e",
+    "systemVersion": "3.3.1",
+    "createdTime": 1726394059275,
+    "modifiedTime": 1726394059275,
+    "lastModifiedBy": "byW8uRmdCnHPlu8H"
+  },
+  "formula": "1d20"
+}

@@ -1,0 +1,198 @@
+{
+  "folder": "mVIznjaPHSr0wn5X",
+  "name": "Poison",
+  "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp",
+  "description": "",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "_id": "rujSuIJ3AduFcP2E",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        2,
+        3
+      ],
+      "drawn": false,
+      "_id": "CpbwD1Og0b3NXfj8",
+      "text": "Nauseous! The creature has disadvantage on its next ability check, attack roll, or saving throw.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        4,
+        6
+      ],
+      "drawn": false,
+      "_id": "TIr0yMM8Fn379lx8",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        7,
+        8
+      ],
+      "drawn": false,
+      "_id": "tGID8xQhakxg4Mnc",
+      "text": "Sickened! The creature has disadvantage on all ability checks, attack rolls, and saving throws until the end of its next turn.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        9,
+        11
+      ],
+      "drawn": false,
+      "_id": "TjjpAd6hcuwiLsPl",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        12,
+        13
+      ],
+      "drawn": false,
+      "_id": "KnEAU2urKuqk64hn",
+      "text": "Poisoned! The creature is poisoned for the next minute. The creature may attempt a saving throw at the end of each of its turns (DC 12) to end this effect.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        14,
+        16
+      ],
+      "drawn": false,
+      "_id": "fisqqqVE8IMRuNpg",
+      "text": "Contaminated! The creature is poisoned for the next minute. The creature may attempt a saving throw at the end of each of its turns (DC 16) to end this effect.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "_id": "Y3tFJKD6Yr6s2D2Y",
+      "text": "Toxic shock! Roll on the minor injury chart and the creature is poisoned for the next minute. The creature may attempt a saving throw at the end of each of its turns (DC 12) to end this effect.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "_id": "4axNm9XYrxcNJ8dG",
+      "text": "System failure! Roll on the major injury chart.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "_id": "BBG7M1I256NAozKR",
+      "text": "Biological breakdown! Roll on the major injury chart, and the creature is poisoned for the next minute. The creature may attempt a saving throw at the end of each of its turns (DC 16) to end this effect.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp"
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "text": "Minor Injuries",
+      "documentId": "jg8U1RTOQO8TLxjX",
+      "img": "icons/skills/wounds/anatomy-bone-joint.webp",
+      "_id": "pFrzkXvMoFZmQj8K",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        19,
+        20
+      ],
+      "drawn": false,
+      "text": "Major Injuries",
+      "documentId": "wj1MRxp7iZr41OTC",
+      "img": "icons/skills/wounds/bone-broken-marrow-red.webp",
+      "_id": "gg0XivXCK9eLBUsS",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "die-vergessenen-reiche-reworked",
+      "system": "dnd5e",
+      "coreVersion": "12.331",
+      "systemVersion": "3.3.1"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.331",
+    "systemId": "dnd5e",
+    "systemVersion": "3.3.1",
+    "createdTime": 1726394059275,
+    "modifiedTime": 1726394059275,
+    "lastModifiedBy": "byW8uRmdCnHPlu8H"
+  },
+  "formula": "1d20"
+}

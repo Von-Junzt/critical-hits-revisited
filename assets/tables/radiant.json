@@ -1,0 +1,198 @@
+{
+  "folder": "mVIznjaPHSr0wn5X",
+  "name": "Radiant",
+  "img": "icons/magic/light/beam-rays-orange-large.webp",
+  "description": "",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "_id": "rujSuIJ3AduFcP2E",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        2,
+        3
+      ],
+      "drawn": false,
+      "_id": "CpbwD1Og0b3NXfj8",
+      "text": "Dazzled! The creature cannot willingly move closer to you until the end of its next turn.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        4,
+        6
+      ],
+      "drawn": false,
+      "_id": "TIr0yMM8Fn379lx8",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        7,
+        8
+      ],
+      "drawn": false,
+      "_id": "tGID8xQhakxg4Mnc",
+      "text": "Disheartening blast! The creature is frightened until the end of its next turn.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        9,
+        11
+      ],
+      "drawn": false,
+      "_id": "TjjpAd6hcuwiLsPl",
+      "text": "Good hit! Roll damage as usual.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        12,
+        13
+      ],
+      "drawn": false,
+      "_id": "KnEAU2urKuqk64hn",
+      "text": "Awed! The creature is frightened until the end of its next turn.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        14,
+        16
+      ],
+      "drawn": false,
+      "_id": "fisqqqVE8IMRuNpg",
+      "text": "Holy terror! Roll on the minor injury chart. Additionally, the creature is frightened for the next minute. It can make a Wisdom saving throw (DC 16) at the end of each of its turns to end this effect.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "_id": "Y3tFJKD6Yr6s2D2Y",
+      "text": "Righteous mark! Roll on the minor injury chart. Additionally, the creature glows for the next minute. While glowing it produces bright light up 10 feet and dim light up to 30 feet and all successful attacks against the creature deal an additional 1d4 radiant damage.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "_id": "4axNm9XYrxcNJ8dG",
+      "text": "Wrath of the gods! Roll on the major injury chart.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "_id": "BBG7M1I256NAozKR",
+      "text": "Punished by the gods! Roll on the major injury chart. Additionally, the creature glows for the next minute. While glowing it produces bright light up 10 feet and dim light up to 30 feet and all successful attacks against the creature deal an additional 1d6 radiant damage.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/magic/light/beam-rays-orange-large.webp"
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        14,
+        18
+      ],
+      "drawn": false,
+      "text": "Minor Injuries",
+      "documentId": "jg8U1RTOQO8TLxjX",
+      "img": "icons/skills/wounds/anatomy-bone-joint.webp",
+      "_id": "t88MYiIYROTO5Ip6",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "critical-hits-revisited.critical-hits-tables",
+      "weight": 1,
+      "range": [
+        19,
+        20
+      ],
+      "drawn": false,
+      "text": "Major Injuries",
+      "documentId": "wj1MRxp7iZr41OTC",
+      "img": "icons/skills/wounds/bone-broken-marrow-red.webp",
+      "_id": "MDC9X9G0yHPftEoq",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "die-vergessenen-reiche-reworked",
+      "system": "dnd5e",
+      "coreVersion": "12.331",
+      "systemVersion": "3.3.1"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.331",
+    "systemId": "dnd5e",
+    "systemVersion": "3.3.1",
+    "createdTime": 1726394059275,
+    "modifiedTime": 1726394059275,
+    "lastModifiedBy": "byW8uRmdCnHPlu8H"
+  },
+  "formula": "1d20"
+}
