@@ -69,7 +69,7 @@ Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
         await critCheckWorkflow.checkForCriticalHit(workflow);
     } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
         await game.critsRevisited.socket.executeAsUser("saveWorkflow", game.user.id, {workflow: workflow});
-        const attackDamageType = await critCheckWorkflow.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
+        // const attackDamageType = await critCheckWorkflow.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
         await critCheckWorkflow.handleCritEvents(workflow.damageList, workflow.damageDetail, workflow.damageItem);
         return false;
     } else {
