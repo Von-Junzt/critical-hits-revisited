@@ -1,4 +1,16 @@
-// Description: This script contains the main functions for the module.
+/**
+ * Critical Hits Revisited
+ * @author: VonJunzt
+ * @version: 1.0.0
+ * @description: Critical Hits Revisited is a module that allows you to add automated critical hit effects to your game.
+ * @license: MIT
+ * @copyright: 2023 VonJunzt
+ * @see: https://github.com/VonJunzt/critical-hits-revisited
+ *
+ * This file contains registration logic for the module, does the first setup and determines the workflow for the module.
+ */
+
+
 import {critCheckWorkflow} from "./lib/logic/critCheckWorkflow.js";
 import {mainScriptUtils} from "./lib/utils/mainScriptUtils.js";
 import {effectMacros} from "./lib/effectmacros/effectMacros.js";
@@ -37,6 +49,7 @@ Hooks.once('ready', () => {
     };
 });
 
+// Register the hook to check for critical hits on 'other' action types
 Hooks.on('midi-qol.preItemRoll', async (workflow) => {
     if (workflow.isCritical && workflow.isFumble) {
         mainScriptUtils.debug('main - isCritical and isFumble conditions detected. Aborting script.');
@@ -47,6 +60,7 @@ Hooks.on('midi-qol.preItemRoll', async (workflow) => {
     await critCheckWorkflow.checkForCritsOnOther(workflow);
 });
 
+// Register the hook to check for critical hits on standard actions
 Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
     if(workflow.continueCritCheck) {
         mainScriptUtils.debug('main - Hooked into midi-qol.postActiveEffects.');
