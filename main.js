@@ -61,7 +61,7 @@ Hooks.on('midi-qol.preItemRoll', async (workflow) => {
 });
 
 // Register the hook to check for critical hits on standard actions
-Hooks.on('midi-qol.postActiveEffects', async (workflow) => {
+Hooks.on('midi-qol.RollComplete', async (workflow) => {
     if(workflow.continueCritCheck) {
         mainScriptUtils.debug('main - Hooked into midi-qol.postActiveEffects.');
         mainScriptUtils.debug('main - Workflow:', workflow);
