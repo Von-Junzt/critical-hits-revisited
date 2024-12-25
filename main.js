@@ -56,8 +56,8 @@ Hooks.on('midi-qol.preItemRoll', async (workflow) => {
         console.warn('isCritical and isFumble conditions detected. Aborting script.');
         return;
     }
-    await workflowCache.deleteWorkflow();
     await critCheckWorkflow.checkForCritsOnOther(workflow);
+    await workflowCache.deleteWorkflow();
 });
 
 // Register the hook to check for critical hits on standard actions
@@ -69,7 +69,6 @@ Hooks.on('midi-qol.RollComplete', async (workflow) => {
         await critCheckWorkflow.checkForCriticalHit(workflow);
     } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
         await game.critsRevisited.socket.executeAsUser("saveWorkflow", game.user.id, {workflow: workflow});
-        // const attackDamageType = await critCheckWorkflow.getAttackDamageType(workflow.damageDetail, workflow.damageItem);
         await critCheckWorkflow.handleCritEvents(workflow.damageList, workflow.damageDetail, workflow.damageItem);
         return false;
     } else {
