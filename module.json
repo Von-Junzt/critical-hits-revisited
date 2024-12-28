@@ -15,10 +15,10 @@
     }
   ],
   "url": "https://github.com/aushilfsalien/critical-hits-revisited",
-  "manifest": "https://raw.githubusercontent.com/aushilfsalien/critical-hits-revisited/main/module.json",
-  "download": "https://github.com/aushilfsalien/critical-hits-revisited/releases/download/latest/critical-hits-revisited.zip",
-  "readme": "README.md",
-  "changelog": "CHANGELOG.md",
+  "manifest": "https://github.com/aushilfsalien/critical-hits-revisited/blob/main/module.json",
+  "download": "https://github.com/aushilfsalien/critical-hits-revisited/archive/refs/tags/beta.zip",
+  "readme": "https://github.com/aushilfsalien/critical-hits-revisited/blob/main/module.json/Readme.md",
+  "changelog": "https://github.com/aushilfsalien/critical-hits-revisited/blob/main/module.json/Changelog.md",
   "packs": [
     {
       "name": "critical-hits-tables",
@@ -73,29 +73,5 @@
   "esmodules": [
     "main.js",
     "lib/data/effectTables.js"
-  ],
-  "relationships": {
-    "requires": [
-      {
-        "id": "midi-qol",
-        "type": "module"
-      },
-      {
-        "id": "dae",
-        "type": "module"
-      },
-      {
-        "id": "tokenmagic",
-        "type": "module"
-      },
-      {
-        "id": "active-token-lighting",
-        "type": "module"
-      },
-      {
-        "id": "effectmacro",
-        "type": "module"
-      }
-    ],
-    }
+  ]
 }
