@@ -10,7 +10,6 @@
  * This file contains registration logic for the module, does the first setup and determines the workflow for the module.
  */
 
-
 import {critCheckWorkflow} from "./lib/logic/critCheckWorkflow.js";
 import {mainScriptUtils} from "./lib/utils/mainScriptUtils.js";
 import {effectMacros} from "./lib/effectmacros/effectMacros.js";
@@ -29,13 +28,12 @@ Hooks.once('socketlib.ready', async function() {
     socket.register("deleteAllWorkflows", workflowCache.deleteWorkflow);
 });
 
-// Register the settings and set the initial value for CRITS_ON_OTHER_ENABLED
+// register game settings
 Hooks.once('init', () => {
     registerSettings();
-    OPTIONS.CRITS_ON_OTHER_ENABLED = game.settings.get('critical-hits-revisited', "critsOnOtherEnabled");
 });
 
-// Attach critCheckWorkflow to the game object once Foundry is fully loaded
+// Attach objects to the game object once Foundry is fully loaded
 Hooks.once('ready', () => {
     updateOptions();
     game.critsRevisited = {
@@ -49,30 +47,17 @@ Hooks.once('ready', () => {
     };
 });
 
-// Register the hook to check for critical hits on 'other' action types
-Hooks.on('midi-qol.preItemRoll', async (workflow) => {
-    if (workflow.isCritical && workflow.isFumble) {
+Hooks.on('midi-qol.RollComplete', async ({activity, token, config, dialog, message}) => {
+    if (activity.workflow.isCritical && activity.workflow.isFumble) {
         mainScriptUtils.debug('main - isCritical and isFumble conditions detected. Aborting script.');
-        console.warn('isCritical and isFumble conditions detected. Aborting script.');
+        console.warn('main - isCritical and isFumble conditions detected. Aborting script.');
         return;
     }
-    await critCheckWorkflow.checkForCritsOnOther(workflow);
+    // delete all recently saved workflows, better safe than sorry
     await workflowCache.deleteWorkflow();
-});
 
-// Register the hook to check for critical hits on standard actions
-Hooks.on('midi-qol.RollComplete', async (workflow) => {
-    if(workflow.continueCritCheck) {
-        mainScriptUtils.debug('main - Hooked into midi-qol.postActiveEffects.');
-        mainScriptUtils.debug('main - Workflow:', workflow);
-        await game.critsRevisited.socket.executeAsUser("saveWorkflow", game.user.id, {workflow: workflow});
-        await critCheckWorkflow.checkForCriticalHit(workflow);
-    } else if(OPTIONS.CRITS_ON_OTHER_ENABLED && workflow.critState === 'isOtherSpellCritical') {
-        await game.critsRevisited.socket.executeAsUser("saveWorkflow", game.user.id, {workflow: workflow});
-        await critCheckWorkflow.handleCritEvents(workflow.damageList, workflow.damageDetail, workflow.damageItem);
-        return false;
-    } else {
-        console.warn('Workflow was previously aborted. Aborting script.');
-        return false;
-    }
+    mainScriptUtils.debug('main - Hooked into midi-qol.RollComplete.');
+    mainScriptUtils.debug('main - Workflow:', activity.workflow);
+    await game.critsRevisited.socket.executeAsUser("saveWorkflow", game.user.id, {workflow: activity.workflow});
+    await critCheckWorkflow.checkForCriticalHit(activity.workflow);
 });
