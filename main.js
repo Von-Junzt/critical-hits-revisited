@@ -48,16 +48,24 @@ Hooks.once('ready', () => {
 });
 
 Hooks.on('midi-qol.RollComplete', async ({activity, token, config, dialog, message}) => {
+    mainScriptUtils.debug('main - Hooked into midi-qol.RollComplete.');
+
+    // Early return if neither critical nor fumble
+    if (!activity.workflow.isCritical && !activity.workflow.isFumble) {
+        mainScriptUtils.debug('main - No critical or fumble detected. Skipping processing.');
+        return;
+    }
+
+    // Continue with existing critical/fumble conflict check
     if (activity.workflow.isCritical && activity.workflow.isFumble) {
         mainScriptUtils.debug('main - isCritical and isFumble conditions detected. Aborting script.');
         console.warn('main - isCritical and isFumble conditions detected. Aborting script.');
         return;
     }
-    // delete all recently saved workflows, better safe than sorry
-    await workflowCache.deleteWorkflow();
 
-    mainScriptUtils.debug('main - Hooked into midi-qol.RollComplete.');
+    await workflowCache.deleteWorkflow();
     mainScriptUtils.debug('main - Workflow:', activity.workflow);
     await game.critsRevisited.socket.executeAsUser("saveWorkflow", game.user.id, {workflow: activity.workflow});
     await critCheckWorkflow.checkForCriticalHit(activity.workflow);
+
 });
