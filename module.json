@@ -1,12 +1,12 @@
 {
-  "id": "von-junzt-premades",
-  "title": "Von Junzt's Premades",
-  "version": "1.0.0",
+  "id": "critical-hits-revisited",
+  "title": "Critical Hits Revisited",
+  "version": "12.0.5",
   "compatibility": {
-    "minimum": "12",
+    "minimum": "11",
     "verified": "12"
   },
-  "description": "A collection of premade content and homebrew items for Foundry VTT",
+  "description": "Critical Hits Tables as found in https://sterlingvermin.files.wordpress.com/2016/09/critical-hits-revisited.pdf",
   "authors": [
     {
       "name": "Von Junzt",
@@ -14,37 +14,34 @@
       "flags": {}
     }
   ],
-  "url": "https://github.com/aushilfsalien/aushilfsalien-premades",
-  "manifest": "https://github.com/aushilfsalien/aushilfsalien-premades/releases/latest/download/module.json",
-  "download": "https://github.com/aushilfsalien/aushilfsalien-premades/releases/download/v1.0.0/module.zip",
-  "readme": "https://github.com/aushilfsalien/aushilfsalien-premades/blob/main/README.md",
-  "changelog": "https://github.com/aushilfsalien/aushilfsalien-premades/blob/main/CHANGELOG.md",
+  "url": "https://github.com/Von-Junzt/critical-hits-revisited",
   "packs": [
     {
-      "name": "von-junzt-premades-items",
-      "label": "Von Junzt Premade Items",
-      "path": "packs/von-junzt-premades-items",
-      "type": "Item",
+      "name": "critical-hits-tables",
+      "label": "Tables",
+      "path": "packs/critical-hits-tables",
+      "type": "RollTable",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       },
       "system": "dnd5e",
       "flags": {}
-    }],
+    }
+  ],
   "packFolders": [
     {
-      "name": "Von Junzt's Premades",
+      "name": "Critical Hits Revisited",
       "sorting": "m",
       "color": "#3f8230",
       "packs": [
-        "von-junzt-premades-items",
-        "von-junzt-premades-macros",
-        "von-junzt-premades-actors"
+        "critical-hits-macros"
       ]
     }
   ],
+  "socket": true,
   "esmodules": [
-    "main.js"
+    "main.js",
+    "lib/data/effectTables.js"
   ]
 }
