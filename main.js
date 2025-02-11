@@ -53,7 +53,7 @@ Hooks.on('midi-qol.RollComplete', async ({activity}) => {
     const {workflow} = activity;
     if (!workflow.isCritical && !workflow.isFumble && !workflow.fumbleSaves) return;
     if (workflow.isCritical && workflow.isFumble) {
-        console.warn('Critical and fumble conditions conflict - aborting');
+        console.warn('main - Critical and fumble conditions conflict - aborting');
         return;
     }
 
